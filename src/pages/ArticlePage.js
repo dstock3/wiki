@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Article from '../components/Article';
+import { Link } from 'react-router-dom';
 import '../styles/ArticlePage.css'; 
 
 const ArticlePage = ({ match }) => {
@@ -25,13 +26,14 @@ const ArticlePage = ({ match }) => {
 
   return (
     <div className="article-page">
-    {articleData && (
-        <Article
-            title={articleData.title}
-            content={articleData.content}
-            references={articleData.references}
-        />
-    )}
+        <Link to={`/article/${match.params.id}/talk`}>Go to Talk Page</Link>
+        {articleData && (
+            <Article
+                title={articleData.title}
+                content={articleData.content}
+                references={articleData.references}
+            />
+        )}
     </div>
   );
 };
