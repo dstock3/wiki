@@ -1,0 +1,30 @@
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-top: 1px solid #a2a9b1;
+}
+  
+.footer-section {
+    flex-basis: 33%; 
+}
+  
+.footer-section h4 {
+    margin-bottom: 10px;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+  
+.footer-section ul li {
+    margin-bottom: 5px;
+}
+  
+.footer-section ul li a {
+    color: #0645ad;
+    text-decoration: none;
+}
