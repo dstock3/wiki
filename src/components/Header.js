@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
+import SearchBar from './SearchBar';
 
 const Header = () => {
   return (
@@ -12,8 +13,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="header-search">
-        {/* search bar component */}
-        <input type="text" placeholder="Search" />
+        <SearchBar />
       </div>
     </div>
   );
