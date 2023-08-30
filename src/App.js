@@ -12,8 +12,8 @@ function App() {
       <Header />
       <Switch>
         <Route path="/" exact component={HomePage} />
-        <Route path="/article/:id" component={ArticlePage} />
         <Route path="/article/:id/talk" component={TalkPage} />
+        <Route path="/article/:id" component={ArticlePage} />
         <Route path="/search/:query" component={SearchResultsPage} />
       </Switch>
       <Footer />
