@@ -12,7 +12,7 @@ a {
     flex: 1;
 }
 
-.home-page, .article-page, .about-page {
+.home-page, .article-page, .about-page, .contact-page {
     min-height: 75vh;
 }
 

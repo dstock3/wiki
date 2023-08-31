@@ -1,9 +1,14 @@
 .footer-container {
-    display: flex;
-    justify-content:center;
     background-color: #f9f9f9;
     border-top: 1px solid #a2a9b1;
     height: 10vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-subcontainer {
+    display: flex;
+    justify-content:center;
 }
   
 .footer-section {
@@ -27,4 +32,10 @@
 .footer-section ul li a {
     color: #0645ad;
     text-decoration: none;
+}
+
+.footer-copyright {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
 }
