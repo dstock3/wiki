@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Article from '../components/Article';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../styles/ArticlePage.css'; 
 
 const ArticlePage = ({ match }) => {
   const [articleData, setArticleData] = useState(null);
+  const location = useLocation();
+  const isTalkPage = location.pathname.includes('/talk');
 
   useEffect(() => {
     // Fetch data here based on article ID (match.params.id)
-    // currently using hardcoded data
     const fetchedData = {
       title: "Sample Article",
       content: [
@@ -27,7 +28,14 @@ const ArticlePage = ({ match }) => {
   return (
     <div className="article-page">
       <main className="main-content">
-        <Link to={`/article/${match.params.id}/talk`}>Talk</Link>
+        <div className="article-talk-container">
+          <Link to={`/article/${match.params.id}`} className={isTalkPage ? '' : 'selected-tab'}>
+            Article
+          </Link>
+          <Link to={`/article/${match.params.id}/talk`} className={isTalkPage ? 'selected-tab' : ''}>
+            Talk
+          </Link>
+        </div>
         {articleData && (
             <Article
                 title={articleData.title}
@@ -40,4 +48,4 @@ const ArticlePage = ({ match }) => {
   );
 };
 
-export default ArticlePage;
+export default ArticlePage

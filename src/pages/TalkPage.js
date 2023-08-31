@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/TalkPage.css';  // Assuming you'll have a CSS file for styling
+import { Link } from 'react-router-dom';
+import '../styles/TalkPage.css';
 
 const TalkPage = ({ match }) => {
   const [discussions, setDiscussions] = useState([]);
-
+  
   useEffect(() => {
     // Fetch talk discussions based on article ID (match.params.id)
-    // currently using hardcoded data
+    // For demonstration, using hardcoded data
     const fetchedData = [
       {
         username: "User1",
@@ -23,6 +24,14 @@ const TalkPage = ({ match }) => {
 
   return (
     <div className="talk-page">
+      <div className="article-talk-container">
+        <Link to={`/article/${match.params.id}`} className="">
+          Article
+        </Link>
+        <Link to={`/article/${match.params.id}/talk`} className="selected-tab">
+          Talk
+        </Link>
+      </div>
       <h1>Talk: {match.params.id}</h1>
       <ul>
         {discussions.map((discussion, index) => (
