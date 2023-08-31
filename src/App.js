@@ -17,6 +17,13 @@ function App() {
           <Route path="/article/:id/talk" component={TalkPage} />
           <Route path="/article/:id" component={ArticlePage} />
           <Route path="/search/:query" component={SearchResultsPage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/contact" component={ContactPage} />
+          <Route path="/disclaimer" component={DisclaimerPage} />
+          <Route path="/contribute" component={ContributePage} />
+          <Route path="/donate" component={DonatePage} />
+          <Route path="/terms" component={TOSPage} />
+          <Route path="/privacy" component={PrivacyPage} />
         </Switch>
         <Footer />
       </div>
