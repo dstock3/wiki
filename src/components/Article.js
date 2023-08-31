@@ -3,16 +3,16 @@ import '../styles/Article.css';
 
 const Article = ({ title, content, references }) => {
   return (
-    <div className="article-container">
+    <article className="article-container">
       <h1 className="article-title">{title}</h1>
-      <article className="article-content">
+      <div className="article-content">
         {content.map((section, index) => (
           <div key={index} className="article-section">
             <h2>{section.title}</h2>
             <p>{section.text}</p>
           </div>
         ))}
-      </article>
+      </div>
       <div className="article-references">
         <h3>References</h3>
         <ul>
@@ -21,7 +21,7 @@ const Article = ({ title, content, references }) => {
           ))}
         </ul>
       </div>
-    </div>
+    </article>
   );
 };
 

@@ -26,7 +26,8 @@ const ArticlePage = ({ match }) => {
 
   return (
     <div className="article-page">
-        <Link to={`/article/${match.params.id}/talk`}>Go to Talk Page</Link>
+      <main className="main-content">
+        <Link to={`/article/${match.params.id}/talk`}>Talk</Link>
         {articleData && (
             <Article
                 title={articleData.title}
@@ -34,6 +35,7 @@ const ArticlePage = ({ match }) => {
                 references={articleData.references}
             />
         )}
+      </main>
     </div>
   );
 };

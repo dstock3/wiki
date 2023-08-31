@@ -23,7 +23,7 @@ const TalkPage = ({ match }) => {
 
   return (
     <div className="talk-page">
-      <h1>Talk Page for Article ID: {match.params.id}</h1>
+      <h1>Talk: {match.params.id}</h1>
       <ul>
         {discussions.map((discussion, index) => (
           <li key={index}>

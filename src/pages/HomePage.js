@@ -19,14 +19,14 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <div className="main-content">
+      <main className="main-content">
         <SideMenu />
         <Article 
           title={sampleArticle.title} 
           content={sampleArticle.content} 
           references={sampleArticle.references} 
         />
-      </div>
+      </main>
     </div>
   );
 };
