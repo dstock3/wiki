@@ -5,14 +5,14 @@ const Article = ({ title, content, references }) => {
   return (
     <div className="article-container">
       <h1 className="article-title">{title}</h1>
-      <div className="article-content">
+      <article className="article-content">
         {content.map((section, index) => (
           <div key={index} className="article-section">
             <h2>{section.title}</h2>
             <p>{section.text}</p>
           </div>
         ))}
-      </div>
+      </article>
       <div className="article-references">
         <h3>References</h3>
         <ul>
