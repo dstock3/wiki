@@ -2,17 +2,37 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
     background-color: #f9f9f9;
     border-bottom: 1px solid #a2a9b1;
-  }
-  
+    height: 10vh;
+}
+
+.header-subcontainer {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+}
+
+.header-menu {
+    display: flex;
+    align-items: center;
+    margin-right: 25px;
+}
+
 .header-logo img {
     height: 50px;
+    margin-right: 25px;
 }
 
 .header-search input {
     padding: 5px;
     font-size: 1rem;
 }
-  
+
+.header-auth {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    margin-right: 25px;
+}
