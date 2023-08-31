@@ -5,6 +5,13 @@ import HomePage from './pages/HomePage';
 import ArticlePage from './pages/ArticlePage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import TalkPage from './pages/TalkPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import DisclaimerPage from './pages/DisclaimerPage';
+import ContributePage from './pages/ContributePage';
+import DonatePage from './pages/DonatePage';
+import TOSPage from './pages/TOSPage';
+import PrivacyPage from './pages/PrivacyPage';
 import './App.css';
 
 function App() {
