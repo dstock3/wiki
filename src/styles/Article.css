@@ -1,15 +1,16 @@
 .article-container {
-    padding: 15px;
     font-size: 1rem;
     line-height: 1.6;
 }
   
 .article-title {
     font-size: 2rem;
+    margin-left: 15px;
     margin-bottom: 20px;
 }
   
 .article-content {
+    margin-left: 15px;
     margin-bottom: 20px;
 }
 
@@ -20,17 +21,18 @@
   
 .article-references {
     border-top: 1px solid #a2a9b1;
-    padding-top: 15px;
 }
   
 .article-references h3 {
     font-size: 1.2rem;
+    margin-left: 15px;
     margin-bottom: 10px;
 }
 
 .article-references ul {
     list-style-type: none;
     padding: 0;
+    margin-left: 15px;
 }
 
 .article-references ul li {

@@ -30,8 +30,8 @@ const ArticlePage = ({ match }) => {
     <div className="article-page">
       {articleData && (
         <ArticleSidebar 
-          title={articleData.title}
           content={articleData.content}
+          references={articleData.references}
         />
       )}
       <main className="article-page-container">

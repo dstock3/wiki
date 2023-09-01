@@ -5,6 +5,14 @@
 }
 
 .article-talk-container {
-    display: flex;
-    width: 50px;
+    margin-top: 25px;
+    justify-content: space-between;
+    width: 85vw;
+    border-bottom: 1px solid #a2a9b1;
 }
+
+.article-talk-container a {
+    margin-inline: 15px;
+
+}
+

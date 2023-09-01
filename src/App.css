@@ -23,6 +23,7 @@ a:hover {
 
 .home-page, .article-page, .about-page, .contact-page {
     min-height: 76vh;
+    min-width: 50vw;
 }
 
 .selected-tab {
