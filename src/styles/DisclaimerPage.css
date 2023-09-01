@@ -1,0 +1,8 @@
+.disclaimer-page {
+    display: flex;
+    line-height: 1.6;
+}
+
+.disclaimer-container {
+    margin-left: 25px;
+}
