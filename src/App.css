@@ -1,6 +1,15 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
 a {
     color: #0366d6;
     text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 .app-container {
@@ -13,7 +22,7 @@ a {
 }
 
 .home-page, .article-page, .about-page, .contact-page {
-    min-height: 75vh;
+    min-height: 76vh;
 }
 
 .selected-tab {

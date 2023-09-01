@@ -6,7 +6,7 @@ import '../styles/HomePage.css';
 const HomePage = () => {
   // Sample article data
   const sampleArticle = {
-    title: "Welcome to [Your Project Name]",
+    title: "Welcome to WikiWise",
     content: [
       { title: "Introduction", text: "This is a sample introduction." },
       { title: "Features", text: "Here are some features." },
