@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import TalkPageSidebar from '../components/TalkPageSidebar';
 import '../styles/TalkPage.css';
 
 const TalkPage = ({ match }) => {
@@ -46,27 +47,31 @@ const TalkPage = ({ match }) => {
 
   return (
     <div className="talk-page">
-      <div className="article-talk-container">
-        <Link to={`/article/${match.params.id}`} className="">
-          Article
-        </Link>
-        <Link to={`/article/${match.params.id}/talk`} className="selected-tab">
-          Talk
-        </Link>
+      <TalkPageSidebar discussions={discussions}/>
+      <div className="talk-container">
+        <div className="article-talk-container">
+          <Link to={`/article/${match.params.id}`} className="">
+            Article
+          </Link>
+          <Link to={`/article/${match.params.id}/talk`} className="selected-tab">
+            Talk
+          </Link>
+        </div>
+        <h1>Talk: {match.params.id}</h1>
+        <ul>
+          {discussions.map((discussion, index) => (
+            <li key={index}>
+              <h3>{discussion.topic}</h3>
+              {discussion.comments.map((comment, index) => (
+                <div key={index} className="comment">
+                  <strong>{comment.username}:</strong> {comment.content} <span>{comment.date}</span>
+                </div>
+              ))}
+            </li>
+          ))}
+        </ul>
       </div>
-      <h1>Talk: {match.params.id}</h1>
-      <ul>
-        {discussions.map((discussion, index) => (
-          <li key={index}>
-            <h3>{discussion.topic}</h3>
-            {discussion.comments.map((comment, index) => (
-              <div key={index} className="comment">
-                <strong>{comment.username}:</strong> {comment.content} <span>{comment.date}</span>
-              </div>
-            ))}
-          </li>
-        ))}
-      </ul>
+
     </div>
   );
 };

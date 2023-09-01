@@ -21,9 +21,8 @@ a:hover {
     flex: 1;
 }
 
-.home-page, .article-page, .about-page, .contact-page, .tos-page {
+.home-page, .article-page, .about-page, .contact-page, .talk-page, .tos-page {
     min-height: 76vh;
-    min-width: 50vw;
 }
 
 .selected-tab {
