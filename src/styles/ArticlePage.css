@@ -1,5 +1,10 @@
 .article-page {
-    padding: 15px;
+    display: flex;
     font-size: 1rem;
     line-height: 1.6;
+}
+
+.article-talk-container {
+    display: flex;
+    width: 50px;
 }

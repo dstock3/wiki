@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Article from '../components/Article';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/ArticlePage.css'; 
+import ArticleSidebar from '../components/ArticleSidebar';
 
 const ArticlePage = ({ match }) => {
   const [articleData, setArticleData] = useState(null);
@@ -27,7 +28,13 @@ const ArticlePage = ({ match }) => {
 
   return (
     <div className="article-page">
-      <main className="main-content">
+      {articleData && (
+        <ArticleSidebar 
+          title={articleData.title}
+          content={articleData.content}
+        />
+      )}
+      <main className="article-page-container">
         <div className="article-talk-container">
           <Link to={`/article/${match.params.id}`} className={isTalkPage ? '' : 'selected-tab'}>
             Article

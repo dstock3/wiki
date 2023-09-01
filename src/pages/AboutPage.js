@@ -5,7 +5,7 @@ const AboutPage = () => {
     return (
       <div className="about-page">
         <SideMenu />
-        <div className="about-container">
+        <main className="about-container">
             <h1>About This Platform</h1>
             <p>Welcome to our wiki platform, a user-driven community committed to curating and disseminating exhaustive articles on a variety of subjects.</p>
 
@@ -21,7 +21,7 @@ const AboutPage = () => {
             <h2>Contact</h2>
             {/* I'll need to update this with actual contact info */}
             <p>Have questions or suggestions? Feel free to reach out to us at: <a href="mailto:support@ourwikiplatform.com">support@ourwikiplatform.com</a></p>
-        </div>
+        </main>
       </div>
     );
   };
