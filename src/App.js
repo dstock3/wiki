@@ -21,9 +21,6 @@ function App() {
       <div className="app-container">
         <Switch>
           <Route path="/" exact component={HomePage} />
-          <Route path="/article/:id/talk" component={TalkPage} />
-          <Route path="/article/:id" component={ArticlePage} />
-          <Route path="/search/:query" component={SearchResultsPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/contact" component={ContactPage} />
           <Route path="/disclaimer" component={DisclaimerPage} />
@@ -31,6 +28,9 @@ function App() {
           <Route path="/donate" component={DonatePage} />
           <Route path="/terms" component={TOSPage} />
           <Route path="/privacy" component={PrivacyPage} />
+          <Route path="/:portalid/article/:id/talk" component={TalkPage} />
+          <Route path="/:portalid/article/:id" component={ArticlePage} />
+          <Route path="/:portalid/search/:query" component={SearchResultsPage} />
         </Switch>
         <Footer />
       </div>
