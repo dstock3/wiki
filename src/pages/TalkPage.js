@@ -4,22 +4,44 @@ import '../styles/TalkPage.css';
 
 const TalkPage = ({ match }) => {
   const [discussions, setDiscussions] = useState([]);
-  
+
   useEffect(() => {
     // Fetch talk discussions based on article ID (match.params.id)
     // For demonstration, using hardcoded data
-    const fetchedData = [
+    const talkData = [
       {
-        username: "User1",
-        comment: "I think this article could use more references."
+        topic: "issue 1",
+        comments: [
+          {
+            username: "User1",
+            content: "I think this article could use more references.",
+            date: "2020-01-01"
+          },
+          {
+            username: "User2",
+            content: "Agreed. The historical section is lacking in citations.",
+            date: "2020-01-02"
+          }
+        ]
       },
       {
-        username: "User2",
-        comment: "Agreed. The historical section is lacking in citations."
-      }
+        topic: "issue 2",
+        comments: [
+          {
+            username: "User1",
+            content: "I think this article could use more references.",
+            date: "2020-01-04"
+          },
+          {
+            username: "User2",
+            content: "Agreed. The historical section is lacking in citations.",
+            date: "2020-01-05"
+          }
+        ]
+      },
     ];
 
-    setDiscussions(fetchedData);
+    setDiscussions(talkData);
   }, [match.params.id]);
 
   return (
@@ -36,7 +58,12 @@ const TalkPage = ({ match }) => {
       <ul>
         {discussions.map((discussion, index) => (
           <li key={index}>
-            <strong>{discussion.username}:</strong> {discussion.comment}
+            <h3>{discussion.topic}</h3>
+            {discussion.comments.map((comment, index) => (
+              <div key={index} className="comment">
+                <strong>{comment.username}:</strong> {comment.content} <span>{comment.date}</span>
+              </div>
+            ))}
           </li>
         ))}
       </ul>

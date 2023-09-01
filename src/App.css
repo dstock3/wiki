@@ -21,7 +21,7 @@ a:hover {
     flex: 1;
 }
 
-.home-page, .article-page, .about-page, .contact-page {
+.home-page, .article-page, .about-page, .contact-page, .tos-page {
     min-height: 76vh;
     min-width: 50vw;
 }
