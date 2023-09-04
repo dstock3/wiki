@@ -1,0 +1,25 @@
+.contribute-page {
+    display: flex;
+}
+
+.contribute-container {
+    margin-left: 25px;
+}
+
+h1, h2 {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+p, li {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+ul, ol {
+    padding-left: 20px;
+}
+
+section {
+    margin-bottom: 25px;
+}

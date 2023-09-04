@@ -21,7 +21,7 @@ a:hover {
     flex: 1;
 }
 
-.home-page, .article-page, .about-page, .contact-page, .talk-page, .tos-page, .disclaimer-page, .privacy-page {
+.home-page, .article-page, .about-page, .contact-page, .talk-page, .tos-page, .disclaimer-page, .privacy-page, .contribute-page, .donate-page {
     min-height: 76vh;
 }
 
