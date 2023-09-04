@@ -13,6 +13,7 @@ import DonatePage from './pages/DonatePage';
 import TOSPage from './pages/TOSPage';
 import PrivacyPage from './pages/PrivacyPage';
 import CreateAccountPage from './pages/CreateAccountPage';
+import LoginPage from './pages/LoginPage';
 import './App.css';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/terms" component={TOSPage} />
           <Route path="/privacy" component={PrivacyPage} />
           <Route path="/create-account" component={CreateAccountPage} />
+          <Route path="/login" component={LoginPage} />
           <Route path="/:portalid/article/:id/talk" component={TalkPage} />
           <Route path="/:portalid/article/:id" component={ArticlePage} />
           <Route path="/:portalid/search/:query" component={SearchResultsPage} />

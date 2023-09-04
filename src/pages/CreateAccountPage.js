@@ -70,6 +70,7 @@ const CreateAccountPage = () => {
                 </div>
                 <button type="submit">Create Account</button>
             </form>
+            <p>Already have an account? <a href="/login">Log in</a></p>
         </div>
     );
 };

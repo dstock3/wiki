@@ -12,7 +12,6 @@ const HomePage = () => {
                   <article className="article-container">
                     <h1 className="article-title">Welcome to WikiWise</h1>
                     <div className="article-content">
-
                         <div className="article-section">
                           <h2>What is WikiWise?</h2>
                           <p>WikiWise is a unique platform that empowers independent creators and fans to collaboratively build, expand, and explore diverse universes. Think of it as a space where your wildest imaginations and stories come to life and intertwine with others.</p>
@@ -42,7 +41,6 @@ const HomePage = () => {
                         </div>
                     </div>
                   </article>
-
               </div>
             </div>
         </div>
