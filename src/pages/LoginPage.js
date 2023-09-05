@@ -17,7 +17,8 @@ const LoginPage = () => {
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username:</label>
-                    <input 
+                    <input
+                        className='username-input' 
                         type="text" 
                         id="username" 
                         value={username} 
@@ -27,7 +28,8 @@ const LoginPage = () => {
                 </div>
                 <div className="input-group">
                     <label htmlFor="password">Password:</label>
-                    <input 
+                    <input
+                        className='password-input' 
                         type="password" 
                         id="password" 
                         value={password} 
@@ -35,7 +37,7 @@ const LoginPage = () => {
                         required 
                     />
                 </div>
-                <button type="submit">Log In</button>
+                <button className="login-button" type="submit">Log In</button>
             </form>
             <p>
                 Don't have an account? <a href="/create-account">Create one</a>

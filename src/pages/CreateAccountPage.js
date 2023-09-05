@@ -26,7 +26,8 @@ const CreateAccountPage = () => {
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
-                    <input 
+                    <input
+                        className="username-input" 
                         type="text" 
                         id="username" 
                         name="username" 
@@ -37,7 +38,8 @@ const CreateAccountPage = () => {
                 </div>
                 <div className="input-group">
                     <label htmlFor="email">Email Address</label>
-                    <input 
+                    <input
+                        className="email-input" 
                         type="email" 
                         id="email" 
                         name="email" 
@@ -48,7 +50,8 @@ const CreateAccountPage = () => {
                 </div>
                 <div className="input-group">
                     <label htmlFor="password">Password</label>
-                    <input 
+                    <input
+                        className="password-input"   
                         type="password" 
                         id="password" 
                         name="password" 
@@ -59,7 +62,8 @@ const CreateAccountPage = () => {
                 </div>
                 <div className="input-group">
                     <label htmlFor="confirmPassword">Confirm Password</label>
-                    <input 
+                    <input
+                        className="confirm-password-input" 
                         type="password" 
                         id="confirmPassword" 
                         name="confirmPassword" 
@@ -68,7 +72,7 @@ const CreateAccountPage = () => {
                         required 
                     />
                 </div>
-                <button type="submit">Create Account</button>
+                <button className="create-account-button" type="submit">Create Account</button>
             </form>
             <p>Already have an account? <a href="/login">Log in</a></p>
         </div>

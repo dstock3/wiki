@@ -24,14 +24,14 @@ label {
     margin-bottom: 10px;
 }
 
-input {
+.username-input, .email-input, .password-input, .confirm-password-input {
     padding: 10px;
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-button {
+.create-account-button {
     width: 325px;
     padding: 10px;
     background-color: #007BFF;
@@ -41,6 +41,6 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.create-account-button:hover {
     background-color: #0056b3;
 }

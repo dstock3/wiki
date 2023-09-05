@@ -24,10 +24,10 @@ const Header = () => {
 
       <div className="header-auth">
         <Link to="/create-account">
-          <div className="create-account-button">Create Account</div>
+          <div className="create-account-link">Create Account</div>
         </Link>
         <Link to="/login">
-          <div className="login-button">Login</div>
+          <div className="login-link">Login</div>
         </Link>
       </div>
     </div>
