@@ -53,10 +53,10 @@ const ArticlePage = ({ match }) => {
       )}
       <main className="article-page-container">
         <div className="article-talk-container">
-          <Link to={`${match.params.id}}/article/${match.params.id}`} className={isTalkPage ? '' : 'selected-tab'}>
+          <Link to={`/${match.params.portalid}/article/${match.params.id}`} className="selected-tab">
             Article
           </Link>
-          <Link to={`${match.params.id}}/article/${match.params.id}/talk`} className={isTalkPage ? 'selected-tab' : ''}>
+          <Link to={`/${match.params.portalid}/article/${match.params.id}/talk`}>
             Talk
           </Link>
         </div>

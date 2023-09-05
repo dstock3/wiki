@@ -50,10 +50,10 @@ const TalkPage = ({ match }) => {
       <TalkPageSidebar discussions={discussions}/>
       <div className="talk-container">
         <div className="article-talk-container">
-          <Link to={`/article/${match.params.id}`} className="">
+          <Link to={`/${match.params.portalid}/article/${match.params.id}`} className="">
             Article
           </Link>
-          <Link to={`/article/${match.params.id}/talk`} className="selected-tab">
+          <Link to={`/${match.params.portalid}/article/${match.params.id}/talk`} className="selected-tab">
             Talk
           </Link>
         </div>
