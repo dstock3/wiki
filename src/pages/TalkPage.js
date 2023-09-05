@@ -63,7 +63,7 @@ const TalkPage = ({ match }) => {
             <li key={index}>
               <h3>{discussion.topic}</h3>
               {discussion.comments.map((comment, index) => (
-                <div key={index} className="comment">
+                <div key={index} className="comment" id={`topic-${index}`}>
                   <strong>{comment.username}:</strong> {comment.content} <span>{comment.date}</span>
                 </div>
               ))}
