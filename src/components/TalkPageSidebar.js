@@ -10,7 +10,7 @@ const TalkPageSidebar = ({discussions}) => {
                 <ul>
                     {discussions.map((discussion, index) => (
                         <div key={index} className="discussions-nav">
-                            <li><a href="#">{discussion.topic}</a></li>
+                            <li><a href={`#topic-${index}`}>{discussion.topic}</a></li>
                         </div>
                     ))}
                 </ul>

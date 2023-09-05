@@ -7,7 +7,7 @@ const Article = ({ title, content, references }) => {
       <h1 className="article-title">{title}</h1>
       <div className="article-content">
         {content.map((section, index) => (
-          <div key={index} className="article-section">
+          <div key={index} className="article-section" id={`section-${index}`}>
             <h2>{section.title}</h2>
             <p>{section.text}</p>
           </div>
@@ -17,7 +17,11 @@ const Article = ({ title, content, references }) => {
         <h3>References</h3>
         <ul>
           {references.map((ref, index) => (
-            <li key={index}><a href={ref.link}>{ref.name}</a></li>
+            <li key={index} id={`reference-${index}`}>
+              <a href={ref.link}>
+                {ref.name}
+              </a>
+            </li>
           ))}
         </ul>
       </div>
