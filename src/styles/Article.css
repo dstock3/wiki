@@ -43,3 +43,8 @@
     color: #0645ad;
     text-decoration: none;
 }
+
+.article-subcontainer.dual-section {
+    display: flex;
+    justify-content: space-between;
+}

@@ -8,7 +8,7 @@ const Article = ({ title, content, references }) => {
       <h1 className="article-title">{title}</h1>
       <div className="article-content">
         {content.map((section, index) => (
-          <React.Fragment key={index}>
+          <div className={`article-subcontainer ${section.info ? 'dual-section' : ''}`} key={index}>
             <div className="article-section" id={`section-${index}`}>
               <h2>{section.title}</h2>
               <p>{section.text}</p>
@@ -21,7 +21,7 @@ const Article = ({ title, content, references }) => {
                 info={section.info.info}
               />
             ) : null}
-          </React.Fragment>
+          </div>
         ))}
       </div>
       <div className="article-references">
