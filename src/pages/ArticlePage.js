@@ -6,8 +6,6 @@ import ArticleSidebar from '../components/ArticleSidebar';
 
 const ArticlePage = ({ match }) => {
   const [articleData, setArticleData] = useState(null);
-  const location = useLocation();
-  const isTalkPage = location.pathname.includes('/talk');
   const [showButton, setShowButton] = useState(false);
   
   useEffect(() => {
@@ -29,14 +27,39 @@ const ArticlePage = ({ match }) => {
   useEffect(() => {
     // Fetch data here based on article ID (match.params.id)
     const fetchedData = {
-      title: "Sample Article",
+      title: "Peregrine Falcon",
       content: [
-        { title: "Introduction", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque elit eget gravida cum sociis natoque penatibus et. Urna nec tincidunt praesent semper feugiat. Purus gravida quis blandit turpis cursus. Malesuada pellentesque elit eget gravida cum. Mi eget mauris pharetra et ultrices neque ornare. Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Quis enim lobortis scelerisque fermentum dui faucibus in. Eu facilisis sed odio morbi quis commodo odio aenean. Facilisis volutpat est velit egestas. Mi proin sed libero enim sed faucibus turpis in. At auctor urna nunc id cursus metus aliquam.Aliquam eleifend mi in nulla posuere sollicitudin aliquam. Quis hendrerit dolor magna eget est lorem ipsum dolor. Egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Nullam vehicula ipsum a arcu cursus vitae congue mauris. Varius quam quisque id diam. Velit egestas dui id ornare arcu odio ut sem. Molestie at elementum eu facilisis sed odio morbi. Mollis aliquam ut porttitor leo a diam sollicitudin tempor. Pellentesque pulvinar pellentesque habitant morbi. Diam quis enim lobortis scelerisque fermentum dui faucibus. Mi bibendum neque egestas congue quisque. Amet facilisis magna etiam tempor orci eu lobortis elementum.Cras pulvinar mattis nunc sed blandit. Tortor condimentum lacinia quis vel eros donec. Nulla facilisi nullam vehicula ipsum a arcu. In tellus integer feugiat scelerisque varius morbi enim. Tristique et egestas quis ipsum suspendisse. Ultricies mi quis hendrerit dolor magna eget est lorem ipsum. Sed velit dignissim sodales ut eu sem integer. Libero nunc consequat interdum varius sit amet mattis vulputate. Nunc non blandit massa enim nec dui nunc. Nulla aliquet porttitor lacus luctus accumsan tortor. Nisi est sit amet facilisis magna etiam tempor. Vel orci porta non pulvinar neque laoreet suspendisse interdum. Volutpat ac tincidunt vitae semper quis lectus nulla. Non sodales neque sodales ut etiam sit amet nisl purus." },
-        { title: "Content", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque elit eget gravida cum sociis natoque penatibus et. Urna nec tincidunt praesent semper feugiat. Purus gravida quis blandit turpis cursus. Malesuada pellentesque elit eget gravida cum. Mi eget mauris pharetra et ultrices neque ornare. Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Quis enim lobortis scelerisque fermentum dui faucibus in. Eu facilisis sed odio morbi quis commodo odio aenean. Facilisis volutpat est velit egestas. Mi proin sed libero enim sed faucibus turpis in. At auctor urna nunc id cursus metus aliquam.Aliquam eleifend mi in nulla posuere sollicitudin aliquam. Quis hendrerit dolor magna eget est lorem ipsum dolor. Egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Nullam vehicula ipsum a arcu cursus vitae congue mauris. Varius quam quisque id diam. Velit egestas dui id ornare arcu odio ut sem. Molestie at elementum eu facilisis sed odio morbi. Mollis aliquam ut porttitor leo a diam sollicitudin tempor. Pellentesque pulvinar pellentesque habitant morbi. Diam quis enim lobortis scelerisque fermentum dui faucibus. Mi bibendum neque egestas congue quisque. Amet facilisis magna etiam tempor orci eu lobortis elementum.Cras pulvinar mattis nunc sed blandit. Tortor condimentum lacinia quis vel eros donec. Nulla facilisi nullam vehicula ipsum a arcu. In tellus integer feugiat scelerisque varius morbi enim. Tristique et egestas quis ipsum suspendisse. Ultricies mi quis hendrerit dolor magna eget est lorem ipsum. Sed velit dignissim sodales ut eu sem integer. Libero nunc consequat interdum varius sit amet mattis vulputate. Nunc non blandit massa enim nec dui nunc. Nulla aliquet porttitor lacus luctus accumsan tortor. Nisi est sit amet facilisis magna etiam tempor. Vel orci porta non pulvinar neque laoreet suspendisse interdum. Volutpat ac tincidunt vitae semper quis lectus nulla. Non sodales neque sodales ut etiam sit amet nisl purus." }
+          {
+              title: "Introduction",
+              text: "The peregrine falcon, also known as the peregrine, and historically as the duck hawk in North America, is a widespread bird of prey in the family Falconidae.",
+              info: {
+                  title: "Peregrine Falcon",
+                  image: {
+                      alt: "Peregrine Falcon Image",
+                      src: "http://via.placeholder.com/350x250"
+                  },
+                  info: [
+                      { label: "Kingdom", value: "Animalia" },
+                      { label: "Phylum", value: "Chordata" },
+                      { label: "Class", value: "Aves", header: true },
+                      { label: "Order", value: "Falconiformes" },
+                      { label: "Genus", value: "Falco" },
+                      { label: "Average Speed", value: "240 km/h" },
+                  ]
+              }
+          },
+          {
+              title: "Habitat and Distribution",
+              text: "Peregrine falcons are among the world's most common birds of prey and live on all continents except Antarctica. They prefer wide-open spaces, and thrive near coasts where shorebirds are common, but they can be found everywhere from tundra to deserts.",
+          },
+          {
+              title: "Diet",
+              text: "The peregrine falcon feeds almost exclusively on medium-sized birds such as pigeons and doves, waterfowl, songbirds, and waders."
+          },
       ],
       references: [
-        { name: "Reference 1", link: "#" },
-        { name: "Reference 2", link: "#" }
+          { name: "National Geographic - Peregrine Falcon", link: "https://www.nationalgeographic.com" },
+          { name: "Wikipedia - Peregrine Falcon", link: "https://en.wikipedia.org/wiki/Peregrine_falcon" }
       ]
     };
     
