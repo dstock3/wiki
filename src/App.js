@@ -19,24 +19,26 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <Header />
-      <div className="app-container">
-        <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/about" component={AboutPage} />
-          <Route path="/contact" component={ContactPage} />
-          <Route path="/disclaimer" component={DisclaimerPage} />
-          <Route path="/contribute" component={ContributePage} />
-          <Route path="/donate" component={DonatePage} />
-          <Route path="/terms" component={TOSPage} />
-          <Route path="/privacy" component={PrivacyPage} />
-          <Route path="/create-account" component={CreateAccountPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/:portalid/article/:id/talk" component={TalkPage} />
-          <Route path="/:portalid/article/:id" component={ArticlePage} />
-          <Route path="/:portalid/search/:query" component={SearchResultsPage} />
-        </Switch>
-        <Footer />
+      <div className="app">
+        <Header />
+        <div className="app-container">
+          <Switch>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/about" component={AboutPage} />
+            <Route path="/contact" component={ContactPage} />
+            <Route path="/disclaimer" component={DisclaimerPage} />
+            <Route path="/contribute" component={ContributePage} />
+            <Route path="/donate" component={DonatePage} />
+            <Route path="/terms" component={TOSPage} />
+            <Route path="/privacy" component={PrivacyPage} />
+            <Route path="/create-account" component={CreateAccountPage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/:portalid/article/:id/talk" component={TalkPage} />
+            <Route path="/:portalid/article/:id" component={ArticlePage} />
+            <Route path="/:portalid/search/:query" component={SearchResultsPage} />
+          </Switch>
+          <Footer />
+        </div>
       </div>
     </Router>
   );

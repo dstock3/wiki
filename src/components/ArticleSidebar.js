@@ -10,7 +10,12 @@ const ArticleSidebar = ({content, references}) => {
               <ul>
                   {content.map((section, index) => (
                       <div key={index} className="article-section">
-                          <li><a href={`#section-${index}`}>{section.title}</a></li>
+                        <li>
+                            <span>{'> '}</span>
+                            <a href={`#section-${index}`}>
+                                {section.title}
+                            </a>
+                        </li>
                       </div>
                   ))}
               </ul>
@@ -20,7 +25,11 @@ const ArticleSidebar = ({content, references}) => {
               <ul>
               {references.map((reference, index) => (
                   <div key={index} className="article-section">
-                      <li><a href={`#reference-${index}`}>{reference.name}</a></li>
+                    <li>
+                        <a href={`#reference-${index}`}>
+                            {reference.name}
+                        </a>
+                    </li>
                   </div>
                   ))}
               </ul>

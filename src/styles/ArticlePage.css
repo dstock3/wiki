@@ -4,6 +4,10 @@
     line-height: 1.6;
 }
 
+.article-page-container {
+    width: 72%;
+}
+
 .article-talk-container {
     margin-top: 25px;
     justify-content: space-between;

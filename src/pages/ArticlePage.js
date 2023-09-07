@@ -95,6 +95,7 @@ const ArticlePage = ({ match }) => {
         onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} 
         id="back-to-top" 
         style={{ display: showButton ? 'block' : 'none' }}>
+        {/* replace this with icon*/}
         ↑ Top
       </button>
     </div>
