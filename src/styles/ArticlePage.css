@@ -5,18 +5,18 @@
 }
 
 .article-page-container {
-    width: 72%;
-}
-
-.article-talk-container {
-    margin-top: 25px;
-    justify-content: space-between;
-    width: 85vw;
-    border-bottom: 1px solid #a2a9b1;
+    width: 100%;
 }
 
 .article-talk-container a {
     margin-inline: 15px;
+}
 
+.article-content {
+    margin-right: 25px;
+}
+
+.article-references ul {
+    margin-right: 25px;
 }
 

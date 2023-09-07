@@ -2,6 +2,7 @@
     display: flex;
     font-size: 1rem;
     line-height: 1.6;
+    width: 100%;
 }
   
 .talk-container h1 {
@@ -12,5 +13,12 @@
 
 .talk-container ul {
     margin-left: 25px;
+}
+
+.article-talk-container {
+    margin-top: 25px;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid #a2a9b1;
 }
   
