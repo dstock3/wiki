@@ -11,35 +11,75 @@ const TalkPage = ({ match }) => {
     // For demonstration, using hardcoded data
     const talkData = [
       {
-        topic: "issue 1",
+        topic: "Need for References",
         comments: [
           {
             username: "User1",
-            content: "I think this article could use more references.",
+            content: "This article could benefit from more references, especially in the early history section.",
             date: "2020-01-01"
           },
           {
             username: "User2",
-            content: "Agreed. The historical section is lacking in citations.",
+            content: "I concur. I've found a couple of scholarly articles that can be used as references.",
             date: "2020-01-02"
+          },
+          {
+            username: "User3",
+            content: "Can you list those articles, User2? I can help in integrating them into the article.",
+            date: "2020-01-03"
           }
         ]
       },
       {
-        topic: "issue 2",
+        topic: "Article Image Quality",
         comments: [
           {
-            username: "User1",
-            content: "I think this article could use more references.",
+            username: "User4",
+            content: "The main image of the article is low quality. We should find a higher resolution image.",
             date: "2020-01-04"
           },
           {
-            username: "User2",
-            content: "Agreed. The historical section is lacking in citations.",
+            username: "User5",
+            content: "I agree with User4. Also, the image is from 2009. Perhaps something more recent would be relevant.",
             date: "2020-01-05"
           }
         ]
       },
+      {
+        topic: "Content Organization",
+        comments: [
+          {
+            username: "User6",
+            content: "Should we consider re-organizing the content? The current flow feels a bit off.",
+            date: "2020-01-06"
+          },
+          {
+            username: "User1",
+            content: "I felt the same. The 'Modern Influence' section should come before the 'Legacy' section.",
+            date: "2020-01-07"
+          },
+          {
+            username: "User7",
+            content: "That makes sense. We can also move the 'Criticism' section towards the end.",
+            date: "2020-01-08"
+          }
+        ]
+      },
+      {
+        topic: "Neutrality Concerns",
+        comments: [
+          {
+            username: "User8",
+            content: "Some parts of the article seem to be biased. We need to ensure neutrality.",
+            date: "2020-01-09"
+          },
+          {
+            username: "User9",
+            content: "Which sections are you referring to, User8? It would help to be specific.",
+            date: "2020-01-10"
+          }
+        ]
+      }
     ];
 
     setDiscussions(talkData);

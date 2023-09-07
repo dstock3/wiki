@@ -29,7 +29,7 @@ const Article = ({ title, content, references }) => {
         <ul>
           {references.map((ref, index) => (
             <li key={index} id={`reference-${index}`}>
-              <a href={ref.link}>
+              <a href={ref.link} target="_blank" rel="noopener noreferrer">
                 {ref.name}
               </a>
             </li>
