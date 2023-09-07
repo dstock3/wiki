@@ -1,5 +1,5 @@
 .infobox {
-    background-color: #dcdfe3;
+    background-color: #f8f9fa;
     color: black;
     padding: .25em;
     font-size: .85em;
@@ -14,4 +14,9 @@
     font-size: 1.2em;
     text-align: center;
     margin-bottom: .25em;
+}
+
+.infobox-header {
+    font-size: 1rem;
+    background-color: #dad9d9;
 }

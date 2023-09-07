@@ -41,7 +41,7 @@ const ArticlePage = ({ match }) => {
                   info: [
                       { label: "Kingdom", value: "Animalia" },
                       { label: "Phylum", value: "Chordata" },
-                      { label: "Class", value: "Aves", header: true },
+                      { label: "Class", header: true },
                       { label: "Order", value: "Falconiformes" },
                       { label: "Genus", value: "Falco" },
                       { label: "Average Speed", value: "240 km/h" },

@@ -16,16 +16,24 @@ const InfoBox = ({title, image, info}) => {
                 </tr>
             )}
             {info && info.map((item, index) => (
-                <tr key={index}>
-                    <th className={item.header ? "infobox-header" : "infobox-label"}>
-                        {item.label}
-                    </th>
-                    <td className="infobox-value">{item.value}</td>
-                </tr>
+                item.header ? (
+                    <tr key={index}>
+                        <th colSpan="2" className="infobox-header">
+                            {item.label}
+                        </th>
+                    </tr>
+                ) : (
+                    <tr key={index}>
+                        <th className="infobox-label">{item.label}</th>
+                        {item.value ? (
+                            <td className="infobox-value">{item.value}</td>
+                        ) : null}
+                    </tr>
+                )
             ))}
         </tbody>
     </table>
   )
 }
 
-export default InfoBox
+export default InfoBox;
