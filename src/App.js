@@ -35,7 +35,7 @@ function App() {
             <Route path="/login" component={LoginPage} />
             <Route path="/:portalid/article/:id/talk" component={TalkPage} />
             <Route path="/:portalid/article/:id" component={ArticlePage} />
-            <Route path="/:portalid/search/:query" component={SearchResultsPage} />
+            <Route path="/search/:query" component={SearchResultsPage} />
           </Switch>
           <Footer />
         </div>

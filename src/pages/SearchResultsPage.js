@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Article from '../components/Article';
+import { Link } from 'react-router-dom';
 import '../styles/SearchResultsPage.css';
 
 const SearchResultsPage = ({ match }) => {
@@ -11,17 +11,11 @@ const SearchResultsPage = ({ match }) => {
     const fetchedData = [
       {
         title: "Sample Article 1",
-        content: [
-          { title: "Introduction", text: "This is an introduction." }
-        ],
-        references: []
+        excerpt: "This is a brief snippet from Sample Article 1...",
       },
       {
         title: "Sample Article 2",
-        content: [
-          { title: "Introduction", text: "This is another introduction." }
-        ],
-        references: []
+        excerpt: "Here's another snippet from Sample Article 2...",
       }
     ];
     
@@ -32,12 +26,10 @@ const SearchResultsPage = ({ match }) => {
     <div className="search-results-page">
       {searchResults.length > 0 ? (
         searchResults.map((result, index) => (
-          <Article 
-            key={index}
-            title={result.title}
-            content={result.content}
-            references={result.references}
-          />
+          <div key={index} className="search-result">
+            <h2><Link to={`/${match.params.portalid}/article/${result.title}`}>{result.title}</Link></h2>
+            <p>{result.excerpt}</p>
+          </div>
         ))
       ) : (
         <p>No results found for "{match.params.query}".</p>
