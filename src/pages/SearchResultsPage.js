@@ -27,12 +27,19 @@ const SearchResultsPage = ({ match }) => {
       {searchResults.length > 0 ? (
         searchResults.map((result, index) => (
           <div key={index} className="search-result">
-            <h2><Link to={`/${match.params.portalid}/article/${result.title}`}>{result.title}</Link></h2>
-            <p>{result.excerpt}</p>
+            <div className="search-result-image-container">
+              <img src="https://via.placeholder.com/150" alt="Article" />
+            </div>
+            <div className="search-result-container">
+              <h2><Link to={`/${match.params.portalid}/article/${result.title}`}>{result.title}</Link></h2>
+              <p>{result.excerpt}</p>
+            </div>
           </div>
         ))
       ) : (
-        <p>No results found for "{match.params.query}".</p>
+        <p className="no-results">
+          No results found for "{match.params.query}".
+        </p>
       )}
     </div>
   );
