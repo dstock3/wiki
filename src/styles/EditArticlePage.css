@@ -1,0 +1,88 @@
+.edit-article-page {
+    width: 100%;
+}
+
+.edit-article-container {
+    width: 66%;
+    min-height: 50vh;
+    margin: 2em auto;
+    background: #f7f7f7;
+    border-radius: 8px;
+    padding: 2em;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-article-header {
+    font-size: 1.8em;
+    margin-bottom: 1.5em;
+    text-align: center;
+    color: #333;
+}
+
+.primary-container {
+    display: flex;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.form-group label {
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group input[type="file"] {
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group input[type="file"] {
+    padding: 0.5em;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 33vh;
+}
+
+.title-input {
+    width: 350px;
+}
+
+.image-upload {
+    margin-left: 25px;
+}
+
+.edit-article-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7em 1.5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100px;
+    text-align: center;
+    align-self: flex-end;
+}
+
+.edit-article-button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    text-align: center;
+    color: #ff4a4a;
+    font-weight: 600;
+    margin-top: 1em;
+}
