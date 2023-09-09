@@ -177,6 +177,16 @@ const EditArticlePage = ({ match }) => {
         setArticle(prev => ({ ...prev, content: newContent }));
     };
 
+    const handleDeleteReference = (indexToDelete) => {
+        const newReferences = references.filter((_, index) => index !== indexToDelete);
+        setReferences(newReferences);
+    }
+
+    const handleSectionDelete = (indexToDelete) => {
+        const newSections = sections.filter((_, index) => index !== indexToDelete);
+        setSections(newSections);
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
     
@@ -228,71 +238,76 @@ const EditArticlePage = ({ match }) => {
                 <div className="form-group">
                     <label className="main-label">Article Content:</label>
                     {article.content.map((section, index) => (
-                        <EditSection index={index} section={section} handleSectionChange={handleContentChange} />
+                        <EditSection index={index} section={section} handleSectionChange={handleContentChange} handleSectionDelete={handleSectionDelete} />
                     ))}
                     {sections.length > 0 && sections.map((section, index) => (
-                        <EditSection index={index} section={section} handleSectionChange={handleSectionChange} />
+                        <EditSection index={index} section={section} handleSectionChange={handleSectionChange} handleSectionDelete={handleSectionDelete} />
                     ))}
                     <button className="add-section-button" onClick={addSection}>+</button>
                 </div>
-                <div className="infobox">
-                    <h3>Infobox</h3>
-                    <input 
-                        type="text" 
-                        placeholder="Infobox Title" 
-                        value={infobox.title}
-                        onChange={(e) => handleInfoboxChange('title', e.target.value)} 
-                    />
-                    <label>Upload Image:
+                <div className="info-group">
+                    <div className="infobox">
+                        <h3>Infobox</h3>
                         <input 
-                            type="file" 
-                            accept="image/*"
-                            onChange={handleInfoboxImageUpload} 
+                            type="text" 
+                            placeholder="Infobox Title" 
+                            value={infobox.title}
+                            onChange={(e) => handleInfoboxChange('title', e.target.value)} 
                         />
-                    </label>
-                    <input 
-                        type="text" 
-                        placeholder="Image Alt Text" 
-                        value={infobox.image.alt}
-                        onChange={(e) => handleInfoboxImageChange('alt', e.target.value)} 
-                    />
-
-                    {infobox.info.map((infoField, index) => (
-                        <div key={index} className="infoField">
+                        <label>Upload Image:
                             <input 
-                                type="text" 
-                                placeholder="Label" 
-                                value={infoField.label}
-                                onChange={(e) => handleInfoboxInfoChange(index, 'label', e.target.value)} 
+                                type="file" 
+                                accept="image/*"
+                                onChange={handleInfoboxImageUpload} 
                             />
-                            {
-                                infoField.header ? (
-                                    <span>Header</span>
-                                ) : (
-                                    <input 
-                                        type="text" 
-                                        placeholder="Value" 
-                                        value={infoField.value}
-                                        onChange={(e) => handleInfoboxInfoChange(index, 'value', e.target.value)} 
-                                    />
-                                )
-                            }
-                            <input 
-                                type="checkbox" 
-                                checked={infoField.header || false}
-                                onChange={(e) => handleInfoboxInfoChange(index, 'header', e.target.checked)}
-                            /> Mark as Header
-                        </div>
-                    ))}
-                    <button className="add-infofield-button" onClick={addInfoField}>+</button>
+                        </label>
+                        <input 
+                            type="text" 
+                            placeholder="Image Alt Text" 
+                            value={infobox.image.alt}
+                            onChange={(e) => handleInfoboxImageChange('alt', e.target.value)} 
+                        />
+                    
+                        {infobox.info.map((infoField, index) => (
+                            <div key={index} className="infoField">
+                                <input 
+                                    type="text" 
+                                    placeholder="Label" 
+                                    value={infoField.label}
+                                    onChange={(e) => handleInfoboxInfoChange(index, 'label', e.target.value)} 
+                                />
+                                {
+                                    infoField.header ? (
+                                        <span>Header</span>
+                                    ) : (
+                                        <input 
+                                            type="text" 
+                                            placeholder="Value" 
+                                            value={infoField.value}
+                                            onChange={(e) => handleInfoboxInfoChange(index, 'value', e.target.value)} 
+                                        />
+                                    )
+                                }
+                                <input 
+                                    type="checkbox" 
+                                    checked={infoField.header || false}
+                                    onChange={(e) => handleInfoboxInfoChange(index, 'header', e.target.checked)}
+                                /> Mark as Header
+                            </div>
+                        ))}
+                        <button className="add-infofield-button" onClick={addInfoField}>+</button>
+                    </div>
+                    <div className="ref-group">
+                        <label className="main-label">Article References:</label>
+                        {references.map((ref, index) => (
+                            <EditReferences index={index} reference={ref} handleReferenceChange={handleReferenceChange} handleDeleteReference={handleDeleteReference}  />
+                        ))}
+                        <button className="add-reference-button" onClick={addReference}>+</button>
+                    </div>
                 </div>
 
-                {references.map((ref, index) => (
-                    <EditReferences index={index} reference={ref} handleReferenceChange={handleReferenceChange} />
-                ))}
-                <button className="add-reference-button" onClick={addReference}>+</button>
-
                 {uploadProgress > 0 && uploadProgress < 100 && <p>Upload Progress: {uploadProgress}%</p>}
+                
                 <button className="edit-article-button" type="submit">Save Changes</button>
             </form>
             )}
