@@ -4,20 +4,76 @@ import '../styles/EditArticlePage.css'
 
 const EditArticlePage = ({ match }) => {
     const [article, setArticle] = useState({ title: '', content: '', imageUrl: '' });
-    const [originalArticle, setOriginalArticle] = useState(null);
-    const [image, setImage] = useState(null);
+    const [sections, setSections] = useState([]);
+    const [infobox, setInfobox] = useState({
+        title: '',
+        image: { src: '', alt: '' },
+        info: []
+    });
+    const [references, setReferences] = useState([]);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-
+    useEffect(() => {
+        const sampleArticle = {
+            title: "Peregrine Falcon",
+            content: [
+                {
+                    title: "Introduction",
+                    text: "The peregrine falcon, also known as the peregrine, and historically as the duck hawk in North America, is a widespread bird of prey in the family Falconidae.",
+                    info: {
+                        title: "Peregrine Falcon",
+                        image: {
+                            alt: "Peregrine Falcon Image",
+                            src: "http://via.placeholder.com/350x250"
+                        },
+                        info: [
+                            { label: "Kingdom", value: "Animalia" },
+                            { label: "Phylum", value: "Chordata" },
+                            { label: "Class", header: true },
+                            { label: "Order", value: "Falconiformes" },
+                            { label: "Genus", value: "Falco" },
+                            { label: "Average Speed", value: "240 km/h" },
+                        ]
+                    }
+                },
+                {
+                    title: "Habitat and Distribution",
+                    text: "Peregrine falcons are among the world's most common birds of prey and live on all continents except Antarctica. They prefer wide-open spaces, and thrive near coasts where shorebirds are common, but they can be found everywhere from tundra to deserts.",
+                },
+                {
+                    title: "Diet",
+                    text: "The peregrine falcon feeds almost exclusively on medium-sized birds such as pigeons and doves, waterfowl, songbirds, and waders."
+                },
+            ],
+            references: [
+                { name: "National Geographic - Peregrine Falcon", link: "https://www.nationalgeographic.com" },
+                { name: "Wikipedia - Peregrine Falcon", link: "https://en.wikipedia.org/wiki/Peregrine_falcon" }
+            ]
+        }
+        setArticle(sampleArticle);
+        
+        if (sampleArticle.content && sampleArticle.content[0] && sampleArticle.content[0].info) {
+            setInfobox(sampleArticle.content[0].info);
+        }
+        
+        if (sampleArticle.references) {
+            setReferences(sampleArticle.references);
+        }
+    }, [])
 
     useEffect(() => {
         if (match.params.id) {
             axios.get(`/api/${match.params.portalid}/article/${match.params.id}`)
             .then(response => {
+                if (article.infobox) {
+                    setInfobox(article.infobox);
+                }
+    
+                if (article.references) {
+                    setReferences(article.references);
+                }
                 setArticle(response.data);
-                setOriginalArticle(response.data);
                 setLoading(false);
             })
             .catch(err => {
@@ -29,44 +85,108 @@ const EditArticlePage = ({ match }) => {
         }
     }, [match.params.portalid, match.params.id]);
 
+    const addSection = e => {
+        e.preventDefault();
+        setSections(prev => [...prev, { title: '', content: '' }]);
+    }
+    
+    const addReference = e => {
+        e.preventDefault();
+        setReferences(prev => [...prev, { name: '', link: '' }]);
+    }
+
+    const handleSectionChange = (index, field, value) => {
+        const newSections = [...sections];
+        newSections[index][field] = value;
+        setSections(newSections);
+    }
+    
+    const handleReferenceChange = (index, field, value) => {
+        const newReferences = [...references];
+        newReferences[index][field] = value;
+        setReferences(newReferences);
+    }
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setArticle(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleImageChange = (event) => {
-        setImage(event.target.files[0]);
-    };
-
-    const handleImageUpload = async () => {
-        const formData = new FormData();
-        formData.append('file', image);
-
-        try {
-            const response = await axios.post('/api/upload', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
-            onUploadProgress: (progressEvent) => {
-                let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                setUploadProgress(percentCompleted);
+    const handleInfoboxChange = (field, value) => {
+        setInfobox(prev => ({ ...prev, [field]: value }));
+    }
+    
+    const handleInfoboxImageChange = (field, value) => {
+        setInfobox(prev => ({ ...prev, image: { ...prev.image, [field]: value } }));
+    }
+    
+    const handleInfoboxInfoChange = (index, field, value) => {
+        const newInfo = [...infobox.info];
+    
+        if (field === "header") {
+            if (value) {
+                newInfo[index] = { label: newInfo[index].label, header: true };
+            } else {
+                newInfo[index] = { label: newInfo[index].label };
             }
-            });
-            setArticle(prev => ({ ...prev, imageUrl: response.data.url }));
-        } catch (error) {
-            setError("Error uploading the image.");
+        } else {
+            newInfo[index][field] = value;
         }
+    
+        setInfobox({ ...infobox, info: newInfo });
+    };
+    const handleInfoboxImageUpload = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            
+            // preview the image on client side:
+            const localUrl = URL.createObjectURL(file);
+            setInfobox(prev => ({ ...prev, image: { ...prev.image, src: localUrl } }));
+            
+
+            const formData = new FormData();
+            formData.append("image", file);
+            
+            axios.post('/api/upload', formData, {
+                onUploadProgress: progressEvent => {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setUploadProgress(percentCompleted);
+                }
+            })
+            .then(response => {
+                // success
+                const serverUrl = response.data.url;
+                setInfobox(prev => ({ ...prev, image: { ...prev.image, src: serverUrl } }));
+            })
+            .catch(err => {
+                setError("Error uploading the image.");
+            });
+        }
+    };
+    
+    const addInfoField = e => {
+        e.preventDefault();
+        setInfobox(prev => ({ ...prev, info: [...prev.info, { label: '', value: '' }] }));
+    }
+
+    const handleContentChange = (index, field, value) => {
+        const newContent = [...article.content];
+        newContent[index][field] = value;
+        setArticle(prev => ({ ...prev, content: newContent }));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if (image) {
-            await handleImageUpload();
-        }
-
+    
+        const completeArticleData = {
+            ...article,
+            sections: sections,
+            references: references,
+            infobox: infobox
+        };
+    
         if (match.params.id) {
-            axios.put(`/api/${match.params.portalid}/article/${match.params.id}`, article)
+            axios.put(`/api/${match.params.portalid}/article/${match.params.id}`, completeArticleData)
             .then(response => {
                 // success
             })
@@ -74,7 +194,8 @@ const EditArticlePage = ({ match }) => {
                 setError("Error updating the article.");
             });
         } else {
-            axios.post(`/api/${match.params.portalid}/article`, article)
+
+            axios.post(`/api/${match.params.portalid}/article`, completeArticleData)
             .then(response => {
                 // success
             })
@@ -90,35 +211,123 @@ const EditArticlePage = ({ match }) => {
             {loading ? (
             <p>Loading...</p>
             ) : (
-            <form className="edit-article-container" onSubmit={handleSubmit}>
-                <div className="primary-container">
-                    <div className="form-group">
-                        <label>Title:</label>
-                        <input 
-                            type="text"
-                            name="title"
-                            value={article.title}
-                            className="title-input"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="form-group image-upload">
-                        <label>Image:</label>
-                        <input 
-                            type="file"
-                            onChange={handleImageChange}
-                        />
-                    </div>
+            <form className="edit-article-container" id="articleForm" onSubmit={handleSubmit}>
+
+                <div className="form-group">
+                    <label>Title:</label>
+                    <input 
+                        type="text"
+                        name="title"
+                        value={article.title}
+                        className="title-input"
+                        onChange={handleInputChange}
+                    />
                 </div>
 
                 <div className="form-group">
                     <label>Content:</label>
-                    <textarea 
-                        name="content"
-                        value={article.content}
-                        onChange={handleInputChange}
-                    />
+                    {article.content.map((section, index) => (
+                        <div key={index} className="section-content">
+                            <input 
+                                type="text" 
+                                placeholder="Section Title" 
+                                value={section.title}
+                                onChange={(e) => handleContentChange(index, 'title', e.target.value)} 
+                            />
+                            <textarea 
+                                placeholder="Section Text" 
+                                value={section.text}
+                                onChange={(e) => handleContentChange(index, 'text', e.target.value)} 
+                            />
+                        </div>
+                    ))}
                 </div>
+                <div className="infobox">
+                    <h3>Infobox</h3>
+                    <input 
+                        type="text" 
+                        placeholder="Infobox Title" 
+                        value={infobox.title}
+                        onChange={(e) => handleInfoboxChange('title', e.target.value)} 
+                    />
+                    <label>Upload Image:
+                        <input 
+                            type="file" 
+                            accept="image/*"
+                            onChange={handleInfoboxImageUpload} 
+                        />
+                    </label>
+                    <input 
+                        type="text" 
+                        placeholder="Image Alt Text" 
+                        value={infobox.image.alt}
+                        onChange={(e) => handleInfoboxImageChange('alt', e.target.value)} 
+                    />
+
+                    {infobox.info.map((infoField, index) => (
+                        <div key={index} className="infoField">
+                            <input 
+                                type="text" 
+                                placeholder="Label" 
+                                value={infoField.label}
+                                onChange={(e) => handleInfoboxInfoChange(index, 'label', e.target.value)} 
+                            />
+                            {
+                                infoField.header ? (
+                                    <span>Header</span>
+                                ) : (
+                                    <input 
+                                        type="text" 
+                                        placeholder="Value" 
+                                        value={infoField.value}
+                                        onChange={(e) => handleInfoboxInfoChange(index, 'value', e.target.value)} 
+                                    />
+                                )
+                            }
+                            <input 
+                                type="checkbox" 
+                                checked={infoField.header || false}
+                                onChange={(e) => handleInfoboxInfoChange(index, 'header', e.target.checked)}
+                            /> Mark as Header
+                        </div>
+                    ))}
+                    <button className="add-infofield-button" onClick={addInfoField}>Add Info Field</button>
+                </div>
+                {sections.map((section, index) => (
+                    <div key={index} className="section">
+                        <input 
+                            type="text" 
+                            placeholder="Section Title" 
+                            value={section.title}
+                            onChange={(e) => handleSectionChange(index, 'title', e.target.value)} 
+                        />
+                        <textarea 
+                            placeholder="Section Content" 
+                            value={section.content}
+                            onChange={(e) => handleSectionChange(index, 'content', e.target.value)} 
+                        />
+                    </div>
+                ))}
+                <button className="add-section-button" onClick={addSection}>Add Section</button>
+
+                {references.map((ref, index) => (
+                    <div key={index} className="reference">
+                        <input 
+                            type="text" 
+                            placeholder="Reference Name" 
+                            value={ref.name}
+                            onChange={(e) => handleReferenceChange(index, 'name', e.target.value)} 
+                        />
+                        <input 
+                            type="text" 
+                            placeholder="Reference URL" 
+                            value={ref.link}
+                            onChange={(e) => handleReferenceChange(index, 'link', e.target.value)} 
+                        />
+                    </div>
+                ))}
+                <button className="add-reference-button" onClick={addReference}>Add Reference</button>
+
                 {uploadProgress > 0 && uploadProgress < 100 && <p>Upload Progress: {uploadProgress}%</p>}
                 <button className="edit-article-button" type="submit">Save Changes</button>
             </form>
