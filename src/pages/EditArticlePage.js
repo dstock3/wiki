@@ -52,7 +52,7 @@ const EditArticlePage = ({ match }) => {
             ]
         }
         setArticle(sampleArticle);
-        
+
         if (sampleArticle.content && sampleArticle.content[0] && sampleArticle.content[0].info) {
             setInfobox(sampleArticle.content[0].info);
         }
@@ -212,9 +212,8 @@ const EditArticlePage = ({ match }) => {
             <p>Loading...</p>
             ) : (
             <form className="edit-article-container" id="articleForm" onSubmit={handleSubmit}>
-
-                <div className="form-group">
-                    <label>Title:</label>
+                <div className="main-form-group">
+                    <label className="main-label">Article Title:</label>
                     <input 
                         type="text"
                         name="title"
@@ -225,20 +224,26 @@ const EditArticlePage = ({ match }) => {
                 </div>
 
                 <div className="form-group">
-                    <label>Content:</label>
+                    <label className="main-label">Article Content:</label>
                     {article.content.map((section, index) => (
                         <div key={index} className="section-content">
-                            <input 
-                                type="text" 
-                                placeholder="Section Title" 
-                                value={section.title}
-                                onChange={(e) => handleContentChange(index, 'title', e.target.value)} 
-                            />
-                            <textarea 
-                                placeholder="Section Text" 
-                                value={section.text}
-                                onChange={(e) => handleContentChange(index, 'text', e.target.value)} 
-                            />
+                            <div className="edit-section-title">
+                                <label>Section Title:</label>
+                                <input 
+                                    type="text" 
+                                    placeholder="Section Title" 
+                                    value={section.title}
+                                    onChange={(e) => handleContentChange(index, 'title', e.target.value)} 
+                                />
+                            </div>
+                            <div className="edit-section-container">
+                                <label>Section Content:</label>
+                                <textarea 
+                                    placeholder="Section Text" 
+                                    value={section.text}
+                                    onChange={(e) => handleContentChange(index, 'text', e.target.value)} 
+                                />
+                            </div>
                         </div>
                     ))}
                 </div>
