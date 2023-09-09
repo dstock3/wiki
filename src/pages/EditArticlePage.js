@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/EditArticlePage.css'
+import EditSection from '../components/EditSection';
+import EditReferences from '../components/EditReferences';
 
 const EditArticlePage = ({ match }) => {
     const [article, setArticle] = useState({ title: '', content: '', imageUrl: '' });
@@ -226,26 +228,12 @@ const EditArticlePage = ({ match }) => {
                 <div className="form-group">
                     <label className="main-label">Article Content:</label>
                     {article.content.map((section, index) => (
-                        <div key={index} className="section-content">
-                            <div className="edit-section-title">
-                                <label>Section Title:</label>
-                                <input 
-                                    type="text" 
-                                    placeholder="Section Title" 
-                                    value={section.title}
-                                    onChange={(e) => handleContentChange(index, 'title', e.target.value)} 
-                                />
-                            </div>
-                            <div className="edit-section-container">
-                                <label>Section Content:</label>
-                                <textarea 
-                                    placeholder="Section Text" 
-                                    value={section.text}
-                                    onChange={(e) => handleContentChange(index, 'text', e.target.value)} 
-                                />
-                            </div>
-                        </div>
+                        <EditSection index={index} section={section} handleSectionChange={handleContentChange} />
                     ))}
+                    {sections.length > 0 && sections.map((section, index) => (
+                        <EditSection index={index} section={section} handleSectionChange={handleSectionChange} />
+                    ))}
+                    <button className="add-section-button" onClick={addSection}>+</button>
                 </div>
                 <div className="infobox">
                     <h3>Infobox</h3>
@@ -296,42 +284,13 @@ const EditArticlePage = ({ match }) => {
                             /> Mark as Header
                         </div>
                     ))}
-                    <button className="add-infofield-button" onClick={addInfoField}>Add Info Field</button>
+                    <button className="add-infofield-button" onClick={addInfoField}>+</button>
                 </div>
-                {sections.map((section, index) => (
-                    <div key={index} className="section">
-                        <input 
-                            type="text" 
-                            placeholder="Section Title" 
-                            value={section.title}
-                            onChange={(e) => handleSectionChange(index, 'title', e.target.value)} 
-                        />
-                        <textarea 
-                            placeholder="Section Content" 
-                            value={section.content}
-                            onChange={(e) => handleSectionChange(index, 'content', e.target.value)} 
-                        />
-                    </div>
-                ))}
-                <button className="add-section-button" onClick={addSection}>Add Section</button>
 
                 {references.map((ref, index) => (
-                    <div key={index} className="reference">
-                        <input 
-                            type="text" 
-                            placeholder="Reference Name" 
-                            value={ref.name}
-                            onChange={(e) => handleReferenceChange(index, 'name', e.target.value)} 
-                        />
-                        <input 
-                            type="text" 
-                            placeholder="Reference URL" 
-                            value={ref.link}
-                            onChange={(e) => handleReferenceChange(index, 'link', e.target.value)} 
-                        />
-                    </div>
+                    <EditReferences index={index} reference={ref} handleReferenceChange={handleReferenceChange} />
                 ))}
-                <button className="add-reference-button" onClick={addReference}>Add Reference</button>
+                <button className="add-reference-button" onClick={addReference}>+</button>
 
                 {uploadProgress > 0 && uploadProgress < 100 && <p>Upload Progress: {uploadProgress}%</p>}
                 <button className="edit-article-button" type="submit">Save Changes</button>
