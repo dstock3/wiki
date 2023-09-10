@@ -1,7 +1,12 @@
+import { useEffect } from 'react';
 import SideMenu from '../components/SideMenu';
 import '../styles/ContributePage.css'
 
 const ContributePage = () => {
+    useEffect(() => {
+        document.title = `WikiWise | Contribute`;
+    }, []);
+    
     return(
         <div className="contribute-page">
             <SideMenu />

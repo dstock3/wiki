@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import SideMenu from '../components/SideMenu';
 import '../styles/PrivacyPage.css';
 
 const PrivacyPage = () => {
+  useEffect(() => {
+    document.title = `WikiWise | Privacy Policy`;
+  }, []);
+
   return (
     <div className="privacy-page">
       <SideMenu />

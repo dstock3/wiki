@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SideMenu from '../components/SideMenu';
 import '../styles/DisclaimerPage.css';
 
 const DisclaimerPage = () => {
+  useEffect(() => {
+    document.title = `WikiWise | Disclaimer`;
+  }, []);
+
   return (
     <div className="disclaimer-page">
       <SideMenu />

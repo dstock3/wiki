@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SideMenu from '../components/SideMenu';
 import '../styles/HomePage.css';
 
 const HomePage = () => {
+    useEffect(() => {
+      document.title = `WikiWise`;
+    }, []);
 
     return (
         <div className="home-page">

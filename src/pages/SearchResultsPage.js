@@ -8,6 +8,10 @@ const SearchResultsPage = ({ match }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
+  useEffect(() => {
+    document.title = `WikiWise | Search Results for ${match.params.query}`;
+  }, []);
+  
   const sampleData = [
     {
       title: "The Wonders of Space",

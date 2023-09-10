@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/LoginPage.css';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    
+    useEffect(() => {
+        document.title = `WikiWise | Log In`;
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();

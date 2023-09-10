@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SideMenu from '../components/SideMenu';
 import '../styles/TOSPage.css';
 
 const TOSPage = () => {
+  useEffect(() => {
+    document.title = `WikiWise | Terms of Service`;
+  }, []);
   return (
     <div className="tos-page">
       <SideMenu />

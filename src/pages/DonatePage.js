@@ -1,7 +1,12 @@
+import { useEffect } from 'react';
 import SideMenu from '../components/SideMenu';
 import '../styles/DonatePage.css';
 
 const DonatePage = () => {
+    useEffect(() => {
+        document.title = `WikiWise | Donate`;
+    }, []);
+
     return (
         <div className="donate-page">
             <SideMenu />

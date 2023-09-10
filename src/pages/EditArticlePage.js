@@ -16,6 +16,11 @@ const EditArticlePage = ({ match }) => {
     const [uploadProgress, setUploadProgress] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    
+    useEffect(() => {
+        document.title = `WikiWise | Edit Article`;
+    }, []);
+
     useEffect(() => {
         const sampleArticle = {
             title: "Peregrine Falcon",

@@ -7,6 +7,10 @@ const TalkPage = ({ match }) => {
   const [discussions, setDiscussions] = useState([]);
 
   useEffect(() => {
+    document.title = `WikiWise | Talk Page`;
+  }, []);
+
+  useEffect(() => {
     // Fetch talk discussions based on article ID (match.params.id)
     // For demonstration, using hardcoded data
     const talkData = [

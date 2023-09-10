@@ -5,6 +5,10 @@ const UserProfilePage = ({ match }) => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
+    document.title = `WikiWise | ${match.params.username}`;
+  }, []);
+
+  useEffect(() => {
     const fetchedUserData = {
       username: 'JohnDoe123',
       email: 'johndoe@example.com',
@@ -21,7 +25,6 @@ const UserProfilePage = ({ match }) => {
 
   return (
     <div className="user-profile-page">
-      
       {userData && (
         <div className="user-profile-container">
           <div className="user-info">
