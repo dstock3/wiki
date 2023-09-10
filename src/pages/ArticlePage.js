@@ -33,39 +33,39 @@ const ArticlePage = ({ match }) => {
   useEffect(() => {
     // Fetch data here based on article ID (match.params.id)
     const fetchedData = {
-      title: "Peregrine Falcon",
+      title: "The Magnetic Fields",
       content: [
           {
               title: "Introduction",
-              text: "The peregrine falcon, also known as the peregrine, and historically as the duck hawk in North America, is a widespread bird of prey in the family Falconidae.",
+              text: "The Magnetic Fields is an American indie pop group formed in 1989 in Boston, Massachusetts. The band was founded by songwriter, producer, and instrumentalist Stephin Merritt.",
               info: {
-                  title: "Peregrine Falcon",
+                  title: "The Magnetic Fields",
                   image: {
-                      alt: "Peregrine Falcon Image",
-                      src: "http://via.placeholder.com/350x250"
+                      alt: "The Magnetic Fields Image",
+                      src: "http://via.placeholder.com/300x250"
                   },
                   info: [
-                      { label: "Kingdom", value: "Animalia" },
-                      { label: "Phylum", value: "Chordata" },
-                      { label: "Class", header: true },
-                      { label: "Order", value: "Falconiformes" },
-                      { label: "Genus", value: "Falco" },
-                      { label: "Average Speed", value: "240 km/h" },
+                      { label: "Origin", value: "Boston, Massachusetts, U.S." },
+                      { label: "Years Active", value: "1989–present" },
+                      { label: "Genres", header: true },
+                      { label: "Primary Genre", value: "Indie pop" },
+                      { label: "Associated Acts", value: "The 6ths, Future Bible Heroes" },
+                      { label: "Lead", value: "Stephin Merritt" }
                   ]
               }
           },
           {
-              title: "Habitat and Distribution",
-              text: "Peregrine falcons are among the world's most common birds of prey and live on all continents except Antarctica. They prefer wide-open spaces, and thrive near coasts where shorebirds are common, but they can be found everywhere from tundra to deserts.",
+              title: "Major Works",
+              text: "The Magnetic Fields is best known for their 1999 three-volume concept album '69 Love Songs'. The album, which features songs of various genres and themes, is often considered the band's magnum opus.",
           },
           {
-              title: "Diet",
-              text: "The peregrine falcon feeds almost exclusively on medium-sized birds such as pigeons and doves, waterfowl, songbirds, and waders."
+              title: "Style and Themes",
+              text: "Merritt's lyrics are known for their wit and irony. The band's sound is characterized by a variety of instruments, ranging from the accordion to the cello."
           },
       ],
       references: [
-          { name: "National Geographic - Peregrine Falcon", link: "https://www.nationalgeographic.com" },
-          { name: "Wikipedia - Peregrine Falcon", link: "https://en.wikipedia.org/wiki/Peregrine_falcon" }
+          { name: "AllMusic - The Magnetic Fields", link: "https://www.allmusic.com/artist/the-magnetic-fields-mn0000474796" },
+          { name: "Wikipedia - The Magnetic Fields", link: "https://en.wikipedia.org/wiki/The_Magnetic_Fields" }
       ]
     };
     

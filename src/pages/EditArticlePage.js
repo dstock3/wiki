@@ -246,7 +246,7 @@ const EditArticlePage = ({ match }) => {
                     <button className="add-section-button" onClick={addSection}>+</button>
                 </div>
                 <div className="info-group">
-                    <div className="infobox">
+                    <div className="infobox-editor">
                         <h3>Infobox</h3>
                         <div className="info-field-container">
                             <label>Infobox Title:</label>
