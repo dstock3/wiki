@@ -25,6 +25,12 @@ const ArticlePage = ({ match }) => {
   }, []);
 
   useEffect(() => {
+    if (articleData) {
+      document.title = `WikiWise | ${articleData.title}`;
+    }
+  }, [articleData]);
+
+  useEffect(() => {
     // Fetch data here based on article ID (match.params.id)
     const fetchedData = {
       title: "Peregrine Falcon",
