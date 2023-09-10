@@ -17,7 +17,6 @@ import PortalHomePage from './pages/PortalHomePage';
 import LoginPage from './pages/LoginPage';
 import EditArticlePage from './pages/EditArticlePage';
 import UserProfilePage from './pages/UserProfilePage';
-import UserTalkPage from './pages/UserTalkPage';
 import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
@@ -44,7 +43,6 @@ function App() {
             <Route path="/:portalid" exact component={PortalHomePage} />
             <Route path="/search/:query" component={SearchResultsPage} />
             <Route path="/user/:username" component={UserProfilePage} />
-            <Route path="/user/:username/talk" component={UserTalkPage} />
             <Route component={NotFoundPage} />
           </Switch>
           <Footer />

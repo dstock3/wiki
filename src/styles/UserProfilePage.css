@@ -1,0 +1,35 @@
+.user-profile-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.user-profile-container {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    background-color: #f9f9f9;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-block: 25px;
+}
+  
+.user-info {
+    margin-inline: 25px;
+    height: 70%;
+}
+
+.user-contributions {
+    width: 100%;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-contributions h3, .user-contributions ul {
+    margin-inline-start: 25px;
+}
+
+.user-contributions ul {
+    list-style-type: disc;
+}
