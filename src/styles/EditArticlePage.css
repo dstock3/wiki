@@ -207,7 +207,41 @@
     border-top: none;
 }
 
-.add-infofield-button, .add-reference-button, .add-section-button {
+.info-field-container {
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.info-field-container label {
+    margin-right: 1em;
+}
+
+.info-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.label-value-pairs {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+    background-color: #f9f9f9;
+    border: 1px solid #e1e1e1;
+    padding: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.label-value-pair {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.add-reference-button, .add-section-button {
     background-color: #007bff;
     border: none;
     border-radius: 4px;
@@ -217,6 +251,19 @@
     margin-block: 10px;
     width: 35px;
     align-self: flex-end;
+}
+
+.add-infofield-button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    padding: 5px 5px;
+    margin-block: 10px;
+    width: 25px;
+    margin-left: 95%;
+
 }
 
 .delete-btn {
