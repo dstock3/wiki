@@ -19,6 +19,12 @@
     height: 70%;
 }
 
+.user-info-subcontainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .user-contributions {
     width: 100%;
     border-top: 1px solid #e0e0e0;
