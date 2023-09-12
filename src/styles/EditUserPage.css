@@ -1,6 +1,14 @@
 .edit-user-page {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.edit-user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
   
 .input-group {
@@ -18,6 +26,12 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 20px;
+    width: 100%;
+}
+
+#bio {
+    width: 100%;
+    padding-inline: 0;
 }
 
 .user-label {
@@ -39,6 +53,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 100%;
 }
 
 .user-submit-button:hover {

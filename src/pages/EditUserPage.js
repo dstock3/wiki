@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/EditUserPage.css';
 
-const EditUserPage = ({ match }) => {
+const EditUserPage = ({ match, location }) => {
   const [userData, setUserData] = useState({
     email: '',
     bio: ''
   });
 
-  useEffect(() => {
-    document.title = `WikiWise | Edit ${match.params.username}`;
-    
-    const fetchedUserData = {
-      email: 'johndoe@example.com',
-      bio: 'A passionate writer and nature enthusiast.'
-    };
+  const isCreatePage = location.pathname.includes('/user/create');
 
-    setUserData(fetchedUserData);
-  }, [match.params.username]);
+  useEffect(() => {
+    document.title = `WikiWise | ${isCreatePage ? 'Create User' : 'Edit ' + match.params.username}`;
+
+    if (!isCreatePage) {
+        // fetch user data from backend
+      const fetchedUserData = {
+        email: 'johndoe@example.com',
+        bio: 'A passionate writer and nature enthusiast.'
+      };
+      setUserData(fetchedUserData);
+    }
+  }, [match.params.username, location.pathname]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -35,7 +39,7 @@ const EditUserPage = ({ match }) => {
   return (
     <div className="edit-user-page">
       <h2>Edit Profile</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="edit-user-form" onSubmit={handleSubmit}>
         <div className="input-group">
           <label className="user-label" htmlFor="email">Email:</label>
           <input
