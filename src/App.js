@@ -44,7 +44,7 @@ function App() {
             <Route path="/:portalid/article/create" component={EditArticlePage} />
             <Route path="/:portalid" exact component={PortalHomePage} />
             <Route path="/search/:query" component={SearchResultsPage} />
-            <Route path="/user/create" component={EditUserPage} />
+            <Route path="/user/:username" exact component={UserProfilePage} />
             <Route path="/user/create" render={(props) => <EditUserPage {...props} />} />
             <Route path="/user/:username/edit" render={(props) => <EditUserPage {...props} />} />
             <Route component={NotFoundPage} />

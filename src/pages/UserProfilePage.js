@@ -3,6 +3,13 @@ import '../styles/UserProfilePage.css'
 
 const UserProfilePage = ({ match }) => {
   const [userData, setUserData] = useState(null);
+  const [isUser, setIsUser] = useState(false);
+
+  useEffect(() => {
+    // api call to check if the user is viewing their own profile
+    // if so, set isUser to true
+    //setIsUser(true);
+  }, []);
 
   useEffect(() => {
     document.title = `WikiWise | ${match.params.username}`;
@@ -28,7 +35,10 @@ const UserProfilePage = ({ match }) => {
       {userData && (
         <div className="user-profile-container">
           <div className="user-info">
-            <h2>{userData.username}</h2>
+            <div className="user-info-subcontainer">
+              <h2>{userData.username}</h2>
+              {isUser && <a href={`/user/${userData.username}/edit`}>Edit Profile</a>}
+            </div>  
             <p>Email: {userData.email}</p>
             <p>Joined: {new Date(userData.joinedDate).toLocaleDateString()}</p>
             <p>Bio: {userData.bio}</p>
