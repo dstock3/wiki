@@ -20,6 +20,7 @@ const TalkPage = ({ match }) => {
     // For demonstration, using hardcoded data
     const talkData = [
       {
+        topicId: "topic-1",
         topic: "Need for References",
         comments: [
           {
@@ -40,6 +41,7 @@ const TalkPage = ({ match }) => {
         ]
       },
       {
+        topicId: "topic-2",
         topic: "Article Image Quality",
         comments: [
           {
@@ -55,6 +57,7 @@ const TalkPage = ({ match }) => {
         ]
       },
       {
+        topicId: "topic-3",
         topic: "Content Organization",
         comments: [
           {
@@ -75,6 +78,7 @@ const TalkPage = ({ match }) => {
         ]
       },
       {
+        topicId: "topic-4",
         topic: "Neutrality Concerns",
         comments: [
           {
@@ -93,6 +97,10 @@ const TalkPage = ({ match }) => {
 
     setDiscussions(talkData);
   }, [match.params.id]);
+
+  const postComment = (topicId) => {
+    // Post comment to database
+  };
 
   return (
     <div className="talk-page">
@@ -123,7 +131,7 @@ const TalkPage = ({ match }) => {
               {isAuthenticated && (
                 <div className="add-comment">
                   <textarea placeholder="Add a comment..."></textarea>
-                  <button>Post</button>
+                  <button onClick={()=>postComment(discussion.topicId)}>Post</button>
                 </div>
               )}
               {index !== discussions.length - 1 && <hr />}
