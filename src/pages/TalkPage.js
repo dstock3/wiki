@@ -5,9 +5,14 @@ import '../styles/TalkPage.css';
 
 const TalkPage = ({ match }) => {
   const [discussions, setDiscussions] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     document.title = `WikiWise | Talk Page`;
+
+    // Check if user is authenticated
+    // If authenticated, set isAuthenticated to true
+    setIsAuthenticated(true);
   }, []);
 
   useEffect(() => {
@@ -94,28 +99,38 @@ const TalkPage = ({ match }) => {
       <TalkPageSidebar discussions={discussions}/>
       <div className="talk-container">
         <div className="article-talk-container">
-          <Link to={`/${match.params.portalid}/article/${match.params.id}`} className="">
-            Article
-          </Link>
-          <Link to={`/${match.params.portalid}/article/${match.params.id}/talk`} className="selected-tab">
-            Talk
-          </Link>
+          <div className="article-talk-subcontainer">
+            <Link to={`/${match.params.portalid}/article/${match.params.id}`} className="">
+              Article
+            </Link>
+            <Link to={`/${match.params.portalid}/article/${match.params.id}/talk`} className="selected-tab">
+              Talk
+            </Link>
+          </div>
         </div>
         <h1>Talk: {match.params.id}</h1>
         <ul>
           {discussions.map((discussion, index) => (
-            <li key={index}>
-              <h3>{discussion.topic}</h3>
-              {discussion.comments.map((comment, index) => (
-                <div key={index} className="comment" id={`topic-${index}`}>
-                  <strong>{comment.username}:</strong> {comment.content} <span>{comment.date}</span>
+            <>
+              <li key={index}>
+                <h3>{discussion.topic}</h3>
+                {discussion.comments.map((comment, index) => (
+                  <div key={index} className="comment" id={`topic-${index}`}>
+                    <strong>{comment.username}:</strong> {comment.content} <span>{comment.date}</span>
+                  </div>
+                ))}
+              </li>
+              {isAuthenticated && (
+                <div className="add-comment">
+                  <textarea placeholder="Add a comment..."></textarea>
+                  <button>Post</button>
                 </div>
-              ))}
-            </li>
+              )}
+              {index !== discussions.length - 1 && <hr />}
+            </>
           ))}
         </ul>
       </div>
-
     </div>
   );
 };
