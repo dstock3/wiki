@@ -8,6 +8,14 @@
     width: 100%;
 }
 
+.article-talk-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
 .article-talk-container a {
     margin-inline: 15px;
 }

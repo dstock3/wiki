@@ -7,6 +7,7 @@ import ArticleSidebar from '../components/ArticleSidebar';
 const ArticlePage = ({ match }) => {
   const [articleData, setArticleData] = useState(null);
   const [showButton, setShowButton] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +30,12 @@ const ArticlePage = ({ match }) => {
       document.title = `WikiWise | ${articleData.title}`;
     }
   }, [articleData]);
+
+  useEffect(() => {
+    // Check if user is authenticated
+    // If authenticated, set isAuthenticated to true
+    setIsAuthenticated(true);
+  }, []);
 
   useEffect(() => {
     // Fetch data here based on article ID (match.params.id)
@@ -82,12 +89,21 @@ const ArticlePage = ({ match }) => {
       )}
       <main className="article-page-container">
         <div className="article-talk-container">
-          <Link to={`/${match.params.portalid}/article/${match.params.id}`} className="selected-tab">
-            Article
-          </Link>
-          <Link to={`/${match.params.portalid}/article/${match.params.id}/talk`}>
-            Talk
-          </Link>
+          <div className="article-talk-subcontainer">
+            <Link to={`/${match.params.portalid}/article/${match.params.id}`} className="selected-tab">
+              Article
+            </Link>
+            <Link to={`/${match.params.portalid}/article/${match.params.id}/talk`}>
+              Talk
+            </Link>
+          </div>
+          <div className="article-edit-container">
+            {isAuthenticated && (
+              <Link to={`/${match.params.portalid}/article/${match.params.id}/edit`}>
+                Edit
+              </Link>
+            )}
+          </div>
         </div>
         {articleData && (
             <Article
