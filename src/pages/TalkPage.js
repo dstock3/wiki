@@ -131,7 +131,7 @@ const TalkPage = ({ match }) => {
               {isAuthenticated && (
                 <div className="add-comment">
                   <textarea placeholder="Add a comment..."></textarea>
-                  <button onClick={()=>postComment(discussion.topicId)}>Post</button>
+                  <button className="add-comment-button" onClick={()=>postComment(discussion.topicId)}>Post</button>
                 </div>
               )}
               {index !== discussions.length - 1 && <hr />}
