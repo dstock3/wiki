@@ -19,6 +19,7 @@ import EditArticlePage from './pages/EditArticlePage';
 import UserProfilePage from './pages/UserProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import EditUserPage from './pages/EditUserPage';
+import EditPortalPage from './pages/EditPortalPage';
 import './App.css';
 
 function App() {
@@ -38,10 +39,11 @@ function App() {
             <Route path="/privacy" component={PrivacyPage} />
             <Route path="/create-account" component={CreateAccountPage} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/:portalid/article/create" component={EditArticlePage} />
             <Route path="/:portalid/article/:id/talk" component={TalkPage} />
             <Route path="/:portalid/article/:id/edit" component={EditArticlePage} />
             <Route path="/:portalid/article/:id" component={ArticlePage} />
-            <Route path="/:portalid/article/create" component={EditArticlePage} />
+            <Route path="/:portalid/edit" component={EditPortalPage} />
             <Route path="/:portalid" exact component={PortalHomePage} />
             <Route path="/search/:query" component={SearchResultsPage} />
             <Route path="/user/:username" exact component={UserProfilePage} />

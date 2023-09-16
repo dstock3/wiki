@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/PortalHomePage.css';
 import PortalSidebar from '../components/PortalSidebar';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const PortalHomePage = ({ match }) => {
   const [portalData, setPortalData] = useState(null);
+  const [auth, setAuth] = useState(false);
 
   useEffect(() => {
     document.title = `WikiWise | Portal Home`;
@@ -11,10 +13,14 @@ const PortalHomePage = ({ match }) => {
 
   useEffect(() => {
     // fetch portal data from API based on portal ID
-    
+
     const fetchedPortalData = {
       portalTitle: "Nature & Wildlife",
       portalDescription: "This portal is dedicated to all things nature and wildlife. From the smallest insect to the largest mammal, we have it all! We also have a special section for plants and fungi. If you're interested in learning more about the natural world, you've come to the right place! We have articles on everything from the common house cat to the rarest of birds. We also have articles on plants and fungi, so if you're interested in learning more about the natural world, you've come to the right place!",
+      portalImage: {
+        src: "https://via.placeholder.com/250",
+        alt: "placeholder image"
+      },
       articles: [
         { title: "Peregrine Falcon", link: "/article/peregrine-falcon" },
         { title: "Mountain Lion", link: "/article/mountain-lion" },
@@ -22,7 +28,7 @@ const PortalHomePage = ({ match }) => {
       ],
       featuredArticle: {
         title: "Peregrine Falcon",
-        summary: "A bird of prey renowned for its speed...",
+        summary: "A bird of prey renowned for its speed and agility, the peregrine falcon is one of the most widespread birds in the world. It is found on every continent except Antarctica, and it is the fastest animal on Earth. It can reach speeds of up to 200 miles per hour when diving for prey.",
         link: "/nature-wildlife/article/peregrine-falcon"
       },
       recentUpdates: [
@@ -31,6 +37,9 @@ const PortalHomePage = ({ match }) => {
     };
 
     setPortalData(fetchedPortalData);
+
+    // if user is authorized, set auth to true
+    setAuth(true);
   }, [match.params.portalid]);
 
   return (
@@ -39,12 +48,20 @@ const PortalHomePage = ({ match }) => {
         <>
           <PortalSidebar articles={portalData.articles} />
           <div className="portal-home-container">
-            <h1>{portalData.portalTitle}</h1>
+            <div className="portal-home-header">
+              <h1>{portalData.portalTitle}</h1>
+              {auth && (
+                <div className="portal-home-header-links">
+                  <Link to={`/${match.params.portalid}/edit`}>Edit Portal</Link>
+                  <Link to={`/${match.params.portalid}/article/create`}>Create Article</Link>
+                </div>
+              )}
+            </div>
             <hr />
             <div className="portal-description">
               <p>{portalData.portalDescription}</p>
               <div className="portal-image">
-                <img src="https://via.placeholder.com/250" alt="placeholder" />
+                <img src={portalData.portalImage.src} alt={portalData.portalImage.alt} />
               </div>
             </div>
             <div className="featured-article">
