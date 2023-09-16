@@ -39,6 +39,7 @@ function App() {
             <Route path="/privacy" component={PrivacyPage} />
             <Route path="/create-account" component={CreateAccountPage} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/create-portal" component={EditPortalPage} />
             <Route path="/:portalid/article/create" component={EditArticlePage} />
             <Route path="/:portalid/article/:id/talk" component={TalkPage} />
             <Route path="/:portalid/article/:id/edit" component={EditArticlePage} />
