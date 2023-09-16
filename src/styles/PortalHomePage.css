@@ -1,0 +1,20 @@
+.portal-home-page, .portal-description {
+    display: flex;
+    justify-content: space-between;
+}
+
+.portal-home-container h1 {
+    margin-left: 15px;
+}
+
+.portal-description {
+    margin-inline: 20px;
+}
+
+.portal-description p {
+    margin-right: 15px;
+}
+
+.featured-article, .recent-updates {
+    margin-inline: 20px;
+}
