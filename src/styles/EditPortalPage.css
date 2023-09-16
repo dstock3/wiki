@@ -1,0 +1,124 @@
+.edit-portal-page {
+    width: 100%;
+}
+
+.edit-portal-container {
+    width: 66%;
+    min-height: 50vh;
+    margin: 2em auto;
+    background: #f7f7f7;
+    border-radius: 8px;
+    padding: 2em;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-portal-header {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.portal-form {
+    width: 95%;
+}
+
+.portal-form-group-container {
+    display: flex;
+    justify-content: space-between;
+    height: 150px;
+}
+
+.title-group {
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    margin-bottom: 1em;
+    width: fit-content !important;
+    margin-right: 25px;
+}
+
+.title-group label {
+    margin-right: 1em;
+}
+
+.img-form-group {
+    flex-direction: row !important;
+    justify-content: space-between;
+}
+
+.portal-form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1em;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    padding: 1em;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.portal-main-label {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+}
+
+.portal-form-group label {
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: #555;
+}
+
+.portal-form-group input[type="text"], 
+.portal-form-group textarea, 
+.portal-form-group select {
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.portal-form-group textarea {
+    resize: vertical;
+    min-height: 10vh;
+}
+
+.edit-portal-button {
+    margin-right: 15px;
+}
+
+.edit-portal-button, 
+.delete-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7em 1.5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100px;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.edit-portal-button:hover, 
+.delete-button:hover {
+    background-color: #0056b3;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-button {
+    background-color: #ff4a4a;
+}
+
+.error-message {
+    text-align: center;
+    color: #ff4a4a;
+    font-weight: 600;
+    margin-top: 1em;
+}
