@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/PortalHomePage.css';
 import PortalSidebar from '../components/PortalSidebar';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import axios from 'axios'; 
 
 const PortalHomePage = ({ match }) => {
   const [portalData, setPortalData] = useState(null);
@@ -38,9 +39,27 @@ const PortalHomePage = ({ match }) => {
 
     setPortalData(fetchedPortalData);
 
+  }, [match.params.portalid]);
+
+  useEffect(() => {
+    // will need to change this to match the API endpoint
+    axios.get(`/api/portals/${match.params.portalid}`)
+      .then(response => {
+        setPortalData(response.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+
     // if user is authorized, set auth to true
+    // need more logic here to check actual authentication
     setAuth(true);
   }, [match.params.portalid]);
+
+  if (loading) return <div className="portal-home-page">Loading...</div>;
+  if (error) return <div className="portal-home-page">Error: {error}</div>;
 
   return (
     <div className="portal-home-page">
