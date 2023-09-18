@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TalkPageSidebar from '../components/TalkPageSidebar';
 import '../styles/TalkPage.css';
+import axios from 'axios';
 
 const TalkPage = ({ match }) => {
   const [discussions, setDiscussions] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
   useEffect(() => {
     document.title = `WikiWise | Talk Page`;
 
@@ -98,9 +101,26 @@ const TalkPage = ({ match }) => {
     setDiscussions(talkData);
   }, [match.params.id]);
 
+  useEffect(() => {
+    // will need to change this to match the API endpoint
+    axios.get(`/api/talk/${match.params.id}`)
+      .then(response => {
+        setDiscussions(response.data.discussions);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+        setError(error.message);
+        setLoading(false);
+      });
+  }, [match.params.id]);
+
   const postComment = (topicId) => {
     // Post comment to database
   };
+
+  if (loading) return <div className="talk-page">Loading...</div>;
+  if (error) return <div className="talk-page">Error: {error}</div>;
 
   return (
     <div className="talk-page">
