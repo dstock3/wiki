@@ -49,7 +49,6 @@ const SearchResultsPage = ({ match }) => {
 
   useEffect(() => {
     // assuming the api endpoint is something like this:
-    /*
     const apiUrl = `https://your-api-url.com/search?query=${match.params.query}`;
 
     axios.get(apiUrl)
@@ -62,10 +61,13 @@ const SearchResultsPage = ({ match }) => {
         setError(err);
         setLoading(false);
       });
-      */
+      
       setSearchResults(sampleData);
       setLoading(false);
   }, [match.params.query]);
+
+  if (loading) return <div className="search-results-page">Loading...</div>;
+  if (error) return <div className="search-results-page">Error: {error}</div>;
 
   return (
     <div className="search-results-page">
