@@ -115,8 +115,23 @@ const TalkPage = ({ match }) => {
       });
   }, [match.params.id]);
 
-  const postComment = (topicId) => {
-    // Post comment to database
+  const postComment = (topicId, commentContent) => {
+    const newComment = {
+      username: "LoggedInUser", // update this to use the actual username
+      content: commentContent,
+      date: new Date().toISOString().split('T')[0] // YYYY-MM-DD format
+    };
+
+    axios.post(`/api/talkpage/${match.params.id}/topic/${topicId}/comment`, newComment)
+      .then(response => {
+        const updatedDiscussions = [...discussions];
+        const targetTopic = updatedDiscussions.find(d => d.topicId === topicId);
+        targetTopic.comments.push(newComment);
+        setDiscussions(updatedDiscussions);
+      })
+      .catch(error => {
+        console.error("Error posting comment:", error);
+      });
   };
 
   if (loading) return <div className="talk-page">Loading...</div>;
@@ -150,8 +165,11 @@ const TalkPage = ({ match }) => {
               </li>
               {isAuthenticated && (
                 <div className="add-comment">
-                  <textarea placeholder="Add a comment..."></textarea>
-                  <button className="add-comment-button" onClick={()=>postComment(discussion.topicId)}>Post</button>
+                  <textarea placeholder="Add a comment..." id={`textarea-${discussion.topicId}`}></textarea>
+                  <button className="add-comment-button" onClick={() => {
+                    const commentContent = document.getElementById(`textarea-${discussion.topicId}`).value;
+                    postComment(discussion.topicId, commentContent);
+                  }}>Post</button>
                 </div>
               )}
               {index !== discussions.length - 1 && <hr />}
