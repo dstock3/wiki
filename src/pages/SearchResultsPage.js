@@ -99,8 +99,6 @@ const SearchResultsPage = ({ match }) => {
       )}
     </div>
   );
-
-
 };
 
 export default SearchResultsPage;

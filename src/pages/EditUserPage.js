@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/EditUserPage.css';
+import axios from 'axios';
 
 const EditUserPage = ({ match, location }) => {
   const [userData, setUserData] = useState({
     email: '',
     bio: ''
   });
+  const [error, setError] = useState(null);
 
   const isCreatePage = location.pathname.includes('/user/create');
 
@@ -32,9 +34,24 @@ const EditUserPage = ({ match, location }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // send the modified userData to backend
-    console.log("Updated user data:", userData);
+
+    const url = isCreatePage 
+      ? '/api/users/'  
+      : `/api/users/${match.params.userId}`;
+
+    const method = isCreatePage ? 'post' : 'put';
+
+    axios[method](url, userData)
+      .then(response => {
+        console.log("Response:", response.data);
+      })
+      .catch(error => {
+        console.log("Error:", error.response.data);
+        setError(error.response.data.message);
+      });
   };
+
+  if (error) return <div className="edit-user-page">Error: {error}</div>;
 
   return (
     <div className="edit-user-page">
