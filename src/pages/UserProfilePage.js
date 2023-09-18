@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/UserProfilePage.css'
+import axios from 'axios';
 
 const UserProfilePage = ({ match }) => {
   const [userData, setUserData] = useState(null);
   const [isUser, setIsUser] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // api call to check if the user is viewing their own profile
@@ -29,6 +32,21 @@ const UserProfilePage = ({ match }) => {
 
     setUserData(fetchedUserData);
   }, [match.params.username]);
+
+  useEffect(() => {
+    axios.get(`/api/users/username/${match.params.username}`)
+      .then(response => {
+        setUserData(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error.message);
+        setError(true);
+      });
+  }, [match.params.username]);
+
+  if (loading) return <div className="user-profile-page">Loading...</div>;
+  if (error) return <div className="user-profile-page">Error: {error}</div>;
 
   return (
     <div className="user-profile-page">

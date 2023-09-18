@@ -7,6 +7,8 @@ import axios from 'axios';
 const PortalHomePage = ({ match }) => {
   const [portalData, setPortalData] = useState(null);
   const [auth, setAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     document.title = `WikiWise | Portal Home`;
