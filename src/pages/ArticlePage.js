@@ -3,11 +3,15 @@ import Article from '../components/Article';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/ArticlePage.css'; 
 import ArticleSidebar from '../components/ArticleSidebar';
+import axios from 'axios'; 
 
 const ArticlePage = ({ match }) => {
   const [articleData, setArticleData] = useState(null);
   const [showButton, setShowButton] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   
   useEffect(() => {
     const handleScroll = () => {
@@ -78,6 +82,22 @@ const ArticlePage = ({ match }) => {
     
     setArticleData(fetchedData);
   }, [match.params.id]);
+
+  useEffect(() => {
+    // will need to change this to match the API endpoint
+    axios.get(`/api/articles/${match.params.id}`)
+      .then(response => {
+        setArticleData(response.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, [match.params.id]);
+
+  if (loading) return <div className="article-page">Loading...</div>;
+  if (error) return <div className="article-page">Error: {error}</div>;
 
   return (
     <div className="article-page">
