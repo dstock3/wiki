@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -21,8 +22,11 @@ import NotFoundPage from './pages/NotFoundPage';
 import EditUserPage from './pages/EditUserPage';
 import EditPortalPage from './pages/EditPortalPage';
 import './App.css';
+import PortalsPage from './pages/PortalsPage';
 
 function App() {
+  const ENDPOINT= 'http://localhost:5000';
+
   return (
     <Router>
       <div className="app">
@@ -40,12 +44,17 @@ function App() {
             <Route path="/create-account" component={CreateAccountPage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/create-portal" component={EditPortalPage} />
+            <Route path="/portals" component={PortalsPage} />
             <Route path="/:portalid/article/create" component={EditArticlePage} />
-            <Route path="/:portalid/article/:id/talk" component={TalkPage} />
-            <Route path="/:portalid/article/:id/edit" component={EditArticlePage} />
-            <Route path="/:portalid/article/:id" component={ArticlePage} />
+            <Route path="/:portalid/article/:articleid/talk" component={TalkPage} />
+            <Route path="/:portalid/article/:articleid/edit" component={EditArticlePage} />
+            <Route path="/:portalid/article/:articleid" exact render={(props) => 
+              <ArticlePage {...props} endpoint={ENDPOINT} />
+            } />
             <Route path="/:portalid/edit" component={EditPortalPage} />
-            <Route path="/:portalid" exact component={PortalHomePage} />
+            <Route path="/:portalid" exact render={(props) => 
+              <PortalHomePage {...props} endpoint={ENDPOINT} />
+            } />
             <Route path="/search/:query" component={SearchResultsPage} />
             <Route path="/user/:username" exact component={UserProfilePage} />
             <Route path="/user/create" render={(props) => <EditUserPage {...props} />} />

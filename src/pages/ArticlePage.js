@@ -5,7 +5,7 @@ import '../styles/ArticlePage.css';
 import ArticleSidebar from '../components/ArticleSidebar';
 import axios from 'axios'; 
 
-const ArticlePage = ({ match }) => {
+const ArticlePage = ({ match, endpoint }) => {
   const [articleData, setArticleData] = useState(null);
   const [showButton, setShowButton] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,6 +40,7 @@ const ArticlePage = ({ match }) => {
     setIsAuthenticated(true);
   }, []);
 
+  /*
   useEffect(() => {
     // Fetch data here based on article ID (match.params.id)
     const fetchedData = {
@@ -81,10 +82,10 @@ const ArticlePage = ({ match }) => {
     
     setArticleData(fetchedData);
   }, [match.params.id]);
+  */
 
   useEffect(() => {
-    // will need to change this to match the API endpoint
-    axios.get(`/api/articles/${match.params.id}`)
+    axios.get(`${endpoint}/articles/${match.params.articleid}`)
       .then(response => {
         setArticleData(response.data);
         setLoading(false);
@@ -93,7 +94,8 @@ const ArticlePage = ({ match }) => {
         setError(err.message);
         setLoading(false);
       });
-  }, [match.params.id]);
+      console.log(articleData)
+  }, [match.params.articleid]);
 
   if (loading) return <div className="article-page">Loading...</div>;
   if (error) return <div className="article-page">Error: {error}</div>;

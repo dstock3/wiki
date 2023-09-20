@@ -4,7 +4,7 @@ import PortalSidebar from '../components/PortalSidebar';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios'; 
 
-const PortalHomePage = ({ match }) => {
+const PortalHomePage = ({ match, endpoint }) => {
   const [portalData, setPortalData] = useState(null);
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -13,6 +13,8 @@ const PortalHomePage = ({ match }) => {
   useEffect(() => {
     document.title = `WikiWise | Portal Home`;
   }, []);
+
+  /*
 
   useEffect(() => {
     // fetch portal data from API based on portal ID
@@ -42,10 +44,10 @@ const PortalHomePage = ({ match }) => {
     setPortalData(fetchedPortalData);
 
   }, [match.params.portalid]);
+  */
 
   useEffect(() => {
-    // will need to change this to match the API endpoint
-    axios.get(`/api/portals/${match.params.portalid}`)
+    axios.get(`${endpoint}/portals/${match.params.portalid}`)
       .then(response => {
         setPortalData(response.data);
         setLoading(false);
@@ -88,7 +90,7 @@ const PortalHomePage = ({ match }) => {
             <div className="featured-article">
               <h2>Featured Article: {portalData.featuredArticle.title}</h2>
               <p>{portalData.featuredArticle.summary}</p>
-              <a href={portalData.featuredArticle.link}>Read More</a>
+              <Link to={`/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
             </div>
             
             <div className="recent-updates">
@@ -96,7 +98,7 @@ const PortalHomePage = ({ match }) => {
               <ul>
                 {portalData.recentUpdates.map((article, index) => (
                   <li key={index}>
-                    <a href={article.link}>{article.title}</a>
+                    <Link to={`/${match.params.portalid}/article/${article._id}`}>{article.title}</Link>
                   </li>
                 ))}
               </ul>
