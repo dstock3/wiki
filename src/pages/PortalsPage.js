@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const PortalsPage = () => {
+const PortalsPage = ({endpoint}) => {
     const [portals, setPortals] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         document.title = `WikiWise | Portals`;
-        axios.get(`http://localhost:5000/portals/`)
+        axios.get(`${endpoint}/portals/`)
         .then(response => {
             setPortals(response.data);
             setLoading(false);

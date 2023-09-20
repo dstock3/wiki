@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/SearchResultsPage.css';
 
-const SearchResultsPage = ({ match }) => {
+const SearchResultsPage = ({ match, endpoint }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -48,8 +48,7 @@ const SearchResultsPage = ({ match }) => {
   ];
 
   useEffect(() => {
-    // assuming the api endpoint is something like this:
-    const apiUrl = `https://your-api-url.com/search?query=${match.params.query}`;
+    const apiUrl = `${endpoint}/search?query=${match.params.query}`;
 
     axios.get(apiUrl)
       .then(response => {

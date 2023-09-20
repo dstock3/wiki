@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/CreateAccountPage.css';
 
-const CreateAccountPage = () => {
+const CreateAccountPage = ({endpoint}) => {
     useEffect(() => {
         document.title = `WikiWise | Create Account`;
     }, []);

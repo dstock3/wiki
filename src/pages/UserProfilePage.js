@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/UserProfilePage.css'
 import axios from 'axios';
 
-const UserProfilePage = ({ match }) => {
+const UserProfilePage = ({ match, endpoint }) => {
   const [userData, setUserData] = useState(null);
   const [isUser, setIsUser] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ const UserProfilePage = ({ match }) => {
   }, [match.params.username]);
 
   useEffect(() => {
-    axios.get(`/api/users/username/${match.params.username}`)
+    axios.get(`${endpoint}/users/username/${match.params.username}`)
       .then(response => {
         setUserData(response.data);
         setLoading(false);

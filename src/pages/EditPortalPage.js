@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/EditPortalPage.css';
 
-const EditPortalPage = ({ match, history }) => {
+const EditPortalPage = ({ match, history, endpoint }) => {
   const [portalData, setPortalData] = useState({
     portalTitle: '',
     portalDescription: '',

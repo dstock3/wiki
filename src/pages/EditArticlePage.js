@@ -5,7 +5,7 @@ import EditSection from '../components/EditSection';
 import EditReferences from '../components/EditReferences';
 import EditInfoBox from '../components/EditInfoBox';
 
-const EditArticlePage = ({ match }) => {
+const EditArticlePage = ({ match, endpoint }) => {
     const [article, setArticle] = useState({ title: '', content: '', imageUrl: '' });
     const [sections, setSections] = useState([]);
     const [infobox, setInfobox] = useState({
@@ -72,7 +72,7 @@ const EditArticlePage = ({ match }) => {
 
     useEffect(() => {
         if (match.params.id) {
-            axios.get(`/api/${match.params.portalid}/article/${match.params.id}`)
+            axios.get(`${endpoint}/${match.params.portalid}/article/${match.params.id}`)
             .then(response => {
                 if (article.infobox) {
                     setInfobox(article.infobox);

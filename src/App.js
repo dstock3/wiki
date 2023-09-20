@@ -41,24 +41,63 @@ function App() {
             <Route path="/donate" component={DonatePage} />
             <Route path="/terms" component={TOSPage} />
             <Route path="/privacy" component={PrivacyPage} />
-            <Route path="/create-account" component={CreateAccountPage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/create-portal" component={EditPortalPage} />
-            <Route path="/portals" component={PortalsPage} />
-            <Route path="/:portalid/article/create" component={EditArticlePage} />
-            <Route path="/:portalid/article/:articleid/talk" component={TalkPage} />
-            <Route path="/:portalid/article/:articleid/edit" component={EditArticlePage} />
+
+            <Route path="/create-account" exact render={(props) => 
+              <CreateAccountPage {...props} endpoint={ENDPOINT} />
+            } />
+            
+            <Route path="/login" exact render={(props) =>
+              <LoginPage {...props} endpoint={ENDPOINT} />
+            } />
+            
+            <Route path="/create-portal" exact render={(props) =>
+              <EditPortalPage {...props} endpoint={ENDPOINT} />
+            } />
+
+            <Route path="/portals" exact render={(props) => 
+              <PortalsPage {...props} endpoint={ENDPOINT} />
+            } />
+
+            <Route path="/:portalid/article/create" render={(props) =>
+              <EditArticlePage {...props} endpoint={ENDPOINT} />
+            } />
+
+            <Route path="/:portalid/article/:articleid/talk" exact render={(props) => 
+              <TalkPage {...props} endpoint={ENDPOINT} />
+            } />
+
+            <Route path="/:portalid/article/:articleid/edit" exact render={(props) => 
+              <EditArticlePage {...props} endpoint={ENDPOINT} />
+            } />
+
             <Route path="/:portalid/article/:articleid" exact render={(props) => 
               <ArticlePage {...props} endpoint={ENDPOINT} />
             } />
-            <Route path="/:portalid/edit" component={EditPortalPage} />
+            
+            <Route path="/:portalid/edit" exact render={(props) => 
+              <EditPortalPage {...props} endpoint={ENDPOINT} />
+            } />
+            
             <Route path="/:portalid" exact render={(props) => 
               <PortalHomePage {...props} endpoint={ENDPOINT} />
             } />
-            <Route path="/search/:query" component={SearchResultsPage} />
-            <Route path="/user/:username" exact component={UserProfilePage} />
-            <Route path="/user/create" render={(props) => <EditUserPage {...props} />} />
-            <Route path="/user/:username/edit" render={(props) => <EditUserPage {...props} />} />
+            
+            <Route path="/search/:query" exact render={(props) =>
+              <SearchResultsPage {...props} endpoint={ENDPOINT} />
+            } />
+
+            <Route path="/user/:username" exact render={(props) =>
+              <UserProfilePage {...props} endpoint={ENDPOINT} />
+            } />
+            
+            <Route path="/user/create" render={(props) => 
+              <EditUserPage {...props} endpoint={ENDPOINT} />}
+            />
+            
+            <Route path="/user/:username/edit" render={(props) =>
+              <EditUserPage {...props} endpoint={ENDPOINT} />}
+            />
+            
             <Route component={NotFoundPage} />
           </Switch>
           <Footer />

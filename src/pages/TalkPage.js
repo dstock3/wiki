@@ -4,7 +4,7 @@ import TalkPageSidebar from '../components/TalkPageSidebar';
 import '../styles/TalkPage.css';
 import axios from 'axios';
 
-const TalkPage = ({ match }) => {
+const TalkPage = ({ match, endpoint }) => {
   const [discussions, setDiscussions] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -102,8 +102,7 @@ const TalkPage = ({ match }) => {
   }, [match.params.id]);
 
   useEffect(() => {
-    // will need to change this to match the API endpoint
-    axios.get(`/api/talk/${match.params.id}`)
+    axios.get(`${endpoint}/talk/${match.params.id}`)
       .then(response => {
         setDiscussions(response.data.discussions);
         setLoading(false);

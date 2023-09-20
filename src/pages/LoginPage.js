@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/LoginPage.css';
 
-const LoginPage = () => {
+const LoginPage = ({endpoint}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
