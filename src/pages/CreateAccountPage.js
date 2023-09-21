@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import '../styles/CreateAccountPage.css';
 
 const CreateAccountPage = ({endpoint}) => {
+    const [message, setMessage] = useState(null);
+    const [isError, setIsError] = useState(false);
+
     useEffect(() => {
         document.title = `WikiWise | Create Account`;
     }, []);
@@ -18,15 +21,43 @@ const CreateAccountPage = ({endpoint}) => {
         setFormData(prevState => ({ ...prevState, [name]: value }));
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // implement account creation logic here
-        console.log(formData);
-    };
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  if (formData.password !== formData.confirmPassword) {
+    setMessage('Passwords do not match');
+    setIsError(true);
+    return;
+  }
+
+  fetch(`${endpoint}/users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        setMessage(data.error);
+        setIsError(true);
+      } else {
+        setMessage('User created successfully');
+        setIsError(false);
+        window.location.href = '/login';
+      }
+    })
+    .catch((error) => {
+      setMessage('An error occurred');
+      setIsError(true);
+    });
+};
 
     return (
         <div className="create-account-page">
             <h2>Create an Account</h2>
+            {message && <div className={isError ? 'error-message' : 'success-message'}>{message}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
