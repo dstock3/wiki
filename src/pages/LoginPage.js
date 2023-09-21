@@ -7,14 +7,10 @@ const LoginPage = ({endpoint}) => {
     const [message, setMessage] = useState(null);
     const [isError, setIsError] = useState(false);
 
-    useEffect(() => {
-        document.title = `WikiWise | Log In`;
-    }, []);
-
     const handleSubmit = (e) => {
         e.preventDefault();
-      
-        fetch(`${endpoint}/login`, {
+    
+        fetch(`${endpoint}/users/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -23,6 +19,7 @@ const LoginPage = ({endpoint}) => {
             username,
             password,
           }),
+          credentials: 'include', 
         })
           .then((response) => response.json())
           .then((data) => {
@@ -32,9 +29,9 @@ const LoginPage = ({endpoint}) => {
             } else {
               setMessage('Logged in successfully');
               setIsError(false);
-              // save token
-
+              window.location.href = '/'; 
             }
+            console.log(data);
           })
           .catch((error) => {
             setMessage('An error occurred');
