@@ -4,20 +4,48 @@ import '../styles/LoginPage.css';
 const LoginPage = ({endpoint}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
+    const [message, setMessage] = useState(null);
+    const [isError, setIsError] = useState(false);
+
     useEffect(() => {
         document.title = `WikiWise | Log In`;
     }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle login logic here (e.g., API call, token storage)
-        console.log(`Logging in user: ${username}`);
-    };
+      
+        fetch(`${endpoint}/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              setMessage(data.error);
+              setIsError(true);
+            } else {
+              setMessage('Logged in successfully');
+              setIsError(false);
+              // save token
 
+            }
+          })
+          .catch((error) => {
+            setMessage('An error occurred');
+            setIsError(true);
+          });
+    };
+      
     return (
         <div className="login-page">
             <h2>Log In to WikiWise</h2>
+            {message && <div className={isError ? 'error-message' : 'success-message'}>{message}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username:</label>
