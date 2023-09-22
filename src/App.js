@@ -35,11 +35,15 @@ function App() {
         <Header />
         <div className="app-container">
           <Switch>
-            <Route path="/" exact render={(props) => <HomePage title={TITLE}/>} />
+            <Route path="/" exact render={(props) =>
+              <HomePage title={TITLE}/>
+            } />
             <Route path="/about" exact render={(props) => 
               <AboutPage title={TITLE} contact={CONTACT} />
             } />
-            <Route path="/contact" component={ContactPage} />
+            <Route path="/contact" exact render={(props) =>
+              <ContactPage title={TITLE} contact={CONTACT} />
+            } />
             <Route path="/disclaimer" component={DisclaimerPage} />
             <Route path="/contribute" component={ContributePage} />
             <Route path="/donate" component={DonatePage} />
