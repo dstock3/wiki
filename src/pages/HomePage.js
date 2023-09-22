@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import SideMenu from '../components/SideMenu';
 import '../styles/HomePage.css';
 
-const HomePage = () => {
+const HomePage = ({title}) => {
     useEffect(() => {
-      document.title = `WikiWise`;
-    }, []);
+      document.title = title;
+    }, [title]);
 
     return (
         <div className="home-page">
@@ -13,16 +13,16 @@ const HomePage = () => {
                 <SideMenu />
                 <div className="main-content">
                   <article className="article-container">
-                    <h1 className="article-title">Welcome to WikiWise</h1>
+                    <h1 className="article-title">Welcome to {title}</h1>
                     <div className="article-content">
                         <div className="article-section">
-                          <h2>What is WikiWise?</h2>
-                          <p>WikiWise is a unique platform that empowers independent creators and fans to collaboratively build, expand, and explore diverse universes. Think of it as a space where your wildest imaginations and stories come to life and intertwine with others.</p>
+                          <h2>What is {title}?</h2>
+                          <p>{title} is a unique platform that empowers independent creators and fans to collaboratively build, expand, and explore diverse universes. Think of it as a space where your wildest imaginations and stories come to life and intertwine with others.</p>
                         </div>
 
                         <div className="article-section">
                           <h2>Our Mission</h2>
-                          <p>We believe in the power of community and storytelling. WikiWise is dedicated to providing a space where creators can freely share their narratives and fans can contribute to the lore.</p>
+                          <p>We believe in the power of community and storytelling. {title} is dedicated to providing a space where creators can freely share their narratives and fans can contribute to the lore.</p>
                         </div>
 
                         <div className="article-section">
@@ -39,7 +39,7 @@ const HomePage = () => {
                             </ul>
                         </div>
                         <div className="join-community">
-                            <h2>Join the WikiWise Community</h2>
+                            <h2>Join the {title} Community</h2>
                             <p>Become a part of a growing community of creators and fans. Share, explore, and create today!</p>
                         </div>
                     </div>

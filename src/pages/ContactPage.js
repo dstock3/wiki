@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import SideMenu from "../components/SideMenu";
 import "../styles/ContactPage.css"
 
-const ContactPage = () => {
+const ContactPage = ({title}) => {
   useEffect(() => {
-    document.title = `WikiWise | Contact Us`;
-  }, []);
+    document.title = `${title} | Contact Us`;
+  }, [title]);
 
   return (
     <div className="contact-page">

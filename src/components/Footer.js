@@ -2,14 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Footer.css';
 
-const Footer = () => {
+const Footer = ({title}) => {
   return (
     <div className="footer-container">
       <div className="footer-subcontainer">
         <div className="footer-section">
           <h4>About</h4>
           <ul>
-            <li><Link to="/about">About WikiWise</Link></li>
+            <li><Link to="/about">About {title}</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
             <li><Link to="/disclaimer">Disclaimer</Link></li>
           </ul>
@@ -31,7 +31,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-copyright">
-        © {new Date().getFullYear()} WikiWise, All Rights Reserved.
+        © {new Date().getFullYear()} {title}, All Rights Reserved.
       </div>
     </div>
   );

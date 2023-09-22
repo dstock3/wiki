@@ -26,6 +26,8 @@ import PortalsPage from './pages/PortalsPage';
 
 function App() {
   const ENDPOINT= 'http://localhost:5000';
+  const TITLE = 'WikiWise';
+  const CONTACT = 'support@wikiwise.com'
 
   return (
     <Router>
@@ -33,8 +35,10 @@ function App() {
         <Header />
         <div className="app-container">
           <Switch>
-            <Route path="/" exact component={HomePage} />
-            <Route path="/about" component={AboutPage} />
+            <Route path="/" exact render={(props) => <HomePage title={TITLE}/>} />
+            <Route path="/about" exact render={(props) => 
+              <AboutPage title={TITLE} contact={CONTACT} />
+            } />
             <Route path="/contact" component={ContactPage} />
             <Route path="/disclaimer" component={DisclaimerPage} />
             <Route path="/contribute" component={ContributePage} />
@@ -100,7 +104,7 @@ function App() {
             
             <Route component={NotFoundPage} />
           </Switch>
-          <Footer />
+          <Footer title={TITLE}/>
         </div>
       </div>
     </Router>
