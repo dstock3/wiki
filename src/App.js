@@ -36,19 +36,36 @@ function App() {
         <div className="app-container">
           <Switch>
             <Route path="/" exact render={(props) =>
-              <HomePage title={TITLE}/>
+              <HomePage {...props} title={TITLE}/>
             } />
+            
             <Route path="/about" exact render={(props) => 
-              <AboutPage title={TITLE} contact={CONTACT} />
+              <AboutPage {...props} title={TITLE} contact={CONTACT} />
             } />
+            
             <Route path="/contact" exact render={(props) =>
-              <ContactPage title={TITLE} contact={CONTACT} />
+              <ContactPage {...props} title={TITLE} contact={CONTACT} />
             } />
-            <Route path="/disclaimer" component={DisclaimerPage} />
-            <Route path="/contribute" component={ContributePage} />
-            <Route path="/donate" component={DonatePage} />
-            <Route path="/terms" component={TOSPage} />
-            <Route path="/privacy" component={PrivacyPage} />
+            
+            <Route path="/disclaimer" exact render={(props) =>
+              <DisclaimerPage {...props} title={TITLE} contact={CONTACT} />
+            } />
+            
+            <Route path="/contribute" exact render={(props) =>
+              <ContributePage {...props} title={TITLE} />
+            } />
+            
+            <Route path="/donate" exact render={(props) => 
+              <DonatePage {...props} title={TITLE}/>
+            } />
+            
+            <Route path="/terms" exact render={(props) =>
+              <TOSPage {...props} title={TITLE} contact={CONTACT}/>
+            } />
+
+            <Route path="/privacy" exact render={(props) =>
+              <PrivacyPage title={TITLE} contact={CONTACT} />
+            } />
 
             <Route path="/create-account" exact render={(props) => 
               <CreateAccountPage {...props} endpoint={ENDPOINT} />

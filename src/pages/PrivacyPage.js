@@ -2,10 +2,10 @@ import React, { useEffect }  from 'react';
 import SideMenu from '../components/SideMenu';
 import '../styles/PrivacyPage.css';
 
-const PrivacyPage = () => {
+const PrivacyPage = ({title, contact}) => {
   useEffect(() => {
-    document.title = `WikiWise | Privacy Policy`;
-  }, []);
+    document.title = `${title} | Privacy Policy`;
+  }, [title]);
 
   return (
     <div className="privacy-page">
@@ -14,7 +14,7 @@ const PrivacyPage = () => {
         <h1>Privacy Policy</h1>
         
         <h2>Information We Collect</h2>
-        <p>We collect personal information that you voluntarily provide when you use WikiWise, such as your name and email address.</p>
+        <p>We collect personal information that you voluntarily provide when you use {title}, such as your name and email address.</p>
         
         <h2>How We Use Your Information</h2>
         <p>Your information is used to manage your account, provide customer support, and for other purposes described in this policy.</p>
@@ -32,7 +32,7 @@ const PrivacyPage = () => {
         <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
 
         <h2>Contact</h2>
-        <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:support@wikiwise.com">support@wikiwise.com</a>.</p>
+        <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href={`mailto:${contact}`}>{contact}</a>.</p>
       </div>
     </div>
   );

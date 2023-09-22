@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 import SideMenu from '../components/SideMenu';
 import '../styles/ContributePage.css'
 
-const ContributePage = () => {
+const ContributePage = ({title}) => {
     useEffect(() => {
-        document.title = `WikiWise | Contribute`;
-    }, []);
+        document.title = `${title} | Contribute`;
+    }, [title]);
     
     return(
         <div className="contribute-page">
             <SideMenu />
             <div className="contribute-container">
-                <h1>How to Contribute to WikiWise</h1>
+                <h1>How to Contribute to {title}</h1>
                 
-                <p>Thank you for your interest in contributing to WikiWise! As a community-driven platform, we rely on users like you to help expand, update, and improve our content.</p>
+                <p>Thank you for your interest in contributing to {title}! As a community-driven platform, we rely on users like you to help expand, update, and improve our content.</p>
                 
                 <section className="contribution-guidelines">
                     <h2>Contribution Guidelines</h2>
@@ -27,7 +27,7 @@ const ContributePage = () => {
                 
                 <section className="getting-started">
                     <h2>Getting Started</h2>
-                    <p>If you're new to WikiWise, here are some steps to get you started:</p>
+                    <p>If you're new to {title}, here are some steps to get you started:</p>
                     <ol>
                         <li>Create an account or log in.</li>
                         <li>Search for the topic you're interested in. If it doesn't exist, consider creating a new page.</li>
