@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -36,31 +35,31 @@ function App() {
         <div className="app-container">
           <Switch>
             <Route path="/" exact render={(props) =>
-              <HomePage {...props} title={TITLE}/>
+              <HomePage title={TITLE}/>
             } />
             
             <Route path="/about" exact render={(props) => 
-              <AboutPage {...props} title={TITLE} contact={CONTACT} />
+              <AboutPage title={TITLE} contact={CONTACT} />
             } />
             
             <Route path="/contact" exact render={(props) =>
-              <ContactPage {...props} title={TITLE} contact={CONTACT} />
+              <ContactPage title={TITLE} contact={CONTACT} />
             } />
             
             <Route path="/disclaimer" exact render={(props) =>
-              <DisclaimerPage {...props} title={TITLE} contact={CONTACT} />
+              <DisclaimerPage title={TITLE} contact={CONTACT} />
             } />
             
             <Route path="/contribute" exact render={(props) =>
-              <ContributePage {...props} title={TITLE} />
+              <ContributePage title={TITLE} />
             } />
             
             <Route path="/donate" exact render={(props) => 
-              <DonatePage {...props} title={TITLE}/>
+              <DonatePage title={TITLE}/>
             } />
             
             <Route path="/terms" exact render={(props) =>
-              <TOSPage {...props} title={TITLE} contact={CONTACT}/>
+              <TOSPage title={TITLE} contact={CONTACT}/>
             } />
 
             <Route path="/privacy" exact render={(props) =>
@@ -68,11 +67,11 @@ function App() {
             } />
 
             <Route path="/create-account" exact render={(props) => 
-              <CreateAccountPage {...props} endpoint={ENDPOINT} />
+              <CreateAccountPage endpoint={ENDPOINT} />
             } />
             
             <Route path="/login" exact render={(props) =>
-              <LoginPage {...props} endpoint={ENDPOINT} />
+              <LoginPage endpoint={ENDPOINT} />
             } />
             
             <Route path="/create-portal" exact render={(props) =>
@@ -123,7 +122,7 @@ function App() {
               <EditUserPage {...props} endpoint={ENDPOINT} />}
             />
             
-            <Route component={NotFoundPage} />
+            <Route render={(props) => <NotFoundPage title={TITLE} />} />
           </Switch>
           <Footer title={TITLE}/>
         </div>
