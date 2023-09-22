@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const PortalsPage = ({ endpoint }) => {
+const PortalsPage = ({ endpoint, title }) => {
     const [portals, setPortals] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        document.title = `WikiWise | Portals`;
+        document.title = `${title} | Portals`;
         axios.get(`${endpoint}/portals/`)
             .then(response => {
                 setPortals(response.data);
@@ -17,7 +17,7 @@ const PortalsPage = ({ endpoint }) => {
                 setError(err.message);
                 setLoading(false);
             });
-    }, []);
+    }, [title, endpoint]);
 
     if (loading) return <div className="portals-page">Loading...</div>;
     if (error) return <div className="portals-page">Error: {error}</div>;

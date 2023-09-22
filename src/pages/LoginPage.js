@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/LoginPage.css';
 
-const LoginPage = ({endpoint}) => {
+const LoginPage = ({endpoint, title}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState(null);
     const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        document.title = `${title} | Log In`;
+    }, [title]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

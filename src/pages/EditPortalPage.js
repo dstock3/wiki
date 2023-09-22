@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/EditPortalPage.css';
 
-const EditPortalPage = ({ match, history, endpoint }) => {
+const EditPortalPage = ({ match, history, endpoint, title }) => {
   const [portalData, setPortalData] = useState({
     portalTitle: '',
     portalDescription: '',
@@ -11,6 +11,10 @@ const EditPortalPage = ({ match, history, endpoint }) => {
   
   const [loading, setLoading] = useState(true);
   const isEditMode = !!match.params.portalid;
+
+  useEffect(() => {
+    document.title = `${title} | ${isEditMode ? "Edit Portal" : "Create Portal"}`;
+  }, [title, isEditMode]);
 
   useEffect(() => {
     if (isEditMode) {

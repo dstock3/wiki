@@ -5,7 +5,7 @@ import '../styles/ArticlePage.css';
 import ArticleSidebar from '../components/ArticleSidebar';
 import axios from 'axios'; 
 
-const ArticlePage = ({ match, endpoint }) => {
+const ArticlePage = ({ match, endpoint, title }) => {
   const [articleData, setArticleData] = useState(null);
   const [showButton, setShowButton] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,59 +30,9 @@ const ArticlePage = ({ match, endpoint }) => {
 
   useEffect(() => {
     if (articleData) {
-      document.title = `WikiWise | ${articleData.title}`;
+      document.title = `${title} | ${articleData.title}`;
     }
   }, [articleData]);
-
-  useEffect(() => {
-    // Check if user is authenticated
-    // If authenticated, set isAuthenticated to true
-    setIsAuthenticated(true);
-  }, []);
-
-  /*
-  useEffect(() => {
-    // Fetch data here based on article ID (match.params.id)
-    const fetchedData = {
-      title: "The Magnetic Fields",
-      content: [
-          {
-              title: "Introduction",
-              text: "The Magnetic Fields is an American indie pop group formed in 1989 in Boston, Massachusetts. The band was founded by songwriter, producer, and instrumentalist Stephin Merritt.",
-              info: {
-                  title: "The Magnetic Fields",
-                  image: {
-                      alt: "The Magnetic Fields Image",
-                      src: "http://via.placeholder.com/300x250"
-                  },
-                  info: [
-                      { label: "Origin", value: "Boston, Massachusetts, U.S." },
-                      { label: "Years Active", value: "1989–present" },
-                      { label: "Genres", header: true },
-                      { label: "Primary Genre", value: "Indie pop" },
-                      { label: "Associated Acts", value: "The 6ths, Future Bible Heroes" },
-                      { label: "Lead", value: "Stephin Merritt" }
-                  ]
-              }
-          },
-          {
-              title: "Major Works",
-              text: "The Magnetic Fields is best known for their 1999 three-volume concept album '69 Love Songs'. The album, which features songs of various genres and themes, is often considered the band's magnum opus.",
-          },
-          {
-              title: "Style and Themes",
-              text: "Merritt's lyrics are known for their wit and irony. The band's sound is characterized by a variety of instruments, ranging from the accordion to the cello."
-          },
-      ],
-      references: [
-          { name: "AllMusic - The Magnetic Fields", link: "https://www.allmusic.com/artist/the-magnetic-fields-mn0000474796" },
-          { name: "Wikipedia - The Magnetic Fields", link: "https://en.wikipedia.org/wiki/The_Magnetic_Fields" }
-      ]
-    };
-    
-    setArticleData(fetchedData);
-  }, [match.params.id]);
-  */
 
   useEffect(() => {
     axios.get(`${endpoint}/articles/${match.params.articleid}`)
@@ -94,7 +44,10 @@ const ArticlePage = ({ match, endpoint }) => {
         setError(err.message);
         setLoading(false);
       });
-      console.log(articleData)
+
+    // Check if user is authenticated
+    // If authenticated, set isAuthenticated to true
+    setIsAuthenticated(true);
   }, [match.params.articleid]);
 
   if (loading) return <div className="article-page">Loading...</div>;
@@ -111,16 +64,16 @@ const ArticlePage = ({ match, endpoint }) => {
       <main className="article-page-container">
         <div className="article-talk-container">
           <div className="article-talk-subcontainer">
-            <Link to={`/${match.params.portalid}/article/${match.params.id}`} className="selected-tab">
+            <Link to={`/${match.params.portalid}/article/${match.params.articleid}`} className="selected-tab">
               Article
             </Link>
-            <Link to={`/${match.params.portalid}/article/${match.params.id}/talk`}>
+            <Link to={`/${match.params.portalid}/article/${match.params.articleid}/talk`}>
               Talk
             </Link>
           </div>
           <div className="article-edit-container">
             {isAuthenticated && (
-              <Link to={`/${match.params.portalid}/article/${match.params.id}/edit`}>
+              <Link to={`/${match.params.portalid}/article/${match.params.articleid}/edit`}>
                 Edit
               </Link>
             )}

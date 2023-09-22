@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/EditUserPage.css';
 import axios from 'axios';
 
-const EditUserPage = ({ match, location, endpoint }) => {
+const EditUserPage = ({ match, location, endpoint, title }) => {
   const [userData, setUserData] = useState({
     email: '',
     bio: ''
@@ -12,7 +12,7 @@ const EditUserPage = ({ match, location, endpoint }) => {
   const isCreatePage = location.pathname.includes('/user/create');
 
   useEffect(() => {
-    document.title = `WikiWise | ${isCreatePage ? 'Create User' : 'Edit ' + match.params.username}`;
+    document.title = `${title} | ${isCreatePage ? 'Create User' : 'Edit ' + match.params.username}`;
 
     if (!isCreatePage) {
         // fetch user data from backend
@@ -22,7 +22,7 @@ const EditUserPage = ({ match, location, endpoint }) => {
       };
       setUserData(fetchedUserData);
     }
-  }, [match.params.username, location.pathname]);
+  }, [title, match.params.username, location.pathname, isCreatePage]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

@@ -5,7 +5,7 @@ import EditSection from '../components/EditSection';
 import EditReferences from '../components/EditReferences';
 import EditInfoBox from '../components/EditInfoBox';
 
-const EditArticlePage = ({ match, endpoint }) => {
+const EditArticlePage = ({ match, endpoint, title }) => {
     const [article, setArticle] = useState({ title: '', content: '', imageUrl: '' });
     const [sections, setSections] = useState([]);
     const [infobox, setInfobox] = useState({
@@ -19,60 +19,12 @@ const EditArticlePage = ({ match, endpoint }) => {
     const [error, setError] = useState(null);
     
     useEffect(() => {
-        document.title = `WikiWise | Edit Article`;
-    }, []);
-
-    useEffect(() => {
-        const sampleArticle = {
-            title: "Peregrine Falcon",
-            content: [
-                {
-                    title: "Introduction",
-                    text: "The peregrine falcon, also known as the peregrine, and historically as the duck hawk in North America, is a widespread bird of prey in the family Falconidae.",
-                    info: {
-                        title: "Peregrine Falcon",
-                        image: {
-                            alt: "Peregrine Falcon Image",
-                            src: "http://via.placeholder.com/350x250"
-                        },
-                        info: [
-                            { label: "Kingdom", value: "Animalia" },
-                            { label: "Phylum", value: "Chordata" },
-                            { label: "Class", header: true },
-                            { label: "Order", value: "Falconiformes" },
-                            { label: "Genus", value: "Falco" },
-                            { label: "Average Speed", value: "240 km/h" },
-                        ]
-                    }
-                },
-                {
-                    title: "Habitat and Distribution",
-                    text: "Peregrine falcons are among the world's most common birds of prey and live on all continents except Antarctica. They prefer wide-open spaces, and thrive near coasts where shorebirds are common, but they can be found everywhere from tundra to deserts.",
-                },
-                {
-                    title: "Diet",
-                    text: "The peregrine falcon feeds almost exclusively on medium-sized birds such as pigeons and doves, waterfowl, songbirds, and waders."
-                },
-            ],
-            references: [
-                { name: "National Geographic - Peregrine Falcon", link: "https://www.nationalgeographic.com" },
-                { name: "Wikipedia - Peregrine Falcon", link: "https://en.wikipedia.org/wiki/Peregrine_falcon" }
-            ]
-        }
-        setArticle(sampleArticle);
-
-        if (sampleArticle.content && sampleArticle.content[0] && sampleArticle.content[0].info) {
-            setInfobox(sampleArticle.content[0].info);
-        }
-        
-        if (sampleArticle.references) {
-            setReferences(sampleArticle.references);
-        }
-    }, [])
+        document.title = `${title} | Edit Article`;
+    }, [title]);
 
     useEffect(() => {
         if (match.params.id) {
-            axios.get(`${endpoint}/${match.params.portalid}/article/${match.params.id}`)
+            axios.get(`${endpoint}/${match.params.portalid}/article/${match.params.articleid}`)
             .then(response => {
                 if (article.infobox) {
                     setInfobox(article.infobox);
@@ -91,7 +43,7 @@ const EditArticlePage = ({ match, endpoint }) => {
         } else {
             setLoading(false);
         }
-    }, [match.params.portalid, match.params.id]);
+    }, [match.params.portalid, match.params.articleid, endpoint]);
 
     const addSection = e => {
         e.preventDefault();

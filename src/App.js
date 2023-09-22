@@ -67,59 +67,59 @@ function App() {
             } />
 
             <Route path="/create-account" exact render={(props) => 
-              <CreateAccountPage endpoint={ENDPOINT} />
+              <CreateAccountPage title={TITLE} endpoint={ENDPOINT} />
             } />
             
             <Route path="/login" exact render={(props) =>
-              <LoginPage endpoint={ENDPOINT} />
+              <LoginPage title={TITLE} endpoint={ENDPOINT} />
             } />
             
             <Route path="/create-portal" exact render={(props) =>
-              <EditPortalPage {...props} endpoint={ENDPOINT} />
+              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
 
             <Route path="/portals" exact render={(props) => 
-              <PortalsPage {...props} endpoint={ENDPOINT} />
+              <PortalsPage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
 
             <Route path="/:portalid/article/create" render={(props) =>
-              <EditArticlePage {...props} endpoint={ENDPOINT} />
+              <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
 
             <Route path="/:portalid/article/:articleid/talk" exact render={(props) => 
-              <TalkPage {...props} endpoint={ENDPOINT} />
+              <TalkPage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
 
             <Route path="/:portalid/article/:articleid/edit" exact render={(props) => 
-              <EditArticlePage {...props} endpoint={ENDPOINT} />
+              <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
 
             <Route path="/:portalid/article/:articleid" exact render={(props) => 
-              <ArticlePage {...props} endpoint={ENDPOINT} />
+              <ArticlePage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
             
             <Route path="/:portalid/edit" exact render={(props) => 
-              <EditPortalPage {...props} endpoint={ENDPOINT} />
+              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
             
             <Route path="/:portalid" exact render={(props) => 
-              <PortalHomePage {...props} endpoint={ENDPOINT} />
+              <PortalHomePage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
             
             <Route path="/search/:query" exact render={(props) =>
-              <SearchResultsPage {...props} endpoint={ENDPOINT} />
+              <SearchResultsPage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
 
             <Route path="/user/:username" exact render={(props) =>
-              <UserProfilePage {...props} endpoint={ENDPOINT} />
+              <UserProfilePage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
             
             <Route path="/user/create" render={(props) => 
-              <EditUserPage {...props} endpoint={ENDPOINT} />}
+              <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} />}
             />
             
             <Route path="/user/:username/edit" render={(props) =>
-              <EditUserPage {...props} endpoint={ENDPOINT} />}
+              <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} />}
             />
             
             <Route render={(props) => <NotFoundPage title={TITLE} />} />

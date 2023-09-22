@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/CreateAccountPage.css';
 
-const CreateAccountPage = ({endpoint}) => {
+const CreateAccountPage = ({endpoint, title}) => {
     const [message, setMessage] = useState(null);
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
-        document.title = `WikiWise | Create Account`;
-    }, []);
+        document.title = `${title} | Create Account`;
+    }, [title]);
 
     const [formData, setFormData] = useState({
         username: '',

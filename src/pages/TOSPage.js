@@ -5,7 +5,8 @@ import '../styles/TOSPage.css';
 const TOSPage = ({title, contact}) => {
   useEffect(() => {
     document.title = `${title} | Terms of Service`;
-  }, []);
+  }, [title]);
+
   return (
     <div className="tos-page">
       <SideMenu />

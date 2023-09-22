@@ -3,50 +3,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/SearchResultsPage.css';
 
-const SearchResultsPage = ({ match, endpoint }) => {
+const SearchResultsPage = ({ match, endpoint, title }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
   useEffect(() => {
-    document.title = `WikiWise | Search Results for ${match.params.query}`;
-  }, []);
+    document.title = `${title} | Search Results for ${match.params.query}`;
+  }, [title, match.params.query]);
   
-  const sampleData = [
-    {
-      title: "The Wonders of Space",
-      excerpt: "Space, the final frontier. Discover the mysteries of the universe, from galaxies and stars to planets and their moons.",
-      image: {
-        source: "https://via.placeholder.com/150x150?text=Space",
-        alt: "Image representing space with stars and galaxies"
-      }
-    },
-    {
-      title: "Deep Ocean Exploration",
-      excerpt: "Venture into the depths of the Earth's oceans. Learn about mysterious creatures that reside in the darkest corners.",
-      image: {
-        source: "https://via.placeholder.com/150x150?text=Ocean",
-        alt: "Image representing the ocean with shades of blue"
-      }
-    },
-    {
-      title: "The History of Computers",
-      excerpt: "From giant mainframes to the smartphone in your pocket, explore the evolution of computers through time.",
-      image: {
-        source: "https://via.placeholder.com/150x150?text=Computer",
-        alt: "Image representing a computer"
-      }
-    },
-    {
-      title: "Mysteries of the Human Mind",
-      excerpt: "Dive deep into the complexities of the human brain and explore consciousness, emotions, and thought processes.",
-      image: {
-        source: "https://via.placeholder.com/150x150?text=Brain",
-        alt: "Image representing a stylized human brain"
-      }
-    }
-  ];
-
   useEffect(() => {
     const apiUrl = `${endpoint}/search?query=${match.params.query}`;
 
@@ -61,9 +26,8 @@ const SearchResultsPage = ({ match, endpoint }) => {
         setLoading(false);
       });
       
-      setSearchResults(sampleData);
       setLoading(false);
-  }, [match.params.query]);
+  }, [match.params.query, endpoint]);
 
   if (loading) return <div className="search-results-page">Loading...</div>;
   if (error) return <div className="search-results-page">Error: {error}</div>;

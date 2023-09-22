@@ -4,15 +4,15 @@ import PortalSidebar from '../components/PortalSidebar';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios'; 
 
-const PortalHomePage = ({ match, endpoint }) => {
+const PortalHomePage = ({ match, endpoint, title }) => {
   const [portalData, setPortalData] = useState(null);
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    document.title = `WikiWise | Portal Home`;
-  }, []);
+    document.title = `${title} | Portal Home`;
+  }, [title]);
 
   useEffect(() => {
     axios.get(`${endpoint}/portals/${match.params.portalid}`)

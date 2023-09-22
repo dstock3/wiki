@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const NotFoundPage = ({ title }) => {
+const NotFoundPage = ({title}) => {
   useEffect(() => {
     document.title = `${title} | Page Not Found`;
   }, [title]);

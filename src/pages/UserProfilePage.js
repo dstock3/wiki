@@ -2,36 +2,15 @@ import React, { useEffect, useState } from 'react';
 import '../styles/UserProfilePage.css'
 import axios from 'axios';
 
-const UserProfilePage = ({ match, endpoint }) => {
+const UserProfilePage = ({ match, endpoint, title }) => {
   const [userData, setUserData] = useState(null);
   const [isUser, setIsUser] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // api call to check if the user is viewing their own profile
-    // if so, set isUser to true
-    //setIsUser(true);
-  }, []);
-
-  useEffect(() => {
-    document.title = `WikiWise | ${match.params.username}`;
-  }, []);
-
-  useEffect(() => {
-    const fetchedUserData = {
-      username: 'JohnDoe123',
-      email: 'johndoe@example.com',
-      joinedDate: '2021-01-01',
-      bio: 'A passionate writer and nature enthusiast.',
-      contributions: [
-        { title: 'Peregrine Falcon', link: '/articles/peregrine-falcon' },
-        { title: 'Himalayan Monal', link: '/articles/himalayan-monal' },
-      ],
-    };
-
-    setUserData(fetchedUserData);
-  }, [match.params.username]);
+    document.title = `${title} | ${match.params.username}`;
+  }, [title, match.params.username]);
 
   useEffect(() => {
     axios.get(`${endpoint}/users/username/${match.params.username}`)
@@ -43,7 +22,10 @@ const UserProfilePage = ({ match, endpoint }) => {
         console.error('There was a problem with the fetch operation:', error.message);
         setError(true);
       });
-  }, [match.params.username]);
+    // api call to check if the user is viewing their own profile
+    // if so, set isUser to true
+    //setIsUser(true);
+  }, [match.params.username, endpoint]);
 
   if (loading) return <div className="user-profile-page">Loading...</div>;
   if (error) return <div className="user-profile-page">Error: {error}</div>;
