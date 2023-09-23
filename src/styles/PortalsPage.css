@@ -1,0 +1,43 @@
+.portals-page h1 {
+    text-align: center;
+    margin: 20px;
+}
+
+.portal-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    min-height: 300px;
+    box-shadow: 0 0 10px #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.portal-card-img-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.portal-card-bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.portal-card-head {
+    margin-block: 5px;
+}
+
+.portal-desc {
+    margin-block: 10px;
+}
+
+.portal-link {
+    align-self: center;
+}
+

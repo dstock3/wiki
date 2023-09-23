@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "../styles/PortalsPage.css";
 
 const PortalsPage = ({ endpoint, title }) => {
     const [portals, setPortals] = useState(null);
@@ -28,10 +29,14 @@ const PortalsPage = ({ endpoint, title }) => {
             <div className="portals-container">
                 {portals && portals.map((portal) => (
                     <div className="portal-card" key={portal._id}>
-                        <img src={portal.portalImage.src} alt={portal.portalImage.alt} />
-                        <h2>{portal.portalTitle}</h2>
-                        <p>{portal.portalDescription}</p>
-                        <a href={`/${portal._id}`}>Visit Portal</a>
+                        <div className="portal-card-img-container">
+                            <img src={portal.portalImage.src} alt={portal.portalImage.alt} />
+                        </div>
+                        <div className="portal-card-bottom">
+                            <h2 className="portal-card-head">{portal.portalTitle}</h2>
+                            <p className="portal-desc">{portal.portalDescription}</p>
+                            <a className="portal-link" href={`/${portal._id}`}>Visit Portal</a>
+                        </div>
                     </div>
                 ))}
             </div>

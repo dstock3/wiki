@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Article from '../components/Article';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/ArticlePage.css'; 
 import ArticleSidebar from '../components/ArticleSidebar';
 import axios from 'axios'; 

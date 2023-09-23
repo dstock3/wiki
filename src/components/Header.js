@@ -9,7 +9,7 @@ const Header = () => {
   useEffect(() => {
     //check to see if user is logged in
     //if logged in, update state to reflect that
-    setIsLoggedIn(true);
+    //setIsLoggedIn(true);
   }, []);
 
   const handleLogout = () => {
