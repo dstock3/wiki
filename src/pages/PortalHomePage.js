@@ -37,7 +37,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
     <div className="portal-home-page">
       {portalData && (
         <>
-          <PortalSidebar articles={portalData.articles} />
+          <PortalSidebar articles={portalData.articles} portalId={match.params.portalid} />
           <div className="portal-home-container">
             <div className="portal-home-header">
               <h1>{portalData.portalTitle}</h1>

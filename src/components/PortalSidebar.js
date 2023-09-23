@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
-const PortalSidebar = ({articles}) => {
+const PortalSidebar = ({articles, portalId}) => {
   return (
     <div className="side-menu-container">
       <h3>Articles</h3>
       <ul>
         {articles.slice(0, 10).map((article, index) => (
           <li key={index}>
-            <a href={article.link}>{article.title}</a>
+            <Link to={`/${portalId}/article/${article._id}`}>{article.title}</Link>
           </li>
         ))}
       </ul>
