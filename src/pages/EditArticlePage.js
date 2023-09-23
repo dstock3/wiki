@@ -6,7 +6,7 @@ import EditReferences from '../components/EditReferences';
 import EditInfoBox from '../components/EditInfoBox';
 
 const EditArticlePage = ({ match, endpoint, title }) => {
-    const [article, setArticle] = useState({ title: '', content: '', imageUrl: '' });
+    const [article, setArticle] = useState({ title: '', content: [], imageUrl: '' });
     const [sections, setSections] = useState([]);
     const [infobox, setInfobox] = useState({
         title: '',
@@ -26,6 +26,7 @@ const EditArticlePage = ({ match, endpoint, title }) => {
         if (match.params.id) {
             axios.get(`${endpoint}/${match.params.portalid}/article/${match.params.articleid}`)
             .then(response => {
+                console.log(response.data);
                 if (article.infobox) {
                     setInfobox(article.infobox);
                 }
@@ -155,23 +156,26 @@ const EditArticlePage = ({ match, endpoint, title }) => {
             infobox: infobox
         };
     
+        const config = {
+            withCredentials: true
+        };
+    
         if (match.params.id) {
-            axios.put(`/api/${match.params.portalid}/article/${match.params.id}`, completeArticleData)
-            .then(response => {
-                // success
-            })
-            .catch(err => {
-                setError("Error updating the article.");
-            });
+            axios.put(`${endpoint}/articles/${match.params.articleid}`, completeArticleData, config)
+                .then(response => {
+                    // success
+                })
+                .catch(err => {
+                    setError("Error updating the article.");
+                });
         } else {
-
-            axios.post(`/api/${match.params.portalid}/article`, completeArticleData)
-            .then(response => {
-                // success
-            })
-            .catch(err => {
-                setError("Error creating the article.");
-            });
+            axios.post(`${endpoint}/articles/`, completeArticleData, config)
+                .then(response => {
+                    // success
+                })
+                .catch(err => {
+                    setError("Error creating the article.");
+                });
         }
     };
 
@@ -195,7 +199,7 @@ const EditArticlePage = ({ match, endpoint, title }) => {
 
                 <div className="form-group">
                     <label className="main-label">Article Content:</label>
-                    {article.content.map((section, index) => (
+                    {Array.isArray(article.content) && article.content.map((section, index) => (
                         <EditSection index={index} section={section} handleSectionChange={handleContentChange} handleSectionDelete={handleSectionDelete} />
                     ))}
                     {sections.length > 0 && sections.map((section, index) => (
