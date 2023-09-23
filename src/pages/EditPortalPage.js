@@ -64,6 +64,7 @@ const EditPortalPage = ({ match, history, endpoint, title }) => {
   
     let formData = new FormData();
     formData.append('portalData', JSON.stringify(portalPayload));
+    
     if (portalData.portalImageFile) {
       formData.append('image', portalData.portalImageFile);
     }
@@ -77,12 +78,13 @@ const EditPortalPage = ({ match, history, endpoint, title }) => {
       };
   
       if (isEditMode) {
-        response = await fetch(`${endpoint}/api/portals/${match.params.portalid}`, requestOptions);
+        response = await fetch(`${endpoint}/portals/${match.params.portalid}`, requestOptions);
       } else {
-        response = await fetch(`${endpoint}/api/portals`, requestOptions);
+        response = await fetch(`${endpoint}/portals`, requestOptions);
       }
   
       const responseData = await response.json();
+      
   
       if (!response.ok) {
         throw new Error(responseData.error || 'An error occurred');
@@ -115,7 +117,7 @@ const EditPortalPage = ({ match, history, endpoint, title }) => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="edit-portal-page">Loading...</div>;
 
   return (
     <div className="edit-portal-page">
