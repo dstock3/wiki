@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../styles/EditPortalPage.css';
 
 const EditPortalPage = ({ match, history, endpoint, title }) => {
@@ -16,8 +17,18 @@ const EditPortalPage = ({ match, history, endpoint, title }) => {
     document.title = `${title} | ${isEditMode ? "Edit Portal" : "Create Portal"}`;
     if (!isEditMode) {
       setLoading(false);
+    } else {
+      axios.get(`${endpoint}/portals/${match.params.portalid}`)
+        .then(response => {
+          setPortalData(response.data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error(err.message);
+          setLoading(false);
+        });
     }
-  }, [title, isEditMode]);
+  }, [title, isEditMode, match.params.portalid, endpoint]);
 
   const handleImageUpload = e => {
     const file = e.target.files[0];
@@ -83,12 +94,24 @@ const EditPortalPage = ({ match, history, endpoint, title }) => {
     }
   };
   
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this portal? This action cannot be undone.');
     if (confirmDelete) {
-      // API call to delete portal based on match.params.portalid
-      // redirect to homepage
-      history.push("/");
+        try {
+            const response = await fetch(`${endpoint}/portals/${match.params.portalid}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                history.push("/");
+            } else {
+                const errorData = await response.json();
+                alert(`Error deleting portal: ${errorData.error || 'Unknown error'}`);
+            }
+        } catch (error) {
+            alert(`Error: ${error.message}`);
+        }
     }
   };
 
