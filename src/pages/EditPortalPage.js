@@ -14,20 +14,10 @@ const EditPortalPage = ({ match, history, endpoint, title }) => {
 
   useEffect(() => {
     document.title = `${title} | ${isEditMode ? "Edit Portal" : "Create Portal"}`;
-  }, [title, isEditMode]);
-
-  useEffect(() => {
-    if (isEditMode) {
-      // get current portal data based on match.params.portalid
-      const fetchedPortalData = {
-        portalTitle: "Nature & Wildlife",
-        portalDescription: "All about nature and wildlife...",
-        portalImage: "https://via.placeholder.com/250"
-      };
-      setPortalData(fetchedPortalData);
+    if (!isEditMode) {
+      setLoading(false);
     }
-    setLoading(false);
-  }, [match.params.portalid]);
+  }, [title, isEditMode]);
 
   const handleImageUpload = e => {
     const file = e.target.files[0];
@@ -51,33 +41,48 @@ const EditPortalPage = ({ match, history, endpoint, title }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    const portalPayload = {
+      portalTitle: portalData.portalTitle,
+      portalDescription: portalData.portalDescription,
+      portalImage: {
+        src: portalData.portalImage.src,
+        alt: portalData.portalImage.alt
+      }
+    };
+  
     let formData = new FormData();
-    formData.append('portalTitle', portalData.portalTitle);
-    formData.append('portalDescription', portalData.portalDescription);
-    formData.append('image', portalData.portalImageFile);
-
+    formData.append('portalData', JSON.stringify(portalPayload));
+    if (portalData.portalImageFile) {
+      formData.append('image', portalData.portalImageFile);
+    }
+  
     try {
-        if (isEditMode) {
-            // update portal in backend
-            // Depending on your API, you might use a PUT or PATCH request here
-            await fetch(`/api/portals/${match.params.portalid}`, {
-                method: 'PUT',
-                body: formData
-            });
-        } else {
-            // create new portal in backend
-            await fetch('/api/portals', {
-                method: 'POST',
-                body: formData
-            });
-        }
-        history.push(isEditMode ? `/${match.params.portalid}` : "/");
+      let response;
+      const requestOptions = {
+        method: isEditMode ? 'PUT' : 'POST',
+        body: formData,
+        credentials: 'include'
+      };
+  
+      if (isEditMode) {
+        response = await fetch(`${endpoint}/api/portals/${match.params.portalid}`, requestOptions);
+      } else {
+        response = await fetch(`${endpoint}/api/portals`, requestOptions);
+      }
+  
+      const responseData = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(responseData.error || 'An error occurred');
+      }
+  
+      history.push(isEditMode ? `/${match.params.portalid}` : "/");
     } catch (error) {
-        console.error("Error uploading image:", error);
+      console.error("Error processing portal:", error.message);
     }
   };
-
+  
   const handleDelete = () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this portal? This action cannot be undone.');
     if (confirmDelete) {
