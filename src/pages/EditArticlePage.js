@@ -153,7 +153,8 @@ const EditArticlePage = ({ match, endpoint, title }) => {
             ...article,
             sections: sections,
             references: references,
-            infobox: infobox
+            infobox: infobox,
+            portalid: match.params.portalid
         };
     
         const config = {
