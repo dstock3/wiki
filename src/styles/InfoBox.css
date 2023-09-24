@@ -3,21 +3,19 @@
     color: black;
     padding: .25em;
     font-size: .85em;
-    line-height: 1.33em;
     box-shadow: 0px 5px 7px -7px rgba(0,0,0,0.75);
     border: 1px solid #a2a9b1;
-    border-collapse: collapse;
-    display: inline-block;
-    width: 23em;
+    min-width: 225px;
+    height: fit-content;
+    margin-left: 25px;
 }
 
-.infobox-title {
+.infobox-title {    
     font-weight: bold;
     font-size: 1.2em;
     text-align: center;
     margin-bottom: .25em;
     background-color: #b0c4de;
-    display: block; 
     padding: 5px; 
 }
 
@@ -28,5 +26,4 @@
 
 .infobox-label {
     text-align: left;
-
 }

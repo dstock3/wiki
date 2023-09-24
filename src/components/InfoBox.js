@@ -4,8 +4,13 @@ import '../styles/InfoBox.css'
 const InfoBox = ({title, image, info}) => {
   return (
     <table className="infobox">
-        <caption className="infobox-title">{title}</caption>
         <tbody>
+            <tr>
+                <th colspan="2">
+                    <div className="infobox-title">{title}</div>
+                </th>
+            </tr>
+            
             {image && ( 
                 <tr>
                     <td colSpan="2" className="infobox-image">
@@ -24,7 +29,7 @@ const InfoBox = ({title, image, info}) => {
                     </tr>
                 ) : (
                     <tr key={index}>
-                        <th className="infobox-label">{item.label}</th>
+                        <th colSpan="1" className="infobox-label">{item.label}</th>
                         {item.value ? (
                             <td className="infobox-value">{item.value}</td>
                         ) : null}
