@@ -13,7 +13,7 @@ const Article = ({ title, content, references }) => {
               <h2>{section.title}</h2>
               <p>{section.text}</p>
             </div>
-            {section.info ? (
+            {section.info && (section.info.title || (section.info.info && section.info.info.length > 0)) ? (
               <InfoBox
                 title={section.info.title}
                 image={section.info.image}

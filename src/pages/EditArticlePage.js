@@ -7,7 +7,6 @@ import EditInfoBox from '../components/EditInfoBox';
 
 const EditArticlePage = ({ match, endpoint, title }) => {
     const [article, setArticle] = useState({ title: '', content: [], imageUrl: '' });
-    const [sections, setSections] = useState([]);
     const [infobox, setInfobox] = useState({
         title: '',
         image: { src: '', alt: '' },
@@ -26,13 +25,11 @@ const EditArticlePage = ({ match, endpoint, title }) => {
         if (match.params.id) {
             axios.get(`${endpoint}/${match.params.portalid}/article/${match.params.articleid}`)
             .then(response => {
-                console.log(response.data);
-                if (article.infobox) {
-                    setInfobox(article.infobox);
+                if (response.data.infobox) {
+                    setInfobox(response.data.infobox);
                 }
-    
-                if (article.references) {
-                    setReferences(article.references);
+                if (response.data.references) {
+                    setReferences(response.data.references);
                 }
                 setArticle(response.data);
                 setLoading(false);
@@ -48,20 +45,17 @@ const EditArticlePage = ({ match, endpoint, title }) => {
 
     const addSection = e => {
         e.preventDefault();
-        setSections(prev => [...prev, { title: '', content: '' }]);
-    }
-    
+        setArticle(prev => ({
+            ...prev,
+            content: [...prev.content, { title: '', text: '' }]
+        }));
+    };
+
     const addReference = e => {
         e.preventDefault();
         setReferences(prev => [...prev, { name: '', link: '' }]);
-    }
+    };
 
-    const handleSectionChange = (index, field, value) => {
-        const newSections = [...sections];
-        newSections[index][field] = value;
-        setSections(newSections);
-    }
-    
     const handleReferenceChange = (index, field, value) => {
         const newReferences = [...references];
         newReferences[index][field] = value;
@@ -136,35 +130,40 @@ const EditArticlePage = ({ match, endpoint, title }) => {
         setArticle(prev => ({ ...prev, content: newContent }));
     };
 
+    const handleSectionDelete = (indexToDelete) => {
+        const newContent = [...article.content].filter((_, index) => index !== indexToDelete);
+        setArticle(prev => ({ ...prev, content: newContent }));
+    };
+    
+
     const handleDeleteReference = (indexToDelete) => {
         const newReferences = references.filter((_, index) => index !== indexToDelete);
         setReferences(newReferences);
     }
 
-    const handleSectionDelete = (indexToDelete) => {
-        const newSections = sections.filter((_, index) => index !== indexToDelete);
-        setSections(newSections);
-    }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
     
+        const modifiedContent = [...article.content];
+        if (modifiedContent[0]) {
+            modifiedContent[0].info = infobox;
+        }
+    
         const completeArticleData = {
             ...article,
-            sections: sections,
+            content: modifiedContent,   
             references: references,
-            infobox: infobox,
             portalid: match.params.portalid
         };
-    
+
         const config = {
             withCredentials: true
         };
-    
+        
         if (match.params.id) {
             axios.put(`${endpoint}/articles/${match.params.articleid}`, completeArticleData, config)
                 .then(response => {
-                    // success
+                    window.location.href = `/${match.params.portalid}/article/${match.params.articleid}`;
                 })
                 .catch(err => {
                     setError("Error updating the article.");
@@ -172,7 +171,7 @@ const EditArticlePage = ({ match, endpoint, title }) => {
         } else {
             axios.post(`${endpoint}/articles/`, completeArticleData, config)
                 .then(response => {
-                    // success
+                    window.location.href = `/${match.params.portalid}/article/${response.data._id}`;
                 })
                 .catch(err => {
                     setError("Error creating the article.");
@@ -201,10 +200,12 @@ const EditArticlePage = ({ match, endpoint, title }) => {
                 <div className="form-group">
                     <label className="main-label">Article Content:</label>
                     {Array.isArray(article.content) && article.content.map((section, index) => (
-                        <EditSection index={index} section={section} handleSectionChange={handleContentChange} handleSectionDelete={handleSectionDelete} />
-                    ))}
-                    {sections.length > 0 && sections.map((section, index) => (
-                        <EditSection index={index} section={section} handleSectionChange={handleSectionChange} handleSectionDelete={handleSectionDelete} />
+                        <EditSection 
+                            index={index} 
+                            section={section} 
+                            handleSectionChange={handleContentChange}
+                            handleSectionDelete={handleSectionDelete}
+                        />
                     ))}
                     <button className="add-section-button" onClick={addSection}>+</button>
                 </div>

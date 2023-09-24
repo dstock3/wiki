@@ -20,7 +20,7 @@ const EditSection = ({index, section, handleSectionChange, handleSectionDelete }
             <textarea 
                 placeholder="Section Content" 
                 value={section.text}
-                onChange={(e) => handleSectionChange(index, 'content', e.target.value)} 
+                onChange={(e) => handleSectionChange(index, 'text', e.target.value)} 
             />
         </div>
     </div>
