@@ -6,7 +6,12 @@ import EditReferences from '../components/EditReferences';
 import EditInfoBox from '../components/EditInfoBox';
 
 const EditArticlePage = ({ match, endpoint, title }) => {
-    const [article, setArticle] = useState({ title: '', content: [], imageUrl: '' });
+    const [article, setArticle] = useState({
+        title: '',
+        intro: '',
+        content: []
+    });
+    
     const [infobox, setInfobox] = useState({
         title: '',
         image: { src: '', alt: '' },
@@ -25,8 +30,8 @@ const EditArticlePage = ({ match, endpoint, title }) => {
         if (match.params.articleid) {
             axios.get(`${endpoint}/articles/${match.params.articleid}`)
             .then(response => {
-                if (response.data.infobox) {
-                    setInfobox(response.data.infobox);
+                if (response.data.infoBox) {
+                    setInfobox(response.data.infoBox);
                 }
                 if (response.data.references) {
                     setReferences(response.data.references);
@@ -41,6 +46,7 @@ const EditArticlePage = ({ match, endpoint, title }) => {
         } else {
             setLoading(false);
         }
+        
     }, [match.params.articleid, endpoint]);
 
     const addSection = e => {
@@ -198,7 +204,17 @@ const EditArticlePage = ({ match, endpoint, title }) => {
                 </div>
 
                 <div className="form-group">
-                    <label className="main-label">Article Content:</label>
+                    <label className="main-label">Article Introduction:</label>
+                    <textarea 
+                        name="intro"
+                        value={article.intro}
+                        className="introduction-input"
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label className="main-label">Article Section:</label>
                     {Array.isArray(article.content) && article.content.map((section, index) => (
                         <EditSection 
                             index={index} 
@@ -210,7 +226,14 @@ const EditArticlePage = ({ match, endpoint, title }) => {
                     <button className="add-section-button" onClick={addSection}>+</button>
                 </div>
                 <div className="info-group">
-                    <EditInfoBox infobox={infobox} handleInfoboxChange={handleInfoboxChange} handleInfoboxImageUpload={handleInfoboxImageUpload} handleInfoboxImageChange={handleInfoboxImageChange} handleInfoboxInfoChange={handleInfoboxInfoChange} addInfoField={addInfoField} />
+                    <EditInfoBox 
+                        infobox={infobox} 
+                        handleInfoboxChange={handleInfoboxChange} 
+                        handleInfoboxImageUpload={handleInfoboxImageUpload} 
+                        handleInfoboxImageChange={handleInfoboxImageChange} 
+                        handleInfoboxInfoChange={handleInfoboxInfoChange} 
+                        addInfoField={addInfoField} 
+                    />
 
                     <div className="ref-group">
                         <label className="main-label">Article References:</label>

@@ -107,6 +107,7 @@
 .form-group textarea {
     resize: vertical;
     min-height: 10vh;
+    padding: 1em;
 }
 
 .title-input {
@@ -177,6 +178,7 @@
 .infoField input[type="checkbox"] {
     margin-left: 10px;
 }
+
 .ref-group {
     display: flex;
     flex-direction: column;
