@@ -2,24 +2,32 @@ import React from 'react';
 import '../styles/Article.css';
 import InfoBox from './InfoBox';
 
-const Article = ({ title, content, references }) => {
+const Article = ({ title, intro, infobox, content, references }) => {
   return (
     <article className="article-container">
       <h1 className="article-title">{title}</h1>
       <div className="article-content">
+        <div className="intro-container">
+          <div className="article-intro" id="intro">{intro}</div>
+          {infobox && (
+            <InfoBox
+              title={infobox.title}
+              image={infobox.image}
+              info={infobox.info}
+            />
+          )}
+        </div>
         {content.map((section, index) => (
-          <div className={`article-subcontainer ${section.info ? 'dual-section' : ''}`} key={index}>
+          <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
             <div className="article-section" id={`section-${index}`}>
               <h2>{section.title}</h2>
               <p>{section.text}</p>
             </div>
-            {section.info && (section.info.title || (section.info.info && section.info.info.length > 0)) ? (
-              <InfoBox
-                title={section.info.title}
-                image={section.info.image}
-                info={section.info.info}
-              />
-            ) : null}
+            {section.image && (
+              <div className="article-section-image">
+                <img src={section.image.src} alt={section.image.alt} />
+              </div>
+            )}
           </div>
         ))}
       </div>

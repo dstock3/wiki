@@ -57,8 +57,8 @@ const ArticlePage = ({ match, endpoint, title }) => {
     <div className="article-page">
       {articleData && (
         <ArticleSidebar 
+          intro={articleData.intro}
           content={articleData.content}
-          references={articleData.references}
         />
       )}
       <main className="article-page-container">
@@ -82,6 +82,8 @@ const ArticlePage = ({ match, endpoint, title }) => {
         {articleData && (
             <Article
                 title={articleData.title}
+                intro={articleData.intro}
+                infobox={articleData.infoBox}
                 content={articleData.content}
                 references={articleData.references}
             />
