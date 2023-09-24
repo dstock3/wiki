@@ -18,6 +18,11 @@
     margin-inline: 15px;
 }
 
+.intro-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .article-content {
     margin-right: 25px;
 }
