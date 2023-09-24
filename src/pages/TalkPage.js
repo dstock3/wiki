@@ -15,7 +15,7 @@ const TalkPage = ({ match, title, endpoint }) => {
   }, [title]);
 
   useEffect(() => {
-    axios.get(`${endpoint}/talk/${match.params.articleId}`)
+    axios.get(`${endpoint}/talk/${match.params.articleid}`)
       .then(response => {
         setDiscussions(response.data.discussions);
         setLoading(false);
@@ -28,7 +28,7 @@ const TalkPage = ({ match, title, endpoint }) => {
     // Check if user is authenticated
     // If authenticated, set isAuthenticated to true
     setIsAuthenticated(true);
-  }, [match.params.articleId]);
+  }, [match.params.articleid]);
 
   const postComment = (topicId, commentContent) => {
     const newComment = {
@@ -58,10 +58,10 @@ const TalkPage = ({ match, title, endpoint }) => {
       <div className="talk-container">
         <div className="article-talk-container">
           <div className="article-talk-subcontainer">
-            <Link to={`/${match.params.portalid}/article/${match.params.articleId}`} className="">
+            <Link to={`/${match.params.portalid}/article/${match.params.articleid}`} className="">
               Article
             </Link>
-            <Link to={`/${match.params.portalid}/article/${match.params.articleId}/talk`} className="selected-tab">
+            <Link to={`/${match.params.portalid}/article/${match.params.articleid}/talk`} className="selected-tab">
               Talk
             </Link>
           </div>
