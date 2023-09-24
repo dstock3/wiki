@@ -22,8 +22,8 @@ const EditArticlePage = ({ match, endpoint, title }) => {
     }, [title]);
 
     useEffect(() => {
-        if (match.params.id) {
-            axios.get(`${endpoint}/${match.params.portalid}/article/${match.params.articleid}`)
+        if (match.params.articleid) {
+            axios.get(`${endpoint}/articles/${match.params.articleid}`)
             .then(response => {
                 if (response.data.infobox) {
                     setInfobox(response.data.infobox);
@@ -41,7 +41,7 @@ const EditArticlePage = ({ match, endpoint, title }) => {
         } else {
             setLoading(false);
         }
-    }, [match.params.portalid, match.params.articleid, endpoint]);
+    }, [match.params.articleid, endpoint]);
 
     const addSection = e => {
         e.preventDefault();
