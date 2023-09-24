@@ -24,13 +24,15 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, ha
         </div>
         <div className="info-field-container">
             <label>Image Description: </label>
-            {infobox.image && 
-            <input 
-                type="text" 
-                placeholder="Image Alt Text" 
-                value={infobox.image.alt}
-                onChange={(e) => handleInfoboxImageChange('alt', e.target.value)} 
-            />}
+            {infobox.image ? 
+                <input 
+                    type="text" 
+                    placeholder="Image Alt Text" 
+                    value={infobox.image.alt}
+                    onChange={(e) => handleInfoboxImageChange('alt', e.target.value)} 
+                /> :
+                <span>No Image Uploaded</span>
+            }
 
         </div>
         <div className="label-value-pairs">
