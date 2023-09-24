@@ -149,15 +149,11 @@ const EditArticlePage = ({ match, endpoint, title }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
-        const modifiedContent = [...article.content];
-        if (modifiedContent[0]) {
-            modifiedContent[0].info = infobox;
-        }
-    
-        const completeArticleData = {
-            ...article,
-            content: modifiedContent,   
+        const articleData = {
+            title: article.title,
+            intro: article.intro,
+            content: article.content,
+            infoBox: infobox,
             references: references,
             portalid: match.params.portalid
         };
@@ -167,7 +163,7 @@ const EditArticlePage = ({ match, endpoint, title }) => {
         };
         
         if (match.params.id) {
-            axios.put(`${endpoint}/articles/${match.params.articleid}`, completeArticleData, config)
+            axios.put(`${endpoint}/articles/${match.params.articleid}`, articleData, config)
                 .then(response => {
                     window.location.href = `/${match.params.portalid}/article/${match.params.articleid}`;
                 })
@@ -175,7 +171,7 @@ const EditArticlePage = ({ match, endpoint, title }) => {
                     setError("Error updating the article.");
                 });
         } else {
-            axios.post(`${endpoint}/articles/`, completeArticleData, config)
+            axios.post(`${endpoint}/articles/`, articleData, config)
                 .then(response => {
                     window.location.href = `/${match.params.portalid}/article/${response.data._id}`;
                 })
