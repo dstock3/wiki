@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/UserProfilePage.css'
+import '../../styles/UserProfilePage.css'
 import axios from 'axios';
 
 const UserProfilePage = ({ match, endpoint, title }) => {

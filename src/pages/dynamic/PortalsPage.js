@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../styles/PortalsPage.css";
+import "../../styles/PortalsPage.css";
 
 const PortalsPage = ({ endpoint, title }) => {
     const [portals, setPortals] = useState(null);

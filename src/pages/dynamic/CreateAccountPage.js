@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/CreateAccountPage.css';
+import '../../styles/CreateAccountPage.css';
 
 const CreateAccountPage = ({endpoint, title}) => {
     const [message, setMessage] = useState(null);

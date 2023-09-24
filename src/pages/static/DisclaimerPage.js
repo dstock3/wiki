@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import SideMenu from '../components/SideMenu';
-import '../styles/DisclaimerPage.css';
+import SideMenu from '../../components/SideMenu';
+import '../../styles/DisclaimerPage.css';
 
 const DisclaimerPage = ({title, contact}) => {
   useEffect(() => {

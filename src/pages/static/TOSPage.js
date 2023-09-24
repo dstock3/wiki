@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import SideMenu from '../components/SideMenu';
-import '../styles/TOSPage.css';
+import SideMenu from '../../components/SideMenu';
+import '../../styles/TOSPage.css';
 
 const TOSPage = ({title, contact}) => {
   useEffect(() => {

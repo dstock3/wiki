@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import SideMenu from '../components/SideMenu';
-import '../styles/ContributePage.css'
+import SideMenu from '../../components/SideMenu';
+import '../../styles/ContributePage.css'
 
 const ContributePage = ({title}) => {
     useEffect(() => {

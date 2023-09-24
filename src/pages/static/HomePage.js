@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import SideMenu from '../components/SideMenu';
-import '../styles/HomePage.css';
+import SideMenu from '../../components/SideMenu';
+import '../../styles/HomePage.css';
 
 const HomePage = ({title}) => {
     useEffect(() => {

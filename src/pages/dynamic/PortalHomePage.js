@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/PortalHomePage.css';
-import PortalSidebar from '../components/PortalSidebar';
+import '../../styles/PortalHomePage.css';
+import PortalSidebar from '../../components/PortalSidebar';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios'; 
 

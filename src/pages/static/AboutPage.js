@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import SideMenu from '../components/SideMenu';
-import '../styles/AboutPage.css'
+import SideMenu from '../../components/SideMenu';
+import '../../styles/AboutPage.css'
 
 const AboutPage = ({title, contact}) => {
     useEffect(() => {

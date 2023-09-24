@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/EditPortalPage.css';
+import '../../styles/EditPortalPage.css';
 
 const EditPortalPage = ({ match, history, endpoint, title }) => {
   const [portalData, setPortalData] = useState({

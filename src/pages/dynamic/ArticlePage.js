@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Article from '../components/Article';
+import Article from '../../components/Article';
 import { Link } from 'react-router-dom';
-import '../styles/ArticlePage.css'; 
-import ArticleSidebar from '../components/ArticleSidebar';
+import '../../styles/ArticlePage.css'; 
+import ArticleSidebar from '../../components/ArticleSidebar';
 import axios from 'axios'; 
 
 const ArticlePage = ({ match, endpoint, title }) => {

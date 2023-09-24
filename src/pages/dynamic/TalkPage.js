@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import TalkPageSidebar from '../components/TalkPageSidebar';
-import '../styles/TalkPage.css';
+import TalkPageSidebar from '../../components/TalkPageSidebar';
+import '../../styles/TalkPage.css';
 import axios from 'axios';
 
 const TalkPage = ({ match, title, endpoint }) => {

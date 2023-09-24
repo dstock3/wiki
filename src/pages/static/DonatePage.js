@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import SideMenu from '../components/SideMenu';
-import '../styles/DonatePage.css';
+import SideMenu from '../../components/SideMenu';
+import '../../styles/DonatePage.css';
 
 const DonatePage = ({title}) => {
     useEffect(() => {

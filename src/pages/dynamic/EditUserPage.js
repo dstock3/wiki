@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/EditUserPage.css';
+import '../../styles/EditUserPage.css';
 import axios from 'axios';
 
 const EditUserPage = ({ match, location, endpoint, title }) => {

@@ -1,6 +1,6 @@
 import React, { useEffect }  from 'react';
-import SideMenu from '../components/SideMenu';
-import '../styles/PrivacyPage.css';
+import SideMenu from '../../components/SideMenu';
+import '../../styles/PrivacyPage.css';
 
 const PrivacyPage = ({title, contact}) => {
   useEffect(() => {

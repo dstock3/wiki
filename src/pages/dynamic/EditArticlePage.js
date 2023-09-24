@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/EditArticlePage.css'
-import EditSection from '../components/EditSection';
-import EditReferences from '../components/EditReferences';
-import EditInfoBox from '../components/EditInfoBox';
+import '../../styles/EditArticlePage.css'
+import EditSection from '../../components/EditSection';
+import EditReferences from '../../components/EditReferences';
+import EditInfoBox from '../../components/EditInfoBox';
 
 const EditArticlePage = ({ match, endpoint, title }) => {
     const [article, setArticle] = useState({
