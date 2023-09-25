@@ -10,24 +10,27 @@ const SearchBar = () => {
     setQuery(e.target.value);
   };
 
-  const handleSearch = () => {
-    if (query) {
-      history.push(`/search/${query}`);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (query.trim()) {
+      history.push(`/search?query=${query}`);
     }
   };
 
   return (
     <div className="search-bar-container">
-      <input 
-        type="text"
-        className="search-input" 
-        placeholder="Search" 
-        value={query} 
-        onChange={handleInputChange}
-      />
-      <button className="search-button" onClick={handleSearch}>
-        Search
-      </button>
+      <form onSubmit={handleSearch}>
+        <input 
+          type="text"
+          className="search-input" 
+          placeholder="Search" 
+          value={query} 
+          onChange={handleInputChange}
+        />
+        <button className="search-button" type="submit">
+          Search
+        </button>
+      </form>
     </div>
   );
 };
