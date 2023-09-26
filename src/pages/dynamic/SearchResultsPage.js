@@ -51,26 +51,33 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
       ) : searchResults.length > 0 ? (
         <>
           {searchResults.map((result, index) => {
-            const { title, excerpt, image = {} } = result;
-            const { source = "https://via.placeholder.com/150", alt = "Article Image" } = image;
+            const { _id, title, intro, image = {} } = result;
 
             return (
               <div key={index} className="search-result">
+                {Object.keys(image).length > 0 ? (
+                  <div className="search-result-image-container">
+                    <img src={image.src} alt={image.alt} />
+                  </div>
+                ) :
                 <div className="search-result-image-container">
-                  <img src={source} alt={alt} />
+                  <img src="https://placehold.co/300" alt="placeholder" />
                 </div>
+                }
                 <div className="search-result-container">
-                  <h2><Link to={`/${match.params.portalid}/article/${title}`}>{title}</Link></h2>
-                  <p>{excerpt}</p>
+                  <h2><Link to={`/${match.params.portalid}/article/${_id}`}>{title}</Link></h2>
+                  <p>{intro}</p>
                 </div>
               </div>
             );
           })}
-          <div className="pagination-controls">
-            <button onClick={() => handlePageChange('prev')} disabled={currentPage === 1}>Previous</button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <button onClick={() => handlePageChange('next')} disabled={currentPage === totalPages}>Next</button>
-          </div>
+          {searchResults.length >= limit && (
+            <div className="pagination-controls">
+              <button onClick={() => handlePageChange('prev')} disabled={currentPage === 1}>Previous</button>
+              <span>Page {currentPage} of {totalPages}</span>
+              <button onClick={() => handlePageChange('next')} disabled={currentPage === totalPages}>Next</button>
+            </div>
+          )}
         </>
       ) : (
         <p className="no-results">
