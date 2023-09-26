@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -24,6 +25,7 @@ import PortalsPage from './pages/dynamic/PortalsPage';
 import './App.css';
 
 function App() {
+  const [csrfToken, setCsrfToken] = useState(null);
   const ENDPOINT= 'http://localhost:5000';
   const TITLE = 'WikiWise';
   const CONTACT = 'support@wikiwise.com'
@@ -71,11 +73,11 @@ function App() {
             } />
             
             <Route path="/login" exact render={(props) =>
-              <LoginPage title={TITLE} endpoint={ENDPOINT} />
+              <LoginPage title={TITLE} endpoint={ENDPOINT} setCsrfToken={setCsrfToken} />
             } />
             
             <Route path="/create-portal" exact render={(props) =>
-              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} />
+              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT}csrfToken={csrfToken} />
             } />
 
             <Route path="/portals" exact render={(props) => 
@@ -87,7 +89,7 @@ function App() {
             } />
 
             <Route path="/:portalid/article/create" render={(props) =>
-              <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} />
+              <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
             <Route path="/:portalid/article/:articleid/talk" exact render={(props) => 
@@ -95,23 +97,21 @@ function App() {
             } />
 
             <Route path="/:portalid/article/:articleid/edit" exact render={(props) => 
-              <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} />
+              <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
             <Route path="/:portalid/article/:articleid" exact render={(props) => 
-              <ArticlePage {...props} title={TITLE} endpoint={ENDPOINT} />
+              <ArticlePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
             
             <Route path="/:portalid/edit" exact render={(props) => 
-              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} />
+              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
             
             <Route path="/:portalid" exact render={(props) => 
-              <PortalHomePage {...props} title={TITLE} endpoint={ENDPOINT} />
+              <PortalHomePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
             
-
-
             <Route path="/user/:username" exact render={(props) =>
               <UserProfilePage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
@@ -121,7 +121,7 @@ function App() {
             />
             
             <Route path="/user/:username/edit" render={(props) =>
-              <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} />}
+              <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />}
             />
             
             <Route render={(props) => <NotFoundPage title={TITLE} />} />

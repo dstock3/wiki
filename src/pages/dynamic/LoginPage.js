@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/LoginPage.css';
 
-const LoginPage = ({endpoint, title}) => {
+const LoginPage = ({ endpoint, title, setCsrfToken }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState(null);
     const [isError, setIsError] = useState(false);
+    
 
     useEffect(() => {
         document.title = `${title} | Log In`;
@@ -33,6 +34,7 @@ const LoginPage = ({endpoint, title}) => {
             } else {
               setMessage('Logged in successfully');
               setIsError(false);
+              setCsrfToken(data.csrfToken); 
               window.location.href = '/'; 
             }
             console.log(data);

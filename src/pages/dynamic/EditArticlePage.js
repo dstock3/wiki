@@ -5,7 +5,7 @@ import EditSection from '../../components/EditSection';
 import EditReferences from '../../components/EditReferences';
 import EditInfoBox from '../../components/EditInfoBox';
 
-const EditArticlePage = ({ match, endpoint, title }) => {
+const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const [article, setArticle] = useState({
         title: '',
         intro: '',
@@ -159,7 +159,10 @@ const EditArticlePage = ({ match, endpoint, title }) => {
         };
 
         const config = {
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+                'csrf-token': csrfToken
+            }
         };
         
         if (match.params.id) {

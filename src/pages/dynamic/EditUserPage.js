@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/EditUserPage.css';
 import axios from 'axios';
 
-const EditUserPage = ({ match, location, endpoint, title }) => {
+const EditUserPage = ({ match, location, endpoint, title, csrfToken }) => {
   const [userData, setUserData] = useState({
     email: '',
     bio: ''
@@ -34,14 +34,19 @@ const EditUserPage = ({ match, location, endpoint, title }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     const url = isCreatePage 
       ? `/${endpoint}/users/`  
       : `/${endpoint}/users/${match.params.userId}`;
-
+  
     const method = isCreatePage ? 'post' : 'put';
-
-    axios[method](url, userData)
+  
+    const config = {
+      withCredentials: true,
+      headers: { 'csrf-token': csrfToken }
+    }
+  
+    axios[method](url, userData, config)
       .then(response => {
         console.log("Response:", response.data);
       })

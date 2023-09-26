@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/EditPortalPage.css';
 
-const EditPortalPage = ({ match, history, endpoint, title }) => {
+const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const [portalData, setPortalData] = useState({
     portalTitle: '',
     portalDescription: '',
@@ -74,7 +74,10 @@ const EditPortalPage = ({ match, history, endpoint, title }) => {
       const requestOptions = {
         method: isEditMode ? 'PUT' : 'POST',
         body: formData,
-        credentials: 'include'
+        credentials: 'include',
+        headers: {
+          'csrf-token': csrfToken
+        }
       };
   
       if (isEditMode) {
