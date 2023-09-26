@@ -40,7 +40,7 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
   }
 
   if (loading) return <div className="search-results-page">Loading...</div>;
-  if (error) return <div className="search-results-page">Error: {error}</div>;
+  if (error) return <div className="search-results-page">Error: {error.message}</div>;
 
   return (
     <div className="search-results-page">

@@ -81,6 +81,10 @@ function App() {
             <Route path="/portals" exact render={(props) => 
               <PortalsPage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
+            
+            <Route path="/search/:query" exact render={(props) =>
+              <SearchResultsPage {...props} title={TITLE} endpoint={ENDPOINT} />
+            } />
 
             <Route path="/:portalid/article/create" render={(props) =>
               <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} />
@@ -106,9 +110,7 @@ function App() {
               <PortalHomePage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
             
-            <Route path="/search/:query" exact render={(props) =>
-              <SearchResultsPage {...props} title={TITLE} endpoint={ENDPOINT} />
-            } />
+
 
             <Route path="/user/:username" exact render={(props) =>
               <UserProfilePage {...props} title={TITLE} endpoint={ENDPOINT} />
