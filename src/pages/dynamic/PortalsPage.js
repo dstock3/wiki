@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/PortalsPage.css";
+import { Link } from 'react-router-dom';
 
 const PortalsPage = ({ endpoint, title }) => {
     const [portals, setPortals] = useState(null);
@@ -35,7 +36,7 @@ const PortalsPage = ({ endpoint, title }) => {
                         <div className="portal-card-bottom">
                             <h2 className="portal-card-head">{portal.portalTitle}</h2>
                             <p className="portal-desc">{portal.portalDescription}</p>
-                            <a className="portal-link" href={`/${portal._id}`}>Visit Portal</a>
+                            <Link to={`/${portal._id}`}>Visit Portal</Link>
                         </div>
                     </div>
                 ))}

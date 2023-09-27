@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -29,6 +29,10 @@ function App() {
   const ENDPOINT= 'http://localhost:5000';
   const TITLE = 'WikiWise';
   const CONTACT = 'support@wikiwise.com'
+
+  useEffect(() => {
+    console.log(csrfToken)
+  }, [csrfToken]);
 
   return (
     <Router>

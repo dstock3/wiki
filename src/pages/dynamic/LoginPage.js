@@ -1,48 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/LoginPage.css';
+import { useHistory } from 'react-router-dom';
 
 const LoginPage = ({ endpoint, title, setCsrfToken }) => {
+    const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState(null);
     const [isError, setIsError] = useState(false);
     
-
     useEffect(() => {
         document.title = `${title} | Log In`;
     }, [title]);
 
+    const getCsrfToken = async () => {
+      try {
+          const response = await fetch(`${endpoint}/users/get-csrf-token`, { credentials: 'include' });
+          const data = await response.json();
+          setCsrfToken(data.csrfToken);
+      } catch (error) {
+          console.error("Error fetching CSRF token:", error);
+      }
+    };
+
     const handleSubmit = (e) => {
-        e.preventDefault();
-    
-        fetch(`${endpoint}/users/login`, {
+      e.preventDefault();
+  
+      fetch(`${endpoint}/users/login`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+              'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            username,
-            password,
+              username,
+              password,
           }),
           credentials: 'include', 
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.error) {
+      })
+      .then((response) => response.json())
+      .then((data) => {
+          if (data.error) {
               setMessage(data.error);
               setIsError(true);
-            } else {
+          } else {
               setMessage('Logged in successfully');
+              getCsrfToken();
               setIsError(false);
-              setCsrfToken(data.csrfToken); 
-              window.location.href = '/'; 
-            }
-            console.log(data);
-          })
-          .catch((error) => {
-            setMessage('An error occurred');
-            setIsError(true);
-          });
+              history.push('/');
+          }
+          console.log(data);
+      })
+      .catch((error) => {
+          setMessage('An error occurred');
+          setIsError(true);
+      });
     };
       
     return (

@@ -4,8 +4,10 @@ import '../../styles/EditArticlePage.css'
 import EditSection from '../../components/EditSection';
 import EditReferences from '../../components/EditReferences';
 import EditInfoBox from '../../components/EditInfoBox';
+import { useHistory } from 'react-router-dom';
 
 const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
+    const history = useHistory();
     const [article, setArticle] = useState({
         title: '',
         intro: '',
@@ -168,7 +170,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         if (match.params.id) {
             axios.put(`${endpoint}/articles/${match.params.articleid}`, articleData, config)
                 .then(response => {
-                    window.location.href = `/${match.params.portalid}/article/${match.params.articleid}`;
+                    history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
                 })
                 .catch(err => {
                     setError("Error updating the article.");
@@ -176,7 +178,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         } else {
             axios.post(`${endpoint}/articles/`, articleData, config)
                 .then(response => {
-                    window.location.href = `/${match.params.portalid}/article/${response.data._id}`;
+                    history.push(`/${match.params.portalid}/article/${response.data._id}`);
                 })
                 .catch(err => {
                     setError("Error creating the article.");
