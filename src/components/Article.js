@@ -1,8 +1,9 @@
 import React from 'react';
 import '../styles/Article.css';
 import InfoBox from './InfoBox';
+import { Link } from 'react-router-dom';
 
-const Article = ({ title, intro, infobox, content, references }) => {
+const Article = ({ title, intro, infobox, content, references, isAuthenticated }) => {
   return (
     <article className="article-container">
       <h1 className="article-title">{title}</h1>
@@ -20,7 +21,16 @@ const Article = ({ title, intro, infobox, content, references }) => {
         {content.map((section, index) => (
           <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
             <div className="article-section" id={`section-${index}`}>
-              <h2>{section.title}</h2>
+              <div className="section-head">
+                <h2>{section.title}</h2> 
+                {isAuthenticated && (
+                  <span>[ 
+                    <Link href={`#section-${index}`} className="edit-section-link">
+                      Edit
+                    </Link>
+                  ]</span>
+                )}
+              </div>
               <p>{section.text}</p>
             </div>
             {section.image && (

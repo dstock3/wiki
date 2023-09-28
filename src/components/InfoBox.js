@@ -6,7 +6,7 @@ const InfoBox = ({title, image, info}) => {
     <table className="infobox">
         <tbody>
             <tr>
-                <th colspan="2">
+                <th colSpan="2">
                     <div className="infobox-title">{title}</div>
                 </th>
             </tr>

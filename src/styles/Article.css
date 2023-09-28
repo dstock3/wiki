@@ -18,7 +18,22 @@
     font-size: 1.5rem;
     margin-bottom: 10px;
 }
-  
+
+.section-head {
+    display: flex;
+}
+
+.section-head span {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    margin-top: 7px;
+}
+
+.edit-section-link {
+    margin-inline: 3px;
+}
+
 .article-references {
     border-top: 1px solid #a2a9b1;
 }

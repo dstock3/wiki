@@ -86,6 +86,7 @@ const ArticlePage = ({ match, endpoint, title }) => {
                 infobox={articleData.infoBox}
                 content={articleData.content}
                 references={articleData.references}
+                isAuthenticated={isAuthenticated}
             />
         )}
       </main>
