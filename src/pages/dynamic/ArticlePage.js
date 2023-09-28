@@ -81,6 +81,7 @@ const ArticlePage = ({ match, endpoint, title }) => {
         </div>
         {articleData && (
             <Article
+                match={match}
                 title={articleData.title}
                 intro={articleData.intro}
                 infobox={articleData.infoBox}

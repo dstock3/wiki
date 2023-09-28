@@ -3,7 +3,7 @@ import '../styles/Article.css';
 import InfoBox from './InfoBox';
 import { Link } from 'react-router-dom';
 
-const Article = ({ title, intro, infobox, content, references, isAuthenticated }) => {
+const Article = ({ match, title, intro, infobox, content, references, isAuthenticated }) => {
   return (
     <article className="article-container">
       <h1 className="article-title">{title}</h1>
@@ -22,11 +22,11 @@ const Article = ({ title, intro, infobox, content, references, isAuthenticated }
           <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
             <div className="article-section" id={`section-${index}`}>
               <div className="section-head">
-                <h2>{section.title}</h2> 
+                <h2>{section.title}</h2>
                 {isAuthenticated && (
                   <span>[ 
-                    <Link href={`#section-${index}`} className="edit-section-link">
-                      Edit
+                    <Link to={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} className="edit-section-link">
+                        Edit
                     </Link>
                   ]</span>
                 )}

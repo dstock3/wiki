@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const PortalSidebar = ({articles, portalId}) => {
   return (
-    <div className="side-menu-container">
+    <div className="portal-side-menu side-menu-container">
       <h3>Articles</h3>
       <ul>
         {articles.slice(0, 10).map((article, index) => (

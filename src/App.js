@@ -22,6 +22,7 @@ import NotFoundPage from './pages/static/NotFoundPage';
 import EditUserPage from './pages/dynamic/EditUserPage';
 import EditPortalPage from './pages/dynamic/EditPortalPage';
 import PortalsPage from './pages/dynamic/PortalsPage';
+import EditSectionPage from './pages/dynamic/EditSectionPage';
 import './App.css';
 
 function App() {
@@ -102,6 +103,10 @@ function App() {
 
             <Route path="/:portalid/article/:articleid/edit" exact render={(props) => 
               <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
+            } />
+
+            <Route path="/:portalid/article/:articleid/:sectionid/edit" exact render={(props) => 
+              <EditSectionPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
             <Route path="/:portalid/article/:articleid" exact render={(props) => 
