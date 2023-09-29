@@ -4,7 +4,7 @@ import TalkPageSidebar from '../../components/TalkPageSidebar';
 import '../../styles/TalkPage.css';
 import axios from 'axios';
 
-const TalkPage = ({ match, title, endpoint }) => {
+const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [discussions, setDiscussions] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,8 @@ const TalkPage = ({ match, title, endpoint }) => {
       content: commentContent,
       date: new Date().toISOString().split('T')[0] // YYYY-MM-DD format
     };
-
+    
+    //need to add csrfToken to the header
     axios.post(`${endpoint}/talkpage/${match.params.articleId}/topic/${topicId}/comment`, newComment)
       .then(response => {
         const updatedDiscussions = [...discussions];

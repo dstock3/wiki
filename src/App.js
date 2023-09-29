@@ -99,7 +99,7 @@ function App() {
             } />
 
             <Route path="/:portalid/article/:articleid/talk" exact render={(props) => 
-              <TalkPage {...props} title={TITLE} endpoint={ENDPOINT} />
+              <TalkPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
             <Route path="/:portalid/article/:articleid/talk/create" exact render={(props) => 
