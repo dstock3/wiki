@@ -58,6 +58,10 @@ const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
             console.error("Error deleting section", error);
         });
     };
+
+    const handleCancel = () => {
+        history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
+    }
     
     if (loading) return <div className="edit-section-page">Loading...</div>;
     if (error) return <div className="edit-section-page">Error: {error}</div>;
@@ -86,7 +90,7 @@ const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
                     />
                 </div>
                 <div className="edit-section-btn-container">
-                    <button className="cancel-btn" >Cancel</button>
+                    <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
                     <button className="save-btn" onClick={handleSave}>Save</button>
                 </div>
             </div>

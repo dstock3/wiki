@@ -32,7 +32,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
     return (
         <div className="create-topic-page">
             <form onSubmit={handleSubmit}>
-                <div className="input-group">
+                <div className="topic-group">
                     <label htmlFor="topic-title">Topic Title:</label>
                     <input 
                         type="text" 
@@ -41,7 +41,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
                         onChange={(e) => setTopicTitle(e.target.value)}
                     />
                 </div>
-                <div className="input-group">
+                <div className="topic-group">
                     <label htmlFor="initial-post">Initial Post:</label>
                     <textarea 
                         id="initial-post" 
