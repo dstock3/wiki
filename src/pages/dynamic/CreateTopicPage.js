@@ -49,7 +49,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
                         onChange={(e) => setContent(e.target.value)}
                     ></textarea>
                 </div>
-                <button type="submit">Create Topic</button>
+                <button className="create-topic-button" type="submit">Create Topic</button>
             </form>
         </div>
     );
