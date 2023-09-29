@@ -17,7 +17,7 @@
     flex-direction: column;
 }
 
-.edit-section-container textarea {
+.edit-section-page textarea {
     width: 100%;
     min-height: 25vh;
     border: none;
