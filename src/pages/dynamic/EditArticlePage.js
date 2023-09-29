@@ -167,7 +167,8 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
             }
         };
         
-        if (match.params.id) {
+        if (match.params.articleid) {
+            console.log("Updating article...");
             axios.put(`${endpoint}/articles/${match.params.articleid}`, articleData, config)
                 .then(response => {
                     history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
@@ -176,6 +177,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                     setError("Error updating the article.");
                 });
         } else {
+            console.log("Posting article...");
             axios.post(`${endpoint}/articles/`, articleData, config)
                 .then(response => {
                     history.push(`/${match.params.portalid}/article/${response.data._id}`);
