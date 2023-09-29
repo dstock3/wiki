@@ -23,6 +23,7 @@ import EditUserPage from './pages/dynamic/EditUserPage';
 import EditPortalPage from './pages/dynamic/EditPortalPage';
 import PortalsPage from './pages/dynamic/PortalsPage';
 import EditSectionPage from './pages/dynamic/EditSectionPage';
+import CreateTopicPage from './pages/dynamic/CreateTopicPage';
 import './App.css';
 
 function App() {
@@ -99,6 +100,10 @@ function App() {
 
             <Route path="/:portalid/article/:articleid/talk" exact render={(props) => 
               <TalkPage {...props} title={TITLE} endpoint={ENDPOINT} />
+            } />
+
+            <Route path="/:portalid/article/:articleid/talk/create" exact render={(props) => 
+              <CreateTopicPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
             <Route path="/:portalid/article/:articleid/edit" exact render={(props) => 

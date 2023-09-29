@@ -66,7 +66,14 @@ const TalkPage = ({ match, title, endpoint }) => {
             </Link>
           </div>
         </div>
-        <h1>Talk: {match.params.articleId}</h1>
+        <div className="talk-head-container">
+          <h1>Talk: {match.params.articleId}</h1>
+          {isAuthenticated && (
+            <Link  to={`/${match.params.portalid}/article/${match.params.articleid}/talk/create`} className="create-topic">Create New Topic</Link>
+          )}
+        </div>
+
+        {!discussions.length && <div className="discussion-message">No discussions yet.</div>}
         <ul>
           {discussions.map((discussion, index) => (
             <>

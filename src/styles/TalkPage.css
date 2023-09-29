@@ -4,6 +4,20 @@
     line-height: 1.6;
     width: 100%;
 }
+
+.talk-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.talk-head-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
   
 .talk-container h1 {
     font-size: 1.5rem;
@@ -49,5 +63,27 @@
     padding: 10px 10px;
     margin-block: 10px;
     align-self: flex-end;
+}
+
+.discussion-message {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    padding-inline: 15px;
+    margin-bottom: 15px;
+}
+
+.create-topic-button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    width: 100px;
+}
+.create-topic-button:hover {
+    background-color: #0056b3;
 }
   
