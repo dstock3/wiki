@@ -7,6 +7,7 @@ const PortalsPage = ({ endpoint, title }) => {
     const [portals, setPortals] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         document.title = `${title} | Portals`;
@@ -14,6 +15,8 @@ const PortalsPage = ({ endpoint, title }) => {
             .then(response => {
                 setPortals(response.data);
                 setLoading(false);
+                //authentication check 
+                setIsAuthenticated(true);
             })
             .catch(err => {
                 setError(err.message);
@@ -27,6 +30,15 @@ const PortalsPage = ({ endpoint, title }) => {
     return (
         <div className="portals-page">
             <h1>Portals</h1>
+            <div className="create-portal-link-container">
+                {isAuthenticated && <Link className="create-portal-link" to="/create-portal">Create Portal</Link>}
+            </div>
+            <div className="portals-desc">
+                <h2>What are portals?</h2>
+                <p>Portals are created by users like you. They are a way to share your favorite resources with the world. You can create a portal by clicking the "Create Portal" link. You can also edit or delete your portals by clicking the edit button on the portal page.</p>
+            </div>
+            
+
             <div className="portals-container">
                 {portals && portals.map((portal) => (
                     <div className="portal-card" key={portal._id}>
