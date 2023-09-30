@@ -168,22 +168,30 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         };
         
         if (match.params.articleid) {
-            console.log("Updating article...");
             axios.put(`${endpoint}/articles/${match.params.articleid}`, articleData, config)
                 .then(response => {
                     history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
                 })
                 .catch(err => {
-                    setError("Error updating the article.");
+                    if (err.response && err.response.status === 400 && err.response.data.errors) {
+                        const validationErrors = err.response.data.errors.map(error => error.msg).join(', ');
+                        setError(`Validation Error: ${validationErrors}`);
+                    } else {
+                        setError("Error updating the article.");
+                    }
                 });
         } else {
-            console.log("Posting article...");
             axios.post(`${endpoint}/articles/`, articleData, config)
                 .then(response => {
                     history.push(`/${match.params.portalid}/article/${response.data._id}`);
                 })
                 .catch(err => {
-                    setError("Error creating the article.");
+                    if (err.response && err.response.status === 400 && err.response.data.errors) {
+                        const validationErrors = err.response.data.errors.map(error => error.msg).join(', ');
+                        setError(`Validation Error: ${validationErrors}`);
+                    } else {
+                        setError("Error updating the article.");
+                    }
                 });
         }
     };
