@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 import '../../styles/ArticlePage.css'; 
 import ArticleSidebar from '../../components/ArticleSidebar';
 import axios from 'axios'; 
+import { useHistory } from 'react-router-dom';
 
-const ArticlePage = ({ match, endpoint, title }) => {
+const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   const [articleData, setArticleData] = useState(null);
   const [showButton, setShowButton] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +52,20 @@ const ArticlePage = ({ match, endpoint, title }) => {
     setIsAuthenticated(true);
   }, [match.params.articleid]);
 
+  const articleDeleteHandler = () => {
+    axios.delete(`${endpoint}/articles/${match.params.articleid}`, {
+      headers: {
+        'csrf-token': csrfToken
+      }
+    })
+    .then(response => {
+      history.push(`/${match.params.portalid}`);
+    })
+    .catch(error => {
+      setError(error);
+    });
+  };
+
   if (loading) return <div className="article-page">Loading...</div>;
   if (error) return <div className="article-page">Error: {error}</div>;
 
@@ -73,9 +89,12 @@ const ArticlePage = ({ match, endpoint, title }) => {
           </div>
           <div className="article-edit-container">
             {isAuthenticated && (
-              <Link to={`/${match.params.portalid}/article/${match.params.articleid}/edit`}>
-                Edit
-              </Link>
+              <>
+                <Link to={`/${match.params.portalid}/article/${match.params.articleid}/edit`}>
+                  Edit
+                </Link>
+                <button className="article-delete-button" onClick={articleDeleteHandler}>Delete</button>
+              </>
             )}
           </div>
         </div>
