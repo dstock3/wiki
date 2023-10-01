@@ -6,6 +6,8 @@ import EditReferences from '../../components/EditReferences';
 import EditInfoBox from '../../components/EditInfoBox';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import useArticleLinkEmbedder from '../../hooks/useArticleLinkEmbedder'
+import LinkModal from '../../components/LinkModal'
 
 const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const history = useHistory();
@@ -24,7 +26,37 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const [uploadProgress, setUploadProgress] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+    const [currentSectionIndex, setCurrentSectionIndex] = useState(null);
+    const {
+        isModalOpen,
+        articles,
+        handleRightClick,
+        handleModalClose,
+        handleModalConfirm: handleLinkEmbed
+    } = useArticleLinkEmbedder(endpoint, match.params.portalid);
+
+    const modifiedHandleRightClick = (e, sectionIndex) => {
+        if (sectionIndex !== undefined) {
+            setCurrentSectionIndex(sectionIndex);
+        } else {
+            setCurrentSectionIndex(null);
+        }
+        handleRightClick(e);
+    };
+
+    const handleModalConfirm = (articleID) => {
+        const {linkSyntax, selectedWord} = handleLinkEmbed(articleID);
+        
+        if (currentSectionIndex === null) {
+            const updatedIntro = article.intro.replace(selectedWord, linkSyntax);
+            setArticle(prevState => ({ ...prevState, intro: updatedIntro }));
+        } else {
+            const sectionsCopy = [...article.content];
+            sectionsCopy[currentSectionIndex].text = sectionsCopy[currentSectionIndex].text.replace(selectedWord, linkSyntax);
+            setArticle(prevState => ({ ...prevState, content: sectionsCopy }));
+        }
+    };
+
     useEffect(() => {
         document.title = `${title} | Edit Article`;
     }, [title]);
@@ -222,6 +254,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                         value={article.intro}
                         className="introduction-input"
                         onChange={handleInputChange}
+                        onContextMenu={handleRightClick}
                     />
                 </div>
 
@@ -233,6 +266,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                             section={section} 
                             handleSectionChange={handleContentChange}
                             handleSectionDelete={handleSectionDelete}
+                            handleRightClick={modifiedHandleRightClick}
                         />
                     ))}
                     <button className="add-section-button" onClick={addSection}>+</button>
@@ -261,6 +295,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                 <button className="edit-article-button" type="submit">Save Changes</button>
             </form>
             )}
+        <LinkModal isOpen={isModalOpen} articles={articles} onClose={handleModalClose} onConfirm={handleModalConfirm} />
         </div>
     );
 };

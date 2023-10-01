@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditSection = ({index, section, handleSectionChange, handleSectionDelete }) => {
+const EditSection = ({index, section, handleSectionChange, handleSectionDelete, handleRightClick }) => {
   return (
     <div key={index} className="section-content">
         <div className="section-subcontainer">
@@ -20,7 +20,8 @@ const EditSection = ({index, section, handleSectionChange, handleSectionDelete }
             <textarea 
                 placeholder="Section Content" 
                 value={section.text}
-                onChange={(e) => handleSectionChange(index, 'text', e.target.value)} 
+                onChange={(e) => handleSectionChange(index, 'text', e.target.value)}
+                onContextMenu={(e) => handleRightClick(e, index)}
             />
         </div>
     </div>
