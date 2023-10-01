@@ -23,6 +23,10 @@
     border: none;
 }
 
+.edit-section-container {
+    margin-block: 25px;
+}
+
 .edit-section-btn-container {
     display: flex;
     justify-content: flex-end;
@@ -42,3 +46,4 @@
     margin-left: 10px;
     margin-bottom: 15px;
 }
+

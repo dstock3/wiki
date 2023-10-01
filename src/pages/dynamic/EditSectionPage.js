@@ -62,6 +62,21 @@ const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
     const handleCancel = () => {
         history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
     }
+
+    const handleImageUpload = e => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setSection(prevData => ({
+                    ...prevData,
+                    sectionImage: reader.result,
+                    sectionImageFile: file
+                }));
+            }
+            reader.readAsDataURL(file);
+        }
+    }
     
     if (loading) return <div className="edit-section-page">Loading...</div>;
     if (error) return <div className="edit-section-page">Error: {error}</div>;
@@ -80,6 +95,14 @@ const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
                         />
                     </div>
                     <button className="delete-btn delete-section" onClick={handleDelete}>Delete Section</button>
+                </div>
+                <div className="img-upload-container">
+                        <label className="portal-main-label">Upload Image:</label>
+                        <input 
+                            type="file" 
+                            name="portalImageFile" 
+                            onChange={handleImageUpload}
+                        />
                 </div>
                 <div className="edit-section-container">
                     <label>Section Content:</label>

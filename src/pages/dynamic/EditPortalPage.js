@@ -135,7 +135,7 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
               <input 
                 type="text" 
                 name="portalTitle" 
-                value={portalData.portalTitle} 
+                value={portalData.portalTitle}
                 onChange={handleChange}
                 required
               />

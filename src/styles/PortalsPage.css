@@ -4,7 +4,8 @@
 }
 
 .portals-desc {
-    margin: 3%;
+    margin-inline: 25px;
+    margin-bottom: 3%;
 }
 
 .create-portal-link-container {
