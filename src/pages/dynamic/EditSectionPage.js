@@ -3,12 +3,27 @@ import '../../styles/EditSectionPage.css'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import Loading from '../../components/Loading'
+import useArticleLinkEmbedder from '../../hooks/useArticleLinkEmbedder'
+import LinkModal from '../../components/LinkModal'
 
 const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
     const [section, setSection] = useState({title: '', text: ''})
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const history = useHistory();
+    const {
+        isModalOpen,
+        articles,
+        handleRightClick,
+        handleModalClose,
+        handleModalConfirm: handleLinkEmbed
+    } = useArticleLinkEmbedder(endpoint, match.params.portalid);
+    
+    const handleModalConfirm = (articleID) => {
+        const {linkSyntax, selectedWord} = handleLinkEmbed(articleID);
+        const updatedContent = section.text.replace(selectedWord, linkSyntax);
+        setSection(prevState => ({ ...prevState, text: updatedContent }));
+    };
     
     const handleInputChange = (e, field) => {
         setSection(prevState => ({ ...prevState, [field]: e.target.value }));
@@ -32,11 +47,13 @@ const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
     }, [match.params.sectionid])
 
     const handleSave = () => {
-        axios.put(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, section, {
+        const config = {
+            withCredentials: true,
             headers: {
                 'csrf-token': csrfToken
             }
-        })
+        }
+        axios.put(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, section, config)
         .then(response => {
             history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
         })
@@ -112,8 +129,10 @@ const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
                     <textarea 
                         placeholder="Section Content" 
                         value={section.text}
+                        onContextMenu={handleRightClick}
                         onChange={e => handleInputChange(e, 'text')}
                     />
+                    <LinkModal isOpen={isModalOpen} articles={articles} onClose={handleModalClose} onConfirm={handleModalConfirm} />
                 </div>
                 <div className="edit-section-btn-container">
                     <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
