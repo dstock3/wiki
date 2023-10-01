@@ -53,11 +53,13 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   }, [match.params.articleid]);
 
   const articleDeleteHandler = () => {
-    axios.delete(`${endpoint}/articles/${match.params.articleid}`, {
+    const config = {
+      withCredentials: true,
       headers: {
-        'csrf-token': csrfToken
+          'csrf-token': csrfToken
       }
-    })
+    };
+    axios.delete(`${endpoint}/articles/${match.params.articleid}`, config)
     .then(response => {
       history.push(`/${match.params.portalid}`);
     })
