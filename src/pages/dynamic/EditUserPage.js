@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/EditUserPage.css';
 import axios from 'axios';
+import Loading from '../../components/Loading';
 
 const EditUserPage = ({ match, location, endpoint, title, csrfToken }) => {
   const [userData, setUserData] = useState({
@@ -8,6 +9,7 @@ const EditUserPage = ({ match, location, endpoint, title, csrfToken }) => {
     bio: ''
   });
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const isCreatePage = location.pathname.includes('/user/create');
 
@@ -20,6 +22,7 @@ const EditUserPage = ({ match, location, endpoint, title, csrfToken }) => {
         email: 'johndoe@example.com',
         bio: 'A passionate writer and nature enthusiast.'
       };
+      setLoading(false);
       setUserData(fetchedUserData);
     }
   }, [title, match.params.username, location.pathname, isCreatePage]);
@@ -57,6 +60,9 @@ const EditUserPage = ({ match, location, endpoint, title, csrfToken }) => {
   };
 
   if (error) return <div className="edit-user-page">Error: {error}</div>;
+  if (loading) return <div className="edit-user-page">
+    <Loading loading={loading} />
+  </div>;
 
   return (
     <div className="edit-user-page">

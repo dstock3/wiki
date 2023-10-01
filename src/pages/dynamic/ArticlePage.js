@@ -5,6 +5,7 @@ import '../../styles/ArticlePage.css';
 import ArticleSidebar from '../../components/ArticleSidebar';
 import axios from 'axios'; 
 import { useHistory } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   const [articleData, setArticleData] = useState(null);
@@ -68,7 +69,10 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
     });
   };
 
-  if (loading) return <div className="article-page">Loading...</div>;
+  if (loading) return <div className="article-page">
+    <Loading loading={loading} />
+  </div>;
+
   if (error) return <div className="article-page">Error: {error}</div>;
 
   return (

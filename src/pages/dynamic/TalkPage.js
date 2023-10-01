@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import TalkPageSidebar from '../../components/TalkPageSidebar';
 import '../../styles/TalkPage.css';
 import axios from 'axios';
+import Loading from '../../components/Loading';
 
 const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [discussions, setDiscussions] = useState([]);
@@ -50,7 +51,9 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
       });
   };
 
-  if (loading) return <div className="talk-page">Loading...</div>;
+  if (loading) return <div className="talk-page">
+    <Loading loading={loading} />
+  </div>;
   if (error) return <div className="talk-page">Error: {error}</div>;
 
   return (

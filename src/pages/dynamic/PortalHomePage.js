@@ -3,6 +3,7 @@ import '../../styles/PortalHomePage.css';
 import PortalSidebar from '../../components/PortalSidebar';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios'; 
+import Loading from '../../components/Loading';
 
 const PortalHomePage = ({ match, endpoint, title }) => {
   const [portalData, setPortalData] = useState(null);
@@ -30,7 +31,9 @@ const PortalHomePage = ({ match, endpoint, title }) => {
     setAuth(true);
   }, [match.params.portalid]);
 
-  if (loading) return <div className="portal-home-page">Loading...</div>;
+  if (loading) return <div className="portal-home-page">
+    <Loading loading={loading} />
+  </div>;
   if (error) return <div className="portal-home-page">Error: {error}</div>;
 
   return (

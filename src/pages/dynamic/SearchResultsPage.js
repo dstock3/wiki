@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/SearchResultsPage.css';
+import Loading from '../../components/Loading';
 
 const SearchResultsPage = ({ match, endpoint, title }) => {
   const [searchResults, setSearchResults] = useState([]);
@@ -39,7 +40,9 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
     }
   }
 
-  if (loading) return <div className="search-results-page">Loading...</div>;
+  if (loading) return <div className="search-results-page">
+    <Loading loading={loading} />
+  </div>;
   if (error) return <div className="search-results-page">Error: {error.message}</div>;
 
   return (

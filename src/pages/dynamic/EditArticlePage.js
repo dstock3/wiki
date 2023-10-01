@@ -5,6 +5,7 @@ import EditSection from '../../components/EditSection';
 import EditReferences from '../../components/EditReferences';
 import EditInfoBox from '../../components/EditInfoBox';
 import { useHistory } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const history = useHistory();
@@ -200,7 +201,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         <div className="edit-article-page">
             {error && <p className="error-message">{error}</p>}
             {loading ? (
-            <p>Loading...</p>
+                <Loading loading={loading} />
             ) : (
             <form className="edit-article-container" id="articleForm" onSubmit={handleSubmit}>
                 <div className="main-form-group">

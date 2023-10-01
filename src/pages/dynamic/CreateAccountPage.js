@@ -21,38 +21,38 @@ const CreateAccountPage = ({endpoint, title}) => {
         setFormData(prevState => ({ ...prevState, [name]: value }));
     };
 
-const handleSubmit = (event) => {
-  event.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-  if (formData.password !== formData.confirmPassword) {
-    setMessage('Passwords do not match');
-    setIsError(true);
-    return;
-  }
+        if (formData.password !== formData.confirmPassword) {
+            setMessage('Passwords do not match');
+            setIsError(true);
+            return;
+        }
 
-  fetch(`${endpoint}/users`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.error) {
-        setMessage(data.error);
-        setIsError(true);
-      } else {
-        setMessage('User created successfully');
-        setIsError(false);
-        window.location.href = '/login';
-      }
-    })
-    .catch((error) => {
-      setMessage('An error occurred');
-      setIsError(true);
-    });
-};
+        fetch(`${endpoint}/users`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            if (data.error) {
+                setMessage(data.error);
+                setIsError(true);
+            } else {
+                setMessage('User created successfully');
+                setIsError(false);
+                window.location.href = '/login';
+            }
+            })
+            .catch((error) => {
+            setMessage('An error occurred');
+            setIsError(true);
+        });
+    };
 
     return (
         <div className="create-account-page">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/UserProfilePage.css'
 import axios from 'axios';
+import Loading from '../../components/Loading';
 
 const UserProfilePage = ({ match, endpoint, title }) => {
   const [userData, setUserData] = useState(null);
@@ -16,7 +17,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
     axios.get(`${endpoint}/users/username/${match.params.username}`)
       .then(response => {
         setUserData(response.data);
-        setLoading(false);
+        setLoading(true);
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error.message);
@@ -27,7 +28,9 @@ const UserProfilePage = ({ match, endpoint, title }) => {
     //setIsUser(true);
   }, [match.params.username, endpoint]);
 
-  if (loading) return <div className="user-profile-page">Loading...</div>;
+  if (loading) return <div className="user-profile-page">
+    <Loading loading={loading} />
+  </div>;
   if (error) return <div className="user-profile-page">Error: {error}</div>;
 
   return (

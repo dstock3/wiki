@@ -34,7 +34,7 @@ a:hover {
     flex: 1;
 }
 
-.home-page, .article-page, .about-page, .contact-page, .talk-page, .tos-page, .disclaimer-page, .privacy-page, .contribute-page, .donate-page, .search-results-page, .edit-article-page, .user-profile-page, .edit-user-page, .portal-home-page, .edit-portal-page, .portals-page, .edit-section-page, .create-topic-page {
+.home-page, .article-page, .about-page, .contact-page, .talk-page, .tos-page, .disclaimer-page, .privacy-page, .contribute-page, .donate-page, .search-results-page, .edit-article-page, .user-profile-page, .edit-user-page, .portal-home-page, .edit-portal-page, .portals-page, .edit-section-page, .create-topic-page, .not-found-container {
     min-height: 70vh;
 }
 
@@ -63,4 +63,24 @@ a:hover {
   
 #back-to-top:hover {
     background-color: #555; 
+}
+
+
+.loading-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+}
+
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.not-found-container > :nth-child(1) {
+    margin-top: 5%;
 }

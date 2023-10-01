@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/EditPortalPage.css';
+import Loading from '../../components/Loading';
 
 const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const [portalData, setPortalData] = useState({
@@ -120,7 +121,9 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
     }
   };
 
-  if (loading) return <div className="edit-portal-page">Loading...</div>;
+  if (loading) return <div className="edit-portal-page">
+    <Loading loading={loading} />
+  </div>;
 
   return (
     <div className="edit-portal-page">

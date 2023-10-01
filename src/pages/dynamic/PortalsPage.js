@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/PortalsPage.css";
 import { Link } from 'react-router-dom';
+import Loading from "../../components/Loading";
 
 const PortalsPage = ({ endpoint, title }) => {
     const [portals, setPortals] = useState(null);
@@ -24,7 +25,9 @@ const PortalsPage = ({ endpoint, title }) => {
             });
     }, [title, endpoint]);
 
-    if (loading) return <div className="portals-page">Loading...</div>;
+    if (loading) return <div className="portals-page">
+        <Loading loading={loading} />
+    </div>;
     if (error) return <div className="portals-page">Error: {error}</div>;
 
     return (

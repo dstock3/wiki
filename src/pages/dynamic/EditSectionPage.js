@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import '../../styles/EditSectionPage.css'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import Loading from '../../components/Loading'
 
 const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
     const [section, setSection] = useState({title: '', text: ''})
@@ -78,7 +79,9 @@ const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
         }
     }
     
-    if (loading) return <div className="edit-section-page">Loading...</div>;
+    if (loading) return <div className="edit-section-page">
+        <Loading loading={loading} />
+    </div>;
     if (error) return <div className="edit-section-page">Error: {error}</div>;
 
     return (
