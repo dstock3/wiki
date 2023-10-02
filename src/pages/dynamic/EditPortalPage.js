@@ -106,7 +106,10 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
         try {
             const response = await fetch(`${endpoint}/portals/${match.params.portalid}`, {
                 method: 'DELETE',
-                credentials: 'include'
+                credentials: 'include',
+                headers: {
+                    'csrf-token': csrfToken
+                }
             });
 
             if (response.ok) {
