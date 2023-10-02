@@ -122,21 +122,21 @@ function App() {
               <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
             
-            <Route path="/:portalid" exact render={(props) => 
-              <PortalHomePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
-            } />
+            <Route path="/user/create" render={(props) => 
+              <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} />}
+            />
             
             <Route path="/user/:username" exact render={(props) =>
               <UserProfilePage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
             
-            <Route path="/user/create" render={(props) => 
-              <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} />}
-            />
-            
             <Route path="/user/:username/edit" render={(props) =>
               <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />}
             />
+
+            <Route path="/:portalid" exact render={(props) => 
+              <PortalHomePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
+            } />
             
             <Route render={(props) => <NotFoundPage title={TITLE} />} />
           </Switch>

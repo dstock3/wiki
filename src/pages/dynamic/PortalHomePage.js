@@ -10,7 +10,8 @@ const PortalHomePage = ({ match, endpoint, title }) => {
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  
+  console.log(title)
   useEffect(() => {
     document.title = `${title} | Portal Home`;
   }, [title]);
@@ -30,6 +31,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
     // need more logic here to check actual authentication
     setAuth(true);
   }, [match.params.portalid]);
+  
 
   if (loading) return <div className="portal-home-page">
     <Loading loading={loading} />
@@ -58,11 +60,13 @@ const PortalHomePage = ({ match, endpoint, title }) => {
                 <img src={portalData.portalImage.src} alt={portalData.portalImage.alt} />
               </div>
             </div>
+            {/*
             <div className="featured-article">
               <h2>Featured Article: {portalData.featuredArticle.title}</h2>
               <p>{portalData.featuredArticle.summary}</p>
               <Link to={`/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
             </div>
+            */}
             
             <div className="recent-updates">
               <h3>Recent Updates</h3>
