@@ -34,15 +34,15 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const handleImageUpload = e => {
     const file = e.target.files[0];
     if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setPortalData(prevData => ({
-                ...prevData,
-                portalImage: reader.result,
-                portalImageFile: file
-            }));
-        }
-        reader.readAsDataURL(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPortalData(prevData => ({
+          ...prevData,
+          portalImage: { src: reader.result, alt: "" },
+          portalImageFile: file
+        }));
+      }
+      reader.readAsDataURL(file);
     }
   };
 
@@ -54,22 +54,12 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const portalPayload = {
-      portalTitle: portalData.portalTitle,
-      portalDescription: portalData.portalDescription,
-      portalImage: {
-        src: portalData.portalImage.src,
-        alt: portalData.portalImage.alt
-      }
-    };
-  
     let formData = new FormData();
-    formData.append('portalData', JSON.stringify(portalPayload));
-    
-    if (portalData.portalImageFile) {
-      formData.append('image', portalData.portalImageFile);
-    }
-  
+    formData.append('portalTitle', portalData.portalTitle);
+    formData.append('portalDescription', portalData.portalDescription);
+    formData.append('portalImage[src]', portalData.portalImage.src || "");
+    formData.append('portalImage[alt]', portalData.portalImage.alt || "");
+
     try {
       let response;
       const requestOptions = {
