@@ -11,7 +11,6 @@ const PortalHomePage = ({ match, endpoint, title }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  console.log(title)
   useEffect(() => {
     document.title = `${title} | Portal Home`;
   }, [title]);

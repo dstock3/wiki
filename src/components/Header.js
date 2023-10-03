@@ -4,11 +4,15 @@ import '../styles/Header.css';
 import SearchBar from './SearchBar';
 import axios from 'axios';
 
-const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username }) => {
+const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) => {
+
   const handleLogout = () => {
     axios.post(`${endpoint}/users/logout`, {}, { withCredentials: true })
       .then(response => {
         setIsLoggedIn(false);
+        setUsername("");
+        window.location.href = "/";
+
       })
       .catch(error => {
         console.error("Error during logout:", error);
@@ -33,12 +37,13 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username }) => {
 
         {isLoggedIn ? (
           <>
-            <button onClick={handleLogout} className="logout-button">
-              <div className="logout-link">Logout</div>
-            </button>
             <Link to={`/user/${username}/edit`}>
               <div className="account-link">Account</div>
             </Link>
+            <button onClick={handleLogout} className="logout-button">
+              <div className="logout-link">Logout</div>
+            </button>
+
           </>
         ) : (
           <>

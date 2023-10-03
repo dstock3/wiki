@@ -11,21 +11,20 @@ const EditUserPage = ({ match, location, endpoint, title, csrfToken }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const isCreatePage = location.pathname.includes('/user/create');
-
   useEffect(() => {
-    document.title = `${title} | ${isCreatePage ? 'Create User' : 'Edit ' + match.params.username}`;
+    document.title = `${title} | Edit User`;
 
-    if (!isCreatePage) {
-        // fetch user data from backend
-      const fetchedUserData = {
-        email: 'johndoe@example.com',
-        bio: 'A passionate writer and nature enthusiast.'
-      };
-      setLoading(false);
-      setUserData(fetchedUserData);
-    }
-  }, [title, match.params.username, location.pathname, isCreatePage]);
+    axios.get(`${endpoint}/users/username/${match.params.username}`)
+      .then(response => {
+        setUserData(response.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err.message);
+        setLoading(false);
+      });
+
+  }, [title, match.params.username, endpoint]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -38,18 +37,12 @@ const EditUserPage = ({ match, location, endpoint, title, csrfToken }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
   
-    const url = isCreatePage 
-      ? `/${endpoint}/users/`  
-      : `/${endpoint}/users/${match.params.userId}`;
-  
-    const method = isCreatePage ? 'post' : 'put';
-  
     const config = {
       withCredentials: true,
       headers: { 'csrf-token': csrfToken }
     }
   
-    axios[method](url, userData, config)
+    axios.put(`/${endpoint}/users/${match.params.userId}`, userData, config)
       .then(response => {
         console.log("Response:", response.data);
       })

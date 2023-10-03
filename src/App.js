@@ -38,7 +38,7 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Header endpoint={ENDPOINT} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} />
+        <Header endpoint={ENDPOINT} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} />
         <div className="app-container">
           <Switch>
             <Route path="/" exact render={(props) =>

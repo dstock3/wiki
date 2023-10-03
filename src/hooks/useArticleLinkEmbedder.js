@@ -7,7 +7,6 @@ function useArticleLinkEmbedder(endpoint, portalId) {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        console.log(portalId)
         if (isModalOpen) {
             axios.get(`${endpoint}/portals/${portalId}/articles`)
                 .then((res) => {
