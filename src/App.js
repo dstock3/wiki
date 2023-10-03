@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -31,15 +31,12 @@ function App() {
   const ENDPOINT= 'http://localhost:5000';
   const TITLE = 'WikiWise';
   const CONTACT = 'support@wikiwise.com'
-
-  useEffect(() => {
-    console.log(csrfToken)
-  }, [csrfToken]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <Router>
       <div className="app">
-        <Header />
+        <Header endpoint={ENDPOINT} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <div className="app-container">
           <Switch>
             <Route path="/" exact render={(props) =>
@@ -79,11 +76,11 @@ function App() {
             } />
             
             <Route path="/login" exact render={(props) =>
-              <LoginPage title={TITLE} endpoint={ENDPOINT} setCsrfToken={setCsrfToken} />
+              <LoginPage title={TITLE} endpoint={ENDPOINT} setCsrfToken={setCsrfToken} setLoggedIn={setIsLoggedIn} />
             } />
-            
+
             <Route path="/create-portal" exact render={(props) =>
-              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT}csrfToken={csrfToken} />
+              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
             <Route path="/portals" exact render={(props) => 

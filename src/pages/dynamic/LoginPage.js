@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/LoginPage.css';
 import { useHistory } from 'react-router-dom';
 
-const LoginPage = ({ endpoint, title, setCsrfToken }) => {
+const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn }) => {
     const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,11 +15,11 @@ const LoginPage = ({ endpoint, title, setCsrfToken }) => {
 
     const getCsrfToken = async () => {
       try {
-          const response = await fetch(`${endpoint}/users/get-csrf-token`, { credentials: 'include' });
-          const data = await response.json();
-          setCsrfToken(data.csrfToken);
+        const response = await fetch(`${endpoint}/users/get-csrf-token`, { credentials: 'include' });
+        const data = await response.json();
+        setCsrfToken(data.csrfToken);
       } catch (error) {
-          console.error("Error fetching CSRF token:", error);
+        console.error("Error fetching CSRF token:", error);
       }
     };
 
@@ -40,13 +40,14 @@ const LoginPage = ({ endpoint, title, setCsrfToken }) => {
       .then((response) => response.json())
       .then((data) => {
           if (data.error) {
-              setMessage(data.error);
-              setIsError(true);
+            setMessage(data.error);
+            setIsError(true);
           } else {
-              setMessage('Logged in successfully');
-              getCsrfToken();
-              setIsError(false);
-              history.push('/');
+            setMessage('Logged in successfully');
+            getCsrfToken();
+            setIsLoggedIn(true);
+            setIsError(false);
+            history.push('/');
           }
           console.log(data);
       })

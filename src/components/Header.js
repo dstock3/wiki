@@ -2,28 +2,40 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import SearchBar from './SearchBar';
+import axios from 'axios';
 
-const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Header = ({ endpoint, isLoggedIn, setIsLoggedIn }) => {
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    //check to see if user is logged in
-    //if logged in, update state to reflect that
-    //setIsLoggedIn(true);
+    axios.get(`${endpoint}/users/status`, { withCredentials: true })
+      .then(response => {
+        if (response.data.isAuthenticated) {
+          setIsLoggedIn(true);
+          setUsername(response.data.username);
+        } else {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch(error => {
+        setIsLoggedIn(false);
+        console.error("Error fetching user status:", error);
+      });
   }, []);
 
   const handleLogout = () => {
-    //handle logout here
-    setIsLoggedIn(false);
+    axios.post(`${endpoint}/users/logout`, {}, { withCredentials: true })
+      .then(response => {
+        setIsLoggedIn(false);
+      })
+      .catch(error => {
+        console.error("Error during logout:", error);
+      });
   }
 
   return (
     <div className="header-container">
       <div className="header-subcontainer">
-        <div className="header-menu">
-          {/* menu icon here */}
-          Menu
-        </div>
         <div className="header-logo">
           <Link to="/">
             {/* logo here */}
@@ -36,17 +48,25 @@ const Header = () => {
       </div>
 
       <div className="header-auth">
-        <Link to="/create-account">
-          <div className="create-account-link">Create Account</div>
-        </Link>
+
         {isLoggedIn ? (
-          <a href="/" onClick={handleLogout}>
-            <div className="logout-link">Logout</div>
-          </a>
+          <>
+            <button onClick={handleLogout} className="logout-button">
+              <div className="logout-link">Logout</div>
+            </button>
+            <Link to={`/user/${username}/edit`}>
+              <div className="account-link">Account</div>
+            </Link>
+          </>
         ) : (
-          <Link to="/login">
-            <div className="login-link">Login</div>
-          </Link>
+          <>
+            <Link to="/create-account">
+              <div className="create-account-link">Create Account</div>
+            </Link>
+            <Link to="/login">
+              <div className="login-link">Login</div>
+            </Link>
+          </>
         )}
       </div>
     </div>

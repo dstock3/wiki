@@ -4,12 +4,12 @@ body {
     background-color: #f1f1f1;
 }
 
-a {
+a, .logout-button {
     color: #0366d6;
     text-decoration: none;
 }
 
-a:hover {
+a:hover, .logout-button:hover {
     text-decoration: underline;
 }
 
