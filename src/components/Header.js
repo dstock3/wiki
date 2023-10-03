@@ -1,28 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import SearchBar from './SearchBar';
 import axios from 'axios';
 
-const Header = ({ endpoint, isLoggedIn, setIsLoggedIn }) => {
-  const [username, setUsername] = useState("");
-
-  useEffect(() => {
-    axios.get(`${endpoint}/users/status`, { withCredentials: true })
-      .then(response => {
-        if (response.data.isAuthenticated) {
-          setIsLoggedIn(true);
-          setUsername(response.data.username);
-        } else {
-          setIsLoggedIn(false);
-        }
-      })
-      .catch(error => {
-        setIsLoggedIn(false);
-        console.error("Error fetching user status:", error);
-      });
-  }, []);
-
+const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username }) => {
   const handleLogout = () => {
     axios.post(`${endpoint}/users/logout`, {}, { withCredentials: true })
       .then(response => {

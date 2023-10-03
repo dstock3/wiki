@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/LoginPage.css';
 import { useHistory } from 'react-router-dom';
 
-const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn }) => {
+const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn, username, setUsername }) => {
     const history = useHistory();
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState(null);
     const [isError, setIsError] = useState(false);
@@ -46,6 +45,7 @@ const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn }) => {
             setMessage('Logged in successfully');
             getCsrfToken();
             setIsLoggedIn(true);
+            setUsername(data.username);
             setIsError(false);
             history.push('/');
           }

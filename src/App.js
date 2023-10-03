@@ -27,16 +27,18 @@ import CreateTopicPage from './pages/dynamic/CreateTopicPage';
 import './App.css';
 
 function App() {
-  const [csrfToken, setCsrfToken] = useState(null);
   const ENDPOINT= 'http://localhost:5000';
   const TITLE = 'WikiWise';
   const CONTACT = 'support@wikiwise.com'
+
+  const [csrfToken, setCsrfToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
 
   return (
     <Router>
       <div className="app">
-        <Header endpoint={ENDPOINT} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Header endpoint={ENDPOINT} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} />
         <div className="app-container">
           <Switch>
             <Route path="/" exact render={(props) =>
@@ -76,7 +78,7 @@ function App() {
             } />
             
             <Route path="/login" exact render={(props) =>
-              <LoginPage title={TITLE} endpoint={ENDPOINT} setCsrfToken={setCsrfToken} setLoggedIn={setIsLoggedIn} />
+              <LoginPage title={TITLE} endpoint={ENDPOINT} setCsrfToken={setCsrfToken} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} />
             } />
 
             <Route path="/create-portal" exact render={(props) =>
