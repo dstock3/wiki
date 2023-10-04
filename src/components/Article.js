@@ -2,11 +2,10 @@ import React from 'react';
 import '../styles/Article.css';
 import InfoBox from './InfoBox';
 import { Link } from 'react-router-dom';
-import {parseArticleLinksToJSX} from '../utils/textParsers';
+import { parseArticleLinksToJSX } from '../utils/textParsers';
 
 const Article = ({ match, title, intro, infobox, content, references, isAuthenticated }) => {
   const parsedIntro = parseArticleLinksToJSX(intro);
-
 
   return (
     <article className="article-container">

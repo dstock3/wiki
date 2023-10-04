@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/SearchResultsPage.css';
 import Loading from '../../components/Loading';
+import { parseArticleLinksToJSX } from '../../utils/textParsers';
 
 const SearchResultsPage = ({ match, endpoint, title }) => {
   const [searchResults, setSearchResults] = useState([]);
@@ -55,6 +56,7 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
         <>
           {searchResults.map((result, index) => {
             const { _id, title, intro, image = {} } = result;
+            const parsedIntro = parseArticleLinksToJSX(intro);
 
             return (
               <div key={index} className="search-result">
@@ -69,7 +71,7 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
                 }
                 <div className="search-result-container">
                   <h2><Link to={`/${match.params.portalid}/article/${_id}`}>{title}</Link></h2>
-                  <p>{intro}</p>
+                  <p>{parsedIntro}</p>
                 </div>
               </div>
             );

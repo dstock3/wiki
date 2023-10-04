@@ -49,7 +49,6 @@ const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn, username, set
             setIsError(false);
             history.push('/');
           }
-          console.log(data);
       })
       .catch((error) => {
           setMessage('An error occurred');
