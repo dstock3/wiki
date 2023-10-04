@@ -5,7 +5,6 @@ import SearchBar from './SearchBar';
 import axios from 'axios';
 
 const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) => {
-
   const handleLogout = () => {
     axios.post(`${endpoint}/users/logout`, {}, { withCredentials: true })
       .then(response => {
@@ -34,16 +33,14 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) 
       </div>
 
       <div className="header-auth">
-
         {isLoggedIn ? (
           <>
             <Link to={`/user/${username}/edit`}>
-              <div className="account-link">Account</div>
+              <div className="account-link">My Account</div>
             </Link>
             <button onClick={handleLogout} className="logout-button">
               <div className="logout-link">Logout</div>
             </button>
-
           </>
         ) : (
           <>

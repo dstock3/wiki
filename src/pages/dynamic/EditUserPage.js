@@ -3,7 +3,7 @@ import '../../styles/EditUserPage.css';
 import axios from 'axios';
 import Loading from '../../components/Loading';
 
-const EditUserPage = ({ match, location, endpoint, title, csrfToken }) => {
+const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
   const [userData, setUserData] = useState({
     email: '',
     bio: ''
@@ -36,13 +36,13 @@ const EditUserPage = ({ match, location, endpoint, title, csrfToken }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     const config = {
       withCredentials: true,
       headers: { 'csrf-token': csrfToken }
     }
-  
-    axios.put(`/${endpoint}/users/${match.params.userId}`, userData, config)
+    
+    axios.put(`${endpoint}/users/${userData._id}`, userData, config)
       .then(response => {
         console.log("Response:", response.data);
       })
