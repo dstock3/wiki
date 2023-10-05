@@ -29,6 +29,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
     // if user is authorized, set auth to true
     // need more logic here to check actual authentication
     setAuth(true);
+    
   }, [match.params.portalid]);
   
 
@@ -59,13 +60,12 @@ const PortalHomePage = ({ match, endpoint, title }) => {
                 <img src={portalData.portalImage.src} alt={portalData.portalImage.alt} />
               </div>
             </div>
-            {/*
+            
             <div className="featured-article">
               <h2>Featured Article: {portalData.featuredArticle.title}</h2>
               <p>{portalData.featuredArticle.summary}</p>
               <Link to={`/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
             </div>
-            */}
             
             <div className="recent-updates">
               <h3>Recent Updates</h3>
