@@ -1,22 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 function useArticleLinkEmbedder(endpoint, portalId) {
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedWord, setSelectedWord] = useState('');
     const [articles, setArticles] = useState([]);
+    const isMounted = useRef(true);
 
     useEffect(() => {
         if (isModalOpen) {
+            console.log(`${endpoint}/portals/${portalId}/articles`)
             axios.get(`${endpoint}/portals/${portalId}/articles`)
                 .then((res) => {
-                    setArticles(res.data);
+                    if(isMounted.current) {
+                        setArticles(res.data);
+                    }
                 })
                 .catch((err) => {
                     console.log(err);
                 });
-        }
-        if (isModalOpen) {
+
             const handleKeyDown = (e) => {
                 if (e.key === 'Escape') {
                     setModalOpen(false);
@@ -28,7 +31,14 @@ function useArticleLinkEmbedder(endpoint, portalId) {
                 window.removeEventListener('keydown', handleKeyDown);
             };
         }
-    }, [isModalOpen]);
+    }, [isModalOpen]);  
+
+    useEffect(() => {
+        isMounted.current = true;
+        return () => {
+            isMounted.current = false;
+        }
+    }, []);
 
     const handleRightClick = (e) => {
         e.preventDefault();

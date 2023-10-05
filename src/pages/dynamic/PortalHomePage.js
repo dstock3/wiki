@@ -67,7 +67,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
                 <Link to={`/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
               </div>
             )}
-            {portalData.recentUpdates && (
+            {portalData.recentUpdates && portalData.recentUpdates.length > 0 && (
               <div className="recent-updates">
                 <h3>Recent Updates</h3>
                 <ul>
