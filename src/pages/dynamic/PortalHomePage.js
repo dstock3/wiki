@@ -60,23 +60,25 @@ const PortalHomePage = ({ match, endpoint, title }) => {
                 <img src={portalData.portalImage.src} alt={portalData.portalImage.alt} />
               </div>
             </div>
-            
-            <div className="featured-article">
-              <h2>Featured Article: {portalData.featuredArticle.title}</h2>
-              <p>{portalData.featuredArticle.summary}</p>
-              <Link to={`/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
-            </div>
-            
-            <div className="recent-updates">
-              <h3>Recent Updates</h3>
-              <ul>
-                {portalData.recentUpdates.map((article, index) => (
-                  <li key={index}>
-                    <Link to={`/${match.params.portalid}/article/${article._id}`}>{article.title}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {portalData.featuredArticle && (
+              <div className="featured-article">
+                <h2>Featured Article: {portalData.featuredArticle.title}</h2>
+                <p>{portalData.featuredArticle.summary}</p>
+                <Link to={`/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
+              </div>
+            )}
+            {portalData.recentUpdates && (
+              <div className="recent-updates">
+                <h3>Recent Updates</h3>
+                <ul>
+                  {portalData.recentUpdates.map((article, index) => (
+                    <li key={index}>
+                      <Link to={`/${match.params.portalid}/article/${article._id}`}>{article.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </>
       )}
