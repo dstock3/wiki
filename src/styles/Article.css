@@ -54,6 +54,20 @@
     margin-bottom: 5px;
 }
 
+.reference-link {
+    font-size: 0.8em;
+    vertical-align: super; 
+    text-decoration: none; 
+    color: #0645ad;
+    background: none;
+    padding: 0;
+    border: none;
+}
+
+.reference-link:hover {
+    text-decoration: underline; /* add underline on hover for better UX */
+}
+
 .article-references ul li a {
     color: #0645ad;
     text-decoration: none;

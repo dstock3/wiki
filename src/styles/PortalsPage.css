@@ -26,7 +26,7 @@
     padding: 10px;
     margin: 10px;
     width: 300px;
-    min-height: 300px;
+    height: 350px;
     box-shadow: 0 0 10px #ccc;
     display: flex;
     flex-direction: column;

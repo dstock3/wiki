@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import '../../styles/ArticlePage.css'; 
 import ArticleSidebar from '../../components/ArticleSidebar';
 import axios from 'axios'; 
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Loading from '../../components/Loading';
 
 const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
@@ -14,6 +14,16 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      let elem = document.getElementById(location.hash.slice(1))
+      if (elem) elem.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [location]);
 
   useEffect(() => {
     const handleScroll = () => {

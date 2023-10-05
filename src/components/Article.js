@@ -2,10 +2,10 @@ import React from 'react';
 import '../styles/Article.css';
 import InfoBox from './InfoBox';
 import { Link } from 'react-router-dom';
-import { parseArticleLinksToJSX } from '../utils/textParsers';
+import { parseContentToJSX } from '../utils/textParsers';
 
 const Article = ({ match, title, intro, infobox, content, references, isAuthenticated }) => {
-  const parsedIntro = parseArticleLinksToJSX(intro);
+  const parsedIntro = parseContentToJSX(intro);
 
   return (
     <article className="article-container">
@@ -28,7 +28,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
           )}
         </div>
         {content.map((section, index) => {
-          const parsedSectionText = parseArticleLinksToJSX(section.text);
+          const parsedSectionText = parseContentToJSX(section.text);
           return (
               <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
                   <div className="article-section" id={`section-${index}`}>
@@ -63,9 +63,13 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
         <h3>References</h3>
         <ul>
           {references.map((ref, index) => (
-            <li key={index} id={`reference-${index}`}>
+            <li key={index} className="reference-list-item">
               <span>{index + 1}. </span>
-              <a href={ref.link} target="_blank" rel="noopener noreferrer">
+              <a 
+                href={ref.link.startsWith('http://') || ref.link.startsWith('https://') ? ref.link : `http://${ref.link}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                id={`reference-${index + 1}`}>
                 {ref.name}
               </a>
             </li>

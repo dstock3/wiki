@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/SearchResultsPage.css';
 import Loading from '../../components/Loading';
-import { parseArticleLinksToJSX } from '../../utils/textParsers';
+import { parseContentToJSX } from '../../utils/textParsers';
 
 const SearchResultsPage = ({ match, endpoint, title }) => {
   const [searchResults, setSearchResults] = useState([]);
@@ -56,7 +56,7 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
         <>
           {searchResults.map((result, index) => {
             const { _id, title, intro, image = {} } = result;
-            const parsedIntro = parseArticleLinksToJSX(intro);
+            const parsedIntro = parseContentToJSX(intro);
 
             return (
               <div key={index} className="search-result">
