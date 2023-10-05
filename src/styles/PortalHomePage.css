@@ -37,3 +37,7 @@
 .featured-article, .recent-updates {
     margin-inline: 20px;
 }
+
+.no-articles-found-msg {
+    margin-inline: 20px;
+}
