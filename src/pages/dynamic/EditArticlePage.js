@@ -131,34 +131,6 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     
         setInfobox({ ...infobox, info: newInfo });
     };
-    const handleInfoboxImageUpload = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-            
-            // preview the image on client side:
-            const localUrl = URL.createObjectURL(file);
-            setInfobox(prev => ({ ...prev, image: { ...prev.image, src: localUrl } }));
-            
-
-            const formData = new FormData();
-            formData.append("image", file);
-            
-            axios.post('/api/upload', formData, {
-                onUploadProgress: progressEvent => {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    setUploadProgress(percentCompleted);
-                }
-            })
-            .then(response => {
-                // success
-                const serverUrl = response.data.url;
-                setInfobox(prev => ({ ...prev, image: { ...prev.image, src: serverUrl } }));
-            })
-            .catch(err => {
-                setError("Error uploading the image.");
-            });
-        }
-    };
     
     const addInfoField = e => {
         e.preventDefault();
@@ -184,48 +156,48 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const articleData = {
-            title: article.title,
-            intro: article.intro,
-            content: article.content,
-            infoBox: infobox,
-            references: references,
-            portalid: match.params.portalid
-        };
-
+        
+        const formData = new FormData(document.getElementById('articleForm'));
+        formData.append("title", article.title);
+        formData.append("intro", article.intro);
+        formData.append("content", JSON.stringify(article.content));  
+        formData.append("infoBox", JSON.stringify(infobox));  
+        formData.append("references", JSON.stringify(references));
+        formData.append("portalid", match.params.portalid);
+        
         const config = {
             withCredentials: true,
             headers: {
-                'csrf-token': csrfToken
+                'csrf-token': csrfToken,
+                'Content-Type': 'multipart/form-data'
             }
         };
-        
+
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+
         if (match.params.articleid) {
-            axios.put(`${endpoint}/articles/${match.params.articleid}`, articleData, config)
+            axios.put(`${endpoint}/articles/${match.params.articleid}`, formData, config)
                 .then(response => {
                     history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
                 })
-                .catch(err => {
-                    if (err.response && err.response.status === 400 && err.response.data.errors) {
-                        const validationErrors = err.response.data.errors.map(error => error.msg).join(', ');
-                        setError(`Validation Error: ${validationErrors}`);
-                    } else {
-                        setError("Error updating the article.");
-                    }
-                });
+                .catch(handleError);
         } else {
-            axios.post(`${endpoint}/articles/`, articleData, config)
+            axios.post(`${endpoint}/articles/`, formData, config)
                 .then(response => {
                     history.push(`/${match.params.portalid}/article/${response.data._id}`);
                 })
-                .catch(err => {
-                    if (err.response && err.response.status === 400 && err.response.data.errors) {
-                        const validationErrors = err.response.data.errors.map(error => error.msg).join(', ');
-                        setError(`Validation Error: ${validationErrors}`);
-                    } else {
-                        setError("Error updating the article.");
-                    }
-                });
+                .catch(handleError);
+        }
+    };
+    
+    const handleError = (err) => {
+        if (err.response && err.response.status === 400 && err.response.data.errors) {
+            const validationErrors = err.response.data.errors.map(error => error.msg).join(', ');
+            setError(`Validation Error: ${validationErrors}`);
+        } else {
+            setError("Error processing the request.");
         }
     };
 
@@ -275,7 +247,6 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                     <EditInfoBox 
                         infobox={infobox} 
                         handleInfoboxChange={handleInfoboxChange} 
-                        handleInfoboxImageUpload={handleInfoboxImageUpload} 
                         handleInfoboxImageChange={handleInfoboxImageChange} 
                         handleInfoboxInfoChange={handleInfoboxInfoChange} 
                         addInfoField={addInfoField} 
