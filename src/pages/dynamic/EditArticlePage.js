@@ -137,6 +137,16 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         setInfobox(prev => ({ ...prev, info: [...prev.info, { label: '', value: '' }] }));
     }
 
+    const removeInfoField = (e) => {
+        e.preventDefault();
+        if (infobox.info.length > 0) {
+            const newInfo = [...infobox.info];
+            newInfo.pop();
+            setInfobox(prev => ({ ...prev, info: newInfo }));
+        }
+
+    }
+
     const handleContentChange = (index, field, value) => {
         const newContent = [...article.content];
         newContent[index][field] = value;
@@ -249,7 +259,8 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                         handleInfoboxChange={handleInfoboxChange} 
                         handleInfoboxImageChange={handleInfoboxImageChange} 
                         handleInfoboxInfoChange={handleInfoboxInfoChange} 
-                        addInfoField={addInfoField} 
+                        addInfoField={addInfoField}
+                        removeInfoField={removeInfoField}
                     />
 
                     <div className="ref-group">

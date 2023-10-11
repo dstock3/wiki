@@ -72,7 +72,7 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageChange, ha
                     </div>
                 ))}
                 <div className="infofield-button-container">
-                    <button className="remove-infofield-button" onClick={removeInfoField}>-</button>
+                    {infobox.info.length > 1 && <button className="remove-infofield-button" onClick={removeInfoField}>-</button>}
                     <button className="add-infofield-button" onClick={addInfoField}>+</button>
                 </div>
 
