@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageChange, handleInfoboxInfoChange, addInfoField}) => {
+const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageChange, handleInfoboxInfoChange, addInfoField, removeInfoField}) => {
     return (
         <div className="infobox-editor">
             <h3>Infobox</h3>
@@ -71,7 +71,11 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageChange, ha
                         </div>
                     </div>
                 ))}
-                <button className="add-infofield-button" onClick={addInfoField}>+</button>
+                <div className="infofield-button-container">
+                    <button className="remove-infofield-button" onClick={removeInfoField}>-</button>
+                    <button className="add-infofield-button" onClick={addInfoField}>+</button>
+                </div>
+
             </div>  
         </div>
     )
