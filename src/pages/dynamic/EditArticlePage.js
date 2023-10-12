@@ -7,7 +7,6 @@ import EditInfoBox from '../../components/EditInfoBox';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; 
 import { modules, formats } from '../../config/quillConfig';
 
 const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
@@ -138,19 +137,18 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         
-        const formData = new FormData(document.getElementById('articleForm'));
+        let formData = new FormData();
         formData.append("title", article.title);
         formData.append("intro", article.intro);
-        formData.append("content", JSON.stringify(article.content));  
-        formData.append("infoBox", JSON.stringify(infobox));  
-        formData.append("references", JSON.stringify(references));
+        formData.append("content", article.content);  
+        formData.append("infoBox", infobox);  
+        formData.append("references", references);
         formData.append("portalid", match.params.portalid);
         
         const config = {
             withCredentials: true,
             headers: {
-                'csrf-token': csrfToken,
-                'Content-Type': 'multipart/form-data'
+                'csrf-token': csrfToken
             }
         };
 

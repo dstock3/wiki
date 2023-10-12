@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/CreateTopicPage.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import ReactQuill from 'react-quill';
+import { modules, formats } from '../../config/quillConfig';
 
 const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
     const [topicTitle, setTopicTitle] = useState('');
@@ -43,11 +45,13 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
                 </div>
                 <div className="topic-group">
                     <label htmlFor="initial-post">Initial Post:</label>
-                    <textarea 
-                        id="initial-post" 
-                        value={content} 
+                    <ReactQuill
+                        style={{ backgroundColor: 'white' }}
+                        value={content}
                         onChange={(e) => setContent(e.target.value)}
-                    ></textarea>
+                        modules={modules}
+                        formats={formats}
+                    />
                 </div>
                 <button className="create-topic-button" type="submit">Create Topic</button>
             </form>

@@ -3,7 +3,6 @@ import axios from 'axios';
 import '../../styles/EditPortalPage.css';
 import Loading from '../../components/Loading';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';  
 import { modules, formats } from '../../config/quillConfig';
 
 const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
