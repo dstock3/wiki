@@ -6,8 +6,6 @@ import EditReferences from '../../components/EditReferences';
 import EditInfoBox from '../../components/EditInfoBox';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
-import useArticleLinkEmbedder from '../../hooks/useArticleLinkEmbedder'
-import LinkModal from '../../components/LinkModal'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import { modules, formats } from '../../config/quillConfig';
@@ -31,35 +29,6 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const [error, setError] = useState(null);
     const [currentSectionIndex, setCurrentSectionIndex] = useState(null);
     const quillRef = useRef(null);
-    const {
-        isModalOpen,
-        articles,
-        handleRightClick,
-        handleModalClose,
-        handleModalConfirm: handleLinkEmbed
-    } = useArticleLinkEmbedder(endpoint, match.params.portalid, quillRef);
-    
-    const modifiedHandleRightClick = (e, sectionIndex) => {
-        if (sectionIndex !== undefined) {
-            setCurrentSectionIndex(sectionIndex);
-        } else {
-            setCurrentSectionIndex(null);
-        }
-        handleRightClick(e);
-    };
-
-    const handleModalConfirm = (articleID) => {
-        const {linkSyntax, selectedWord} = handleLinkEmbed(articleID);
-        
-        if (currentSectionIndex === null) {
-            const updatedIntro = article.intro.replace(selectedWord, linkSyntax);
-            setArticle(prevState => ({ ...prevState, intro: updatedIntro }));
-        } else {
-            const sectionsCopy = [...article.content];
-            sectionsCopy[currentSectionIndex].text = sectionsCopy[currentSectionIndex].text.replace(selectedWord, linkSyntax);
-            setArticle(prevState => ({ ...prevState, content: sectionsCopy }));
-        }
-    };
 
     useEffect(() => {
         document.title = `${title} | Edit Article`;
@@ -236,12 +205,13 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                 <div className="form-group">
                     <label className="main-label">Article Introduction:</label>
                     <ReactQuill
+                        style={{ backgroundColor: 'white' }}
                         ref={quillRef}
                         value={article.intro}
                         onChange={(content, delta, source, editor) => {
                             setArticle(prev => ({ ...prev, intro: editor.getHTML() }));
                         }}
-                        onContextMenu={modifiedHandleRightClick}
+                        
                         modules={modules}
                         formats={formats}
                     />
@@ -250,13 +220,13 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                 <div className="form-group">
                     <label className="main-label">Article Section:</label>
                     {Array.isArray(article.content) && article.content.map((section, index) => (
-                        <EditSection 
+                        <EditSection
                             quillRef={quillRef}
                             index={index} 
                             section={section} 
                             handleSectionChange={handleContentChange}
                             handleSectionDelete={handleSectionDelete}
-                            handleRightClick={modifiedHandleRightClick}
+                            
                         />
                     ))}
                     <button className="add-section-button" onClick={addSection}>+</button>
@@ -285,7 +255,6 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                 <button className="edit-article-button" type="submit">Save Changes</button>
             </form>
             )}
-        <LinkModal isOpen={isModalOpen} articles={articles} onClose={handleModalClose} onConfirm={handleModalConfirm} />
         </div>
     );
 };

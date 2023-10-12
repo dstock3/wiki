@@ -42,7 +42,6 @@ const PortalsPage = ({ endpoint, title }) => {
                 <p>Portals are created by users like you. They are a way to share your favorite resources with the world. You can create a portal by clicking the "Create Portal" link. You can also edit or delete your portals by clicking the edit button on the portal page.</p>
             </div>
             
-
             <div className="portals-container">
                 {portals && portals.map((portal) => (
                     <div className="portal-card" key={portal._id}>

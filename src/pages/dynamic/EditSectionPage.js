@@ -3,8 +3,6 @@ import '../../styles/EditSectionPage.css'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import Loading from '../../components/Loading'
-import useArticleLinkEmbedder from '../../hooks/useArticleLinkEmbedder'
-import LinkModal from '../../components/LinkModal'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';  
 import { modules, formats } from '../../config/quillConfig';
@@ -14,24 +12,12 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const history = useHistory();
-    const {
-        isModalOpen,
-        articles,
-        handleRightClick,
-        handleModalClose,
-        handleModalConfirm: handleLinkEmbed
-    } = useArticleLinkEmbedder(endpoint, match.params.portalid);
 
     useEffect(() => {
         document.title = `${title} | Edit Section`;
     }, [title]);
     
-    const handleModalConfirm = (articleID) => {
-        const {linkSyntax, selectedWord} = handleLinkEmbed(articleID);
-        const updatedContent = section.text.replace(selectedWord, linkSyntax);
-        setSection(prevState => ({ ...prevState, text: updatedContent }));
-    };
-    
+
     const handleInputChange = (e, field) => {
         setSection(prevState => ({ ...prevState, [field]: e.target.value }));
     };
@@ -132,13 +118,13 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
                         />
                 </div>
                 <div className="edit-section-container">
-                    <ReactQuill 
+                    <ReactQuill
+                        style={{ backgroundColor: 'white' }}
                         value={section.text}
                         onChange={(content, delta, source, editor) => setSection(prev => ({ ...prev, text: editor.getHTML() }))}
                         modules={modules}
                         formats={formats}
                     />
-                    <LinkModal isOpen={isModalOpen} articles={articles} onClose={handleModalClose} onConfirm={handleModalConfirm} />
                 </div>
                 <div className="edit-section-btn-container">
                     <button className="cancel-btn" onClick={handleCancel}>Cancel</button>

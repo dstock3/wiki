@@ -157,11 +157,12 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
 
           <div className="portal-form-group">
             <label className="portal-main-label">Description:</label>
-            <ReactQuill 
-                value={portalData.portalDescription}
-                onChange={(content) => setPortalData(prev => ({ ...prev, portalDescription: content }))}
-                modules={modules}
-                formats={formats}
+            <ReactQuill
+              style={{ backgroundColor: 'white' }}
+              value={portalData.portalDescription}
+              onChange={(content) => setPortalData(prev => ({ ...prev, portalDescription: content }))}
+              modules={modules}
+              formats={formats}
             />
           </div>
 

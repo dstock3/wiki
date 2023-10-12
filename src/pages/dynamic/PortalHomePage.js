@@ -4,6 +4,7 @@ import PortalSidebar from '../../components/PortalSidebar';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios'; 
 import Loading from '../../components/Loading';
+import { parseContentToHTML } from '../../utils/textParsers';
 
 const PortalHomePage = ({ match, endpoint, title }) => {
   const [portalData, setPortalData] = useState(null);
@@ -55,7 +56,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
             </div>
             <hr />
             <div className="portal-description">
-              <p>{portalData.portalDescription}</p>
+              <div className="portal-desc" dangerouslySetInnerHTML={{ __html: parseContentToHTML(portalData.portalDescription) }} />
               <div className="portal-image">
                 <img src={portalData.portalImage.src} alt={portalData.portalImage.alt} />
               </div>

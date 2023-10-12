@@ -3,7 +3,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import { modules, formats } from '../config/quillConfig';
 
-const EditSection = ({quillRef, index, section, handleSectionChange, handleSectionDelete, handleRightClick }) => {
+const EditSection = ({quillRef, index, section, handleSectionChange, handleSectionDelete }) => {
   return (
     <div key={index} className="section-content">
         <div className="section-subcontainer">
@@ -20,13 +20,13 @@ const EditSection = ({quillRef, index, section, handleSectionChange, handleSecti
         </div>
         <div className="edit-section-container">
             <label>Section Content:</label>
-            <ReactQuill 
+            <ReactQuill
+                style={{ backgroundColor: 'white' }}
                 ref={quillRef}
                 value={section.text}
                 modules={modules}
                 formats={formats}
                 onChange={(content, delta, source, editor) => handleSectionChange(index, 'text', content, editor)}
-                onKeyUp={(e) => handleRightClick(e, index)}
             />
         </div>
     </div>
