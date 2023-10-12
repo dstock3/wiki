@@ -24,10 +24,8 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         info: []
     });
     const [references, setReferences] = useState([]);
-    const [uploadProgress, setUploadProgress] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [currentSectionIndex, setCurrentSectionIndex] = useState(null);
     const quillRef = useRef(null);
 
     useEffect(() => {
@@ -211,7 +209,6 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                         onChange={(content, delta, source, editor) => {
                             setArticle(prev => ({ ...prev, intro: editor.getHTML() }));
                         }}
-                        
                         modules={modules}
                         formats={formats}
                     />
@@ -250,8 +247,6 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                     </div>
                 </div>
 
-                {uploadProgress > 0 && uploadProgress < 100 && <p>Upload Progress: {uploadProgress}%</p>}
-                
                 <button className="edit-article-button" type="submit">Save Changes</button>
             </form>
             )}
