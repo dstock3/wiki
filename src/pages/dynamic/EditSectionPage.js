@@ -5,8 +5,11 @@ import { useHistory } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import useArticleLinkEmbedder from '../../hooks/useArticleLinkEmbedder'
 import LinkModal from '../../components/LinkModal'
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';  
+import { modules, formats } from '../../config/quillConfig';
 
-const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
+const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
     const [section, setSection] = useState({title: '', text: ''})
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -18,6 +21,10 @@ const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
         handleModalClose,
         handleModalConfirm: handleLinkEmbed
     } = useArticleLinkEmbedder(endpoint, match.params.portalid);
+
+    useEffect(() => {
+        document.title = `${title} | Edit Section`;
+    }, [title]);
     
     const handleModalConfirm = (articleID) => {
         const {linkSyntax, selectedWord} = handleLinkEmbed(articleID);
@@ -125,12 +132,11 @@ const EditSectionPage = ({ match, location, endpoint, title, csrfToken }) => {
                         />
                 </div>
                 <div className="edit-section-container">
-                    <label>Section Content:</label>
-                    <textarea 
-                        placeholder="Section Content" 
+                    <ReactQuill 
                         value={section.text}
-                        onContextMenu={handleRightClick}
-                        onChange={e => handleInputChange(e, 'text')}
+                        onChange={(content, delta, source, editor) => setSection(prev => ({ ...prev, text: editor.getHTML() }))}
+                        modules={modules}
+                        formats={formats}
                     />
                     <LinkModal isOpen={isModalOpen} articles={articles} onClose={handleModalClose} onConfirm={handleModalConfirm} />
                 </div>

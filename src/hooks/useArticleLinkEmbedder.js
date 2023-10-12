@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-function useArticleLinkEmbedder(endpoint, portalId) {
+function useArticleLinkEmbedder(endpoint, portalId, quill) {
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedWord, setSelectedWord] = useState('');
     const [articles, setArticles] = useState([]);
@@ -34,6 +34,10 @@ function useArticleLinkEmbedder(endpoint, portalId) {
     }, [isModalOpen]);  
 
     useEffect(() => {
+        console.log('Current Quill instance:', quill.current);
+    }, []);
+
+    useEffect(() => {
         isMounted.current = true;
         return () => {
             isMounted.current = false;
@@ -41,11 +45,16 @@ function useArticleLinkEmbedder(endpoint, portalId) {
     }, []);
 
     const handleRightClick = (e) => {
+        console.log('Right-click detected');
         e.preventDefault();
-        const selection = window.getSelection().toString().trim();
-        if (selection) {
-            setSelectedWord(selection);
-            setModalOpen(true);
+    
+        const selection = quill && quill.current ? quill.current.getSelection() : null;
+        if (selection && selection.length > 0) {
+            const selectedText = quill.current.getText(selection.index, selection.length).trim();
+            if (selectedText) {
+                setSelectedWord(selectedText);
+                setModalOpen(true);
+            }
         }
     };
 
