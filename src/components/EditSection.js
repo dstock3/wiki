@@ -1,6 +1,9 @@
 import React from 'react'
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; 
+import { modules, formats } from '../config/quillConfig';
 
-const EditSection = ({index, section, handleSectionChange, handleSectionDelete, handleRightClick }) => {
+const EditSection = ({quillRef, index, section, handleSectionChange, handleSectionDelete, handleRightClick }) => {
   return (
     <div key={index} className="section-content">
         <div className="section-subcontainer">
@@ -17,11 +20,13 @@ const EditSection = ({index, section, handleSectionChange, handleSectionDelete, 
         </div>
         <div className="edit-section-container">
             <label>Section Content:</label>
-            <textarea 
-                placeholder="Section Content" 
+            <ReactQuill 
+                ref={quillRef}
                 value={section.text}
-                onChange={(e) => handleSectionChange(index, 'text', e.target.value)}
-                onContextMenu={(e) => handleRightClick(e, index)}
+                modules={modules}
+                formats={formats}
+                onChange={(content, delta, source, editor) => handleSectionChange(index, 'text', content, editor)}
+                onKeyUp={(e) => handleRightClick(e, index)}
             />
         </div>
     </div>

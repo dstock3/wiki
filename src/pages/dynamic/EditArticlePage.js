@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import '../../styles/EditArticlePage.css'
 import EditSection from '../../components/EditSection';
@@ -8,6 +8,9 @@ import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import useArticleLinkEmbedder from '../../hooks/useArticleLinkEmbedder'
 import LinkModal from '../../components/LinkModal'
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; 
+import { modules, formats } from '../../config/quillConfig';
 
 const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const history = useHistory();
@@ -27,14 +30,15 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentSectionIndex, setCurrentSectionIndex] = useState(null);
+    const quillRef = useRef(null);
     const {
         isModalOpen,
         articles,
         handleRightClick,
         handleModalClose,
         handleModalConfirm: handleLinkEmbed
-    } = useArticleLinkEmbedder(endpoint, match.params.portalid);
-
+    } = useArticleLinkEmbedder(endpoint, match.params.portalid, quillRef);
+    
     const modifiedHandleRightClick = (e, sectionIndex) => {
         if (sectionIndex !== undefined) {
             setCurrentSectionIndex(sectionIndex);
@@ -231,12 +235,15 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
 
                 <div className="form-group">
                     <label className="main-label">Article Introduction:</label>
-                    <textarea 
-                        name="intro"
+                    <ReactQuill
+                        ref={quillRef}
                         value={article.intro}
-                        className="introduction-input"
-                        onChange={handleInputChange}
-                        onContextMenu={handleRightClick}
+                        onChange={(content, delta, source, editor) => {
+                            setArticle(prev => ({ ...prev, intro: editor.getHTML() }));
+                        }}
+                        onContextMenu={modifiedHandleRightClick}
+                        modules={modules}
+                        formats={formats}
                     />
                 </div>
 
@@ -244,6 +251,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                     <label className="main-label">Article Section:</label>
                     {Array.isArray(article.content) && article.content.map((section, index) => (
                         <EditSection 
+                            quillRef={quillRef}
                             index={index} 
                             section={section} 
                             handleSectionChange={handleContentChange}
