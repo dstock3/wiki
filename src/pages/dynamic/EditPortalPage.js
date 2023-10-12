@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/EditPortalPage.css';
 import Loading from '../../components/Loading';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';  
+import { modules, formats } from '../../config/quillConfig';
 
 const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const [portalData, setPortalData] = useState({
@@ -154,11 +157,11 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
 
           <div className="portal-form-group">
             <label className="portal-main-label">Description:</label>
-            <textarea 
-              name="portalDescription" 
-              value={portalData.portalDescription} 
-              onChange={handleChange}
-              required
+            <ReactQuill 
+                value={portalData.portalDescription}
+                onChange={(content) => setPortalData(prev => ({ ...prev, portalDescription: content }))}
+                modules={modules}
+                formats={formats}
             />
           </div>
 
