@@ -9,7 +9,6 @@ const SideMenu = () => {
       <ul>
         <li><Link to="/">Main page</Link></li>
         <li><Link to="/portals">Portals</Link></li>
-        <li><Link to="/featured">Featured content</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/donate">Donate</Link></li>
       </ul>
