@@ -48,7 +48,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
                     <ReactQuill
                         style={{ backgroundColor: 'white' }}
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
+                        onChange={setContent}
                         modules={modules}
                         formats={formats}
                     />
