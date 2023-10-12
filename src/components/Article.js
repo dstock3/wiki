@@ -2,10 +2,9 @@ import React from 'react';
 import '../styles/Article.css';
 import InfoBox from './InfoBox';
 import { Link } from 'react-router-dom';
-import { parseContentToJSX } from '../utils/textParsers';
+import { parseContentToHTML } from '../utils/textParsers';
 
 const Article = ({ match, title, intro, infobox, content, references, isAuthenticated }) => {
-  const parsedIntro = parseContentToJSX(intro);
 
   return (
     <article className="article-container">
@@ -13,11 +12,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
       <div className="article-content">
         <div className="intro-container">
           <div className="article-intro" id="intro">
-            {parsedIntro.map((item, idx) => (
-                <span key={idx}>
-                    {item}
-                </span>
-            ))}
+           <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(intro) }} />
           </div>
           {infobox && (
             <InfoBox
@@ -28,7 +23,6 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
           )}
         </div>
         {content.map((section, index) => {
-          const parsedSectionText = parseContentToJSX(section.text);
           return (
               <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
                   <div className="article-section" id={`section-${index}`}>
@@ -42,13 +36,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
                             ]</span>
                           )}
                       </div>
-                      <p>
-                          {parsedSectionText.map((item, idx) => (
-                              <span key={idx}>
-                                  {item}
-                              </span>
-                          ))}
-                      </p>
+                      <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(section.text) }} />
                   </div>
                   {section.image && (
                     <div className="article-section-image">
