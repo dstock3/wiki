@@ -14,9 +14,6 @@ const UserProfilePage = ({ match, endpoint, title }) => {
     document.title = `${title} | ${match.params.username}`;
   }, [title, match.params.username]);
 
-  useEffect(() => {
-    console.log(isUser);
-  }, [isUser]);
 
   useEffect(() => {
     axios.get(`${endpoint}/users/username/${match.params.username}`, { withCredentials: true })

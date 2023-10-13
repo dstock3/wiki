@@ -17,7 +17,7 @@ const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
 
     axios.get(`${endpoint}/users/username/${match.params.username}`, { withCredentials: true })
       .then(response => {
-        setUserData(response.data);
+        setUserData(response.data.user);
         setLoading(false);
       })
       .catch(err => {
