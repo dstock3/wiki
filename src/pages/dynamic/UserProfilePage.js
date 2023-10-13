@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/UserProfilePage.css'
 import axios from 'axios';
 import Loading from '../../components/Loading';
+import { parseContentToHTML } from '../../utils/textParsers';
 
 const UserProfilePage = ({ match, endpoint, title }) => {
   const [userData, setUserData] = useState(null);
@@ -13,19 +14,20 @@ const UserProfilePage = ({ match, endpoint, title }) => {
     document.title = `${title} | ${match.params.username}`;
   }, [title, match.params.username]);
 
+
   useEffect(() => {
     axios.get(`${endpoint}/users/username/${match.params.username}`)
       .then(response => {
-        setUserData(response.data);
-        setLoading(true);
+        setUserData(response.data.user);
+        setIsUser(response.data.isOwnProfile);
+        setLoading(false);
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error.message);
-        setError(true);
+        setError(false);
+        setLoading(false);
       });
-    // api call to check if the user is viewing their own profile
-    // if so, set isUser to true
-    //setIsUser(true);
+
   }, [match.params.username, endpoint]);
 
   if (loading) return <div className="user-profile-page">
@@ -44,7 +46,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
             </div>  
             <p>Email: {userData.email}</p>
             <p>Joined: {new Date(userData.joinedDate).toLocaleDateString()}</p>
-            <p>Bio: {userData.bio}</p>
+            <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(userData.bio) }} />
           </div>
           <div className="user-contributions">
             <h3>Contributions</h3>
