@@ -11,6 +11,7 @@ const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
     document.title = `${title} | Edit User`;
@@ -18,6 +19,7 @@ const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
     axios.get(`${endpoint}/users/username/${match.params.username}`, { withCredentials: true })
       .then(response => {
         setUserData(response.data.user);
+        setIsUser(response.data.isOwnProfile);
         setLoading(false);
       })
       .catch(err => {
@@ -58,6 +60,13 @@ const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
     <Loading loading={loading} />
   </div>;
 
+  if (!isUser) return (
+    <div className="edit-user-page">
+      <h2>Unauthorized</h2>
+      <p>You are not authorized to view this page.</p>
+    </div>
+  );
+  
   return (
     <div className="edit-user-page">
       <h2>Edit Profile</h2>
