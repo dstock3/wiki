@@ -16,7 +16,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   }, [title]);
 
   useEffect(() => {
-    axios.get(`${endpoint}/talk/${match.params.articleid}`)
+    axios.get(`${endpoint}/talk/${match.params.articleid}`, { withCredentials: true })
       .then(response => {
         setDiscussions(response.data.discussions);
         setLoading(false);

@@ -23,7 +23,7 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
     };
 
     useEffect(() => {
-        axios.get(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`)
+        axios.get(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, { withCredentials: true })
         .then(response => {
             setSection(response.data);
             setLoading(false);

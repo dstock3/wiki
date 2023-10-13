@@ -33,7 +33,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
 
     useEffect(() => {
         if (match.params.articleid) {
-            axios.get(`${endpoint}/articles/${match.params.articleid}`)
+            axios.get(`${endpoint}/articles/${match.params.articleid}`, { withCredentials: true })
             .then(response => {
                 if (response.data.infoBox) {
                     setInfobox(response.data.infoBox);

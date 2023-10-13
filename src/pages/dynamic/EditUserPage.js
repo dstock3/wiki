@@ -15,7 +15,7 @@ const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
   useEffect(() => {
     document.title = `${title} | Edit User`;
 
-    axios.get(`${endpoint}/users/username/${match.params.username}`)
+    axios.get(`${endpoint}/users/username/${match.params.username}`, { withCredentials: true })
       .then(response => {
         setUserData(response.data);
         setLoading(false);

@@ -13,7 +13,7 @@ const PortalsPage = ({ endpoint, title }) => {
 
     useEffect(() => {
         document.title = `${title} | Portals`;
-        axios.get(`${endpoint}/portals/`)
+        axios.get(`${endpoint}/portals/`, { withCredentials: true })
             .then(response => {
                 setPortals(response.data);
                 setLoading(false);

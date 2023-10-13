@@ -20,7 +20,7 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
   useEffect(() => {
     const apiUrl = `${endpoint}/articles/search?query=${match.params.query}&page=${currentPage}&limit=${limit}`;
 
-    axios.get(apiUrl)
+    axios.get(apiUrl, { withCredentials: true })
       .then(response => {
         setSearchResults(response.data.articles);
         setTotalPages(response.data.totalPages);
