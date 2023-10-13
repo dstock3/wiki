@@ -6,9 +6,14 @@
 }
 
 .edit-user-form {
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
   
 .input-group {
@@ -25,13 +30,13 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 20px;
     width: 100%;
 }
 
-#bio {
+.bio-user-input {
     width: 100%;
-    padding-inline: 0;
+    height: 100px;
+    padding-bottom: 40px;
 }
 
 .user-label {
@@ -53,7 +58,8 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    width: 100%;
+    width: 100px;
+    align-self: flex-end;
 }
 
 .user-submit-button:hover {

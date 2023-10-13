@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/EditUserPage.css';
 import axios from 'axios';
 import Loading from '../../components/Loading';
+import ReactQuill from 'react-quill';
 
 const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
   const [userData, setUserData] = useState({
@@ -75,13 +76,11 @@ const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
 
         <div className="input-group bio-group">
           <label className="user-label" htmlFor="bio">Bio:</label>
-          <textarea
-            id="bio"
-            name="bio"
+          <ReactQuill
+            style={{ backgroundColor: "white" }}
             value={userData.bio}
-            className="user-input"
-            onChange={handleChange}
-            rows="4"
+            onChange={(value) => setUserData(prevState => ({ ...prevState, bio: value }))}
+            className="bio-user-input"
           />
         </div>
 
