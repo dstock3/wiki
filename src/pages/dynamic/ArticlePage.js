@@ -48,19 +48,17 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   }, [articleData]);
 
   useEffect(() => {
-    axios.get(`${endpoint}/articles/${match.params.articleid}`)
+    axios.get(`${endpoint}/articles/${match.params.articleid}`, { withCredentials: true })
       .then(response => {
-        setArticleData(response.data);
+        console.log(response.data);
+        setArticleData(response.data.article);
+        setIsAuthenticated(response.data.isAuthor);
         setLoading(false);
       })
       .catch(err => {
         setError(err.message);
         setLoading(false);
-      });
-
-    // Check if user is authenticated
-    // If authenticated, set isAuthenticated to true
-    setIsAuthenticated(true);
+      });    
   }, [match.params.articleid]);
 
   const articleDeleteHandler = () => {

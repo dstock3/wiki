@@ -35,13 +35,13 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         if (match.params.articleid) {
             axios.get(`${endpoint}/articles/${match.params.articleid}`, { withCredentials: true })
             .then(response => {
-                if (response.data.infoBox) {
-                    setInfobox(response.data.infoBox);
+                if (response.data.article.infoBox) {
+                    setInfobox(response.data.article.infoBox);
                 }
-                if (response.data.references) {
-                    setReferences(response.data.references);
+                if (response.data.article.references) {
+                    setReferences(response.data.article.references);
                 }
-                setArticle(response.data);
+                setArticle(response.data.article);
                 setLoading(false);
             })
             .catch(err => {
