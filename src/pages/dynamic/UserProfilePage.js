@@ -44,7 +44,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
               <h2>{userData.username}</h2>
               {isUser && <Link to={`/user/${userData.username}/edit`}>Edit Profile</Link>}
             </div>  
-            <p>Email: {userData.email}</p>
+            <p>Email: <a href={`mailto:${userData.email}`}>{userData.email}</a></p>
             <p>Joined: {new Date(userData.joinedDate).toLocaleDateString()}</p>
             <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(userData.bio) }} />
           </div>
