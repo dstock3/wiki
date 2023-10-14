@@ -50,11 +50,17 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
         history.push(`/user/${userData.username}`);
       })
       .catch(error => {
+        if (error.response.status === 401) {
+          history.push('/login');
+        } else if (error.response.data.errors) {
+          console.log(error.response.data.errors[0].msg);
+          setError(error.response.data.errors);
+        }
         setError(error.response.data.errors);
       });
   };
 
-  if (error) return <div className="edit-user-page">Error: {error}</div>;
+
   if (loading) return <div className="edit-user-page">
     <Loading loading={loading} />
   </div>;
@@ -102,6 +108,8 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
             onChange={handleChange}
           />
         </div>
+
+        {error && error.map((err, index) => <p className="user-edit-error" key={index}>{err.msg}</p>)}
         
         <button className="user-submit-button" type="submit">Update Profile</button>
       </form>
