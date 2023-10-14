@@ -3,6 +3,7 @@ import '../../styles/UserProfilePage.css'
 import axios from 'axios';
 import Loading from '../../components/Loading';
 import { parseContentToHTML } from '../../utils/textParsers';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const UserProfilePage = ({ match, endpoint, title }) => {
   const [userData, setUserData] = useState(null);
@@ -14,7 +15,6 @@ const UserProfilePage = ({ match, endpoint, title }) => {
     document.title = `${title} | ${match.params.username}`;
   }, [title, match.params.username]);
 
-
   useEffect(() => {
     axios.get(`${endpoint}/users/username/${match.params.username}`, { withCredentials: true })
       .then(response => {
@@ -24,7 +24,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error.message);
-        setError(false);
+        setError(error);
         setLoading(false);
       });
 
@@ -42,7 +42,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
           <div className="user-info">
             <div className="user-info-subcontainer">
               <h2>{userData.username}</h2>
-              {isUser && <a href={`/user/${userData.username}/edit`}>Edit Profile</a>}
+              {isUser && <Link to={`/user/${userData.username}/edit`}>Edit Profile</Link>}
             </div>  
             <p>Email: {userData.email}</p>
             <p>Joined: {new Date(userData.joinedDate).toLocaleDateString()}</p>

@@ -4,7 +4,7 @@ import axios from 'axios';
 import Loading from '../../components/Loading';
 import ReactQuill from 'react-quill';
 
-const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
+const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
   const [userData, setUserData] = useState({
     email: '',
     bio: ''
@@ -47,11 +47,10 @@ const EditUserPage = ({ match, endpoint, title, csrfToken }) => {
     
     axios.put(`${endpoint}/users/${userData._id}`, userData, config)
       .then(response => {
-        console.log("Response:", response.data);
+        history.push(`/user/${userData.username}`);
       })
       .catch(error => {
-        console.log("Error:", error.response.data);
-        setError(error.response.data.message);
+        setError(error.response.data.errors);
       });
   };
 
