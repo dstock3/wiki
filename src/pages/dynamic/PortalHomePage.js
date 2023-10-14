@@ -19,18 +19,15 @@ const PortalHomePage = ({ match, endpoint, title }) => {
   useEffect(() => {
     axios.get(`${endpoint}/portals/${match.params.portalid}`, { withCredentials: true })
       .then(response => {
-        setPortalData(response.data);
+        console.log(response.data);
+        setPortalData(response.data.portal);
+        setAuth(response.data.isViewerOwner);
         setLoading(false);
       })
       .catch(err => {
         setError(err.message);
         setLoading(false);
       });
-
-    // if user is authorized, set auth to true
-    // need more logic here to check actual authentication
-    setAuth(true);
-    
   }, [match.params.portalid]);
   
 

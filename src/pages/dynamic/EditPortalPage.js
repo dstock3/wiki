@@ -23,7 +23,7 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
     } else {
       axios.get(`${endpoint}/portals/${match.params.portalid}`, { withCredentials: true })
         .then(response => {
-          setPortalData(response.data);
+          setPortalData(response.data.portal);
           setLoading(false);
         })
         .catch(err => {
@@ -149,7 +149,7 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
                 />
               </div>
               {portalData.portalImage && (
-                  <img src={portalData.portalImage} className="img-preview" alt="Uploaded Preview" width="100" />
+                  <img src={portalData.portalImage.src} className="img-preview" alt="Uploaded Preview" width="100" />
               )}
             </div>
           </div>
