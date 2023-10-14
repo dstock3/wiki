@@ -80,13 +80,13 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
       }
   
       const responseData = await response.json();
+      console.log(responseData);
       
-  
       if (!response.ok) {
         throw new Error(responseData.error || 'An error occurred');
       }
   
-      history.push(isEditMode ? `/${match.params.portalid}` : "/");
+      history.push(isEditMode ? `/${match.params.portalid}` : `/${responseData._id}`);
     } catch (error) {
       console.error("Error processing portal:", error.message);
     }
