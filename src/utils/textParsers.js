@@ -34,6 +34,40 @@ function ensureAbsoluteURL(url) {
     }
 }
 
-export { parseContentToHTML };
+function abridgeHTMLContent(string, limit) {
+    const parser = new DOMParser();
+    const serializer = new XMLSerializer();
+    const doc = parser.parseFromString(string, 'text/html');
+    let accumulatedLength = 0;
+  
+    function traverse(node) {
+      if (accumulatedLength >= limit) {
+        node.remove();
+        return;
+      }
+      if (node.nodeType === Node.TEXT_NODE) {
+        accumulatedLength += node.nodeValue.length;
+        if (accumulatedLength > limit) {
+          
+          const lastSpaceIndex = node.nodeValue.lastIndexOf(' ', node.nodeValue.length - (accumulatedLength - limit));
+          if (lastSpaceIndex !== -1) {
+            node.nodeValue = node.nodeValue.substring(0, lastSpaceIndex);
+          }
+          
+          node.nodeValue = node.nodeValue.replace(/[\s,]+$/, '') + '...';
+        }
+      } else {
+        const babies = Array.from(node.childNodes);
+        for (let baby of babies) {
+          traverse(baby);
+        }
+      }
+    }
+  
+    traverse(doc.body);
+    return serializer.serializeToString(doc.body);
+}
+  
+export { parseContentToHTML, abridgeHTMLContent };
 
 
