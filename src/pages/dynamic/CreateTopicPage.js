@@ -16,12 +16,12 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const topicEndpoint = `${endpoint}/${match.params.articleId}/topics`;
-        axios.post(topicEndpoint, { title: topicTitle, content: content }, {
-            headers: {
-                'csrf-token': csrfToken
-            }
-        })
+        const config = {
+            withCredentials: true,
+            headers: { 'csrf-token': csrfToken }
+        }
+        const topicEndpoint = `${endpoint}/talk/${match.params.articleid}/topics`;
+        axios.post(topicEndpoint, { title: topicTitle, content: content }, config)
         .then(response => {
             history.push(`/${match.params.portalid}/article/${match.params.articleid}/talk`);
             console.log('Topic created successfully:', response.data);
