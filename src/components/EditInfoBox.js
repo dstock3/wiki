@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageChange, handleInfoboxInfoChange, addInfoField, removeInfoField}) => {
+const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, handleInfoboxAltChange, handleInfoboxInfoChange, addInfoField, removeInfoField}) => {
     return (
         <div className="infobox-editor">
             <h3>Infobox</h3>
@@ -19,9 +19,14 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageChange, ha
                         type="file" 
                         name="image"
                         accept="image/*"
-                        onChange={(e) => handleInfoboxImageChange('src', e.target.files[0])} 
+                        onChange={handleInfoboxImageUpload} 
                     />
                 </label>
+                <img 
+                    className="infobox-img-preview" 
+                    src={infobox.image.src instanceof File ? URL.createObjectURL(infobox.image.src) : null} 
+                    alt="Selected" 
+                />
             </div>
             <div className="info-field-container">
                 <label>Image Description: </label>
@@ -30,7 +35,7 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageChange, ha
                         type="text" 
                         placeholder="Image Alt Text" 
                         value={infobox.image.alt}
-                        onChange={(e) => handleInfoboxImageChange('alt', e.target.value)} 
+                        onChange={(e) => handleInfoboxAltChange(e.target.value)} 
                     /> :
                     <span>No Image Uploaded</span>
                 }

@@ -25,6 +25,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const [references, setReferences] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [infoboxImageFile, setInfoboxImageFile] = useState(null);
     const quillRef = useRef(null);
 
     useEffect(() => {
@@ -82,9 +83,27 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         setInfobox(prev => ({ ...prev, [field]: value }));
     }
     
-    const handleInfoboxImageChange = (field, value) => {
-        setInfobox(prev => ({ ...prev, image: { ...prev.image, [field]: value } }));
-    }
+    const handleInfoboxImageUpload = e => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setInfobox(prev => ({
+                    ...prev,
+                    image: { src: reader.result, alt: prev.image.alt }
+                }));
+                setInfoboxImageFile(file);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleInfoboxAltChange = (altText) => {
+        setInfobox(prevInfobox => ({
+            ...prevInfobox,
+            image: { ...prevInfobox.image, alt: altText }
+        }));
+    };
     
     const handleInfoboxInfoChange = (index, field, value) => {
         const newInfo = [...infobox.info];
@@ -127,7 +146,6 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         const newContent = [...article.content].filter((_, index) => index !== indexToDelete);
         setArticle(prev => ({ ...prev, content: newContent }));
     };
-    
 
     const handleDeleteReference = (indexToDelete) => {
         const newReferences = references.filter((_, index) => index !== indexToDelete);
@@ -140,9 +158,15 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         let formData = new FormData();
         formData.append("title", article.title);
         formData.append("intro", article.intro);
-        formData.append("content", article.content);  
-        formData.append("infoBox", infobox);  
-        formData.append("references", references);
+        formData.append("content", JSON.stringify(article.content));
+        formData.append("infoBox", JSON.stringify(infobox));
+        formData.append("references", JSON.stringify(references));
+        if (infobox.image.alt) {
+            formData.append("image", infobox.image.alt);
+        }
+        if (infoboxImageFile) {
+            formData.append("image", infoboxImageFile);
+        }
         formData.append("portalid", match.params.portalid);
         
         const config = {
@@ -151,11 +175,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                 'csrf-token': csrfToken
             }
         };
-
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
-
+    
         if (match.params.articleid) {
             axios.put(`${endpoint}/articles/${match.params.articleid}`, formData, config)
                 .then(response => {
@@ -230,8 +250,9 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                     <EditInfoBox 
                         infobox={infobox} 
                         handleInfoboxChange={handleInfoboxChange} 
-                        handleInfoboxImageChange={handleInfoboxImageChange} 
-                        handleInfoboxInfoChange={handleInfoboxInfoChange} 
+                        handleInfoboxImageUpload={handleInfoboxImageUpload} 
+                        handleInfoboxInfoChange={handleInfoboxInfoChange}
+                        handleInfoboxAltChange={handleInfoboxAltChange}
                         addInfoField={addInfoField}
                         removeInfoField={removeInfoField}
                     />
