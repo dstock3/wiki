@@ -95,24 +95,24 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const handleDelete = async () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this portal? This action cannot be undone.');
     if (confirmDelete) {
-        try {
-            const response = await fetch(`${endpoint}/portals/${match.params.portalid}`, {
-                method: 'DELETE',
-                credentials: 'include',
-                headers: {
-                    'csrf-token': csrfToken
-                }
-            });
+      try {
+          const response = await fetch(`${endpoint}/portals/${match.params.portalid}`, {
+              method: 'DELETE',
+              credentials: 'include',
+              headers: {
+                  'csrf-token': csrfToken
+              }
+          });
 
-            if (response.ok) {
-                history.push("/");
-            } else {
-                const errorData = await response.json();
-                alert(`Error deleting portal: ${errorData.error || 'Unknown error'}`);
-            }
-        } catch (error) {
-            alert(`Error: ${error.message}`);
-        }
+          if (response.ok) {
+              history.push("/");
+          } else {
+              const errorData = await response.json();
+              alert(`Error deleting portal: ${errorData.error || 'Unknown error'}`);
+          }
+      } catch (error) {
+          alert(`Error: ${error.message}`);
+      }
     }
   };
 

@@ -15,10 +15,9 @@ const PortalsPage = ({ endpoint, title }) => {
         document.title = `${title} | Portals`;
         axios.get(`${endpoint}/portals/`, { withCredentials: true })
             .then(response => {
-                setPortals(response.data);
+                setPortals(response.data.portals);
                 setLoading(false);
-                //authentication check 
-                setIsAuthenticated(true);
+                setIsAuthenticated(response.data.isLoggedIn);
             })
             .catch(err => {
                 setError(err.message);
