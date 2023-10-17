@@ -18,12 +18,21 @@
     margin-inline: 15px;
 }
 
-.intro-container {
-    display: flex;
-    justify-content: space-between;
-    
+.article-sections {
+    width: auto;
 }
 
+.infobox {
+    float: right;
+    width: 30%;
+}
+
+.main-container::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+  
 .article-content {
     margin-right: 25px;
 }

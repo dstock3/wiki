@@ -10,10 +10,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
     <article className="article-container">
       <h1 className="article-title">{title}</h1>
       <div className="article-content">
-        <div className="intro-container">
-          <div className="article-intro" id="intro">
-           <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(intro) }} />
-          </div>
+        <div className="main-container">
           {infobox && (
             <InfoBox
               title={infobox.title}
@@ -21,31 +18,35 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
               info={infobox.info}
             />
           )}
-        </div>
-        {content.map((section, index) => {
-          return (
-              <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
-                  <div className="article-section" id={`section-${index}`}>
-                      <div className="section-head">
-                          <h2>{section.title}</h2>
-                          {isAuthenticated && (
-                            <span>[ 
-                              <Link to={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} className="edit-section-link">
-                                  Edit
-                              </Link>
-                            ]</span>
-                          )}
+          <div className="article-sections">
+            <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(intro) }} />
+            {content.map((section, index) => {
+              return (
+                  <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
+                      <div className="article-section" id={`section-${index}`}>
+                          <div className="section-head">
+                              <h2>{section.title}</h2>
+                              {isAuthenticated && (
+                                <span>[ 
+                                  <Link to={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} className="edit-section-link">
+                                      Edit
+                                  </Link>
+                                ]</span>
+                              )}
+                          </div>
+                          <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(section.text) }} />
                       </div>
-                      <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(section.text) }} />
+                      {section.image && (
+                        <div className="article-section-image">
+                            <img src={section.image.src} alt={section.image.alt} />
+                        </div>
+                      )}
                   </div>
-                  {section.image && (
-                    <div className="article-section-image">
-                        <img src={section.image.src} alt={section.image.alt} />
-                    </div>
-                  )}
-              </div>
-          );
-        })}
+              );
+            })}
+          </div>
+        </div>
+
       </div>
       <div className="article-references">
         <h3>References</h3>
