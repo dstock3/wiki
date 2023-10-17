@@ -4,7 +4,6 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';  
 import { modules, formats } from '../../config/quillConfig';
 
 const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
