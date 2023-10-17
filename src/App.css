@@ -84,3 +84,10 @@ a:hover, .logout-button:hover {
 .not-found-container > :nth-child(1) {
     margin-top: 5%;
 }
+
+.error-message {
+    text-align: center;
+    color: #ff4a4a;
+    font-weight: 600;
+    margin-block: 1em;
+}
