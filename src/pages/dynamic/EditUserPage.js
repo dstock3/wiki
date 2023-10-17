@@ -12,6 +12,7 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isUser, setIsUser] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
     document.title = `${title} | Edit User`;
@@ -39,6 +40,11 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (userData.password && confirmPassword !== userData.password) {
+      setError([{ msg: 'Password and Confirm Password do not match.' }]);
+      return;
+    }
 
     const config = {
       withCredentials: true,
@@ -76,6 +82,7 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
     <div className="edit-user-page">
       <h2>Edit Profile</h2>
       <form className="edit-user-form" onSubmit={handleSubmit}>
+        {error && error.map((err, index) => <p className="user-edit-error" key={index}>{err.msg}</p>)}
         <div className="input-group">
           <label className="user-label" htmlFor="email">Email:</label>
           <input
@@ -108,9 +115,18 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
             onChange={handleChange}
           />
         </div>
+        <div className="input-group">
+          <label className="user-label" htmlFor="confirmPassword">Confirm New Password:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={confirmPassword}
+            className="user-input"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </div>
 
-        {error && error.map((err, index) => <p className="user-edit-error" key={index}>{err.msg}</p>)}
-        
         <button className="user-submit-button" type="submit">Update Profile</button>
       </form>
     </div>
