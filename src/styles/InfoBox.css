@@ -27,3 +27,9 @@
 .infobox-label {
     text-align: left;
 }
+
+.infobox-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
