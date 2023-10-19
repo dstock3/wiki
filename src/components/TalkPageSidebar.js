@@ -1,16 +1,16 @@
 import React from 'react'
 import '../styles/SideMenu.css'
 
-const TalkPageSidebar = ({discussions}) => {
+const TalkPageSidebar = ({topics}) => {
     return (
         <div className="side-menu-container">
             <h3>Contents</h3>
     
-            {discussions && (
+            {topics && (
                 <ul>
-                    {discussions.map((discussion, index) => (
+                    {topics.map((topic, index) => (
                         <div key={index} className="discussions-nav">
-                            <li>{'> '}<a href={`#topic-${index}`}>{discussion.topic}</a></li>
+                            <li>{'> '}<a href={`#topic-${index}`}>{topic.title}</a></li>
                         </div>
                     ))}
                 </ul>

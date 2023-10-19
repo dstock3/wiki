@@ -6,7 +6,7 @@ import axios from 'axios';
 import Loading from '../../components/Loading';
 
 const TalkPage = ({ match, title, endpoint, csrfToken }) => {
-  const [discussions, setDiscussions] = useState([]);
+  const [topics, setTopics] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,7 +18,8 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   useEffect(() => {
     axios.get(`${endpoint}/talk/${match.params.articleid}`, { withCredentials: true })
       .then(response => {
-        setDiscussions(response.data.discussions);
+        console.log(response.data);
+        setTopics(response.data.discussions);
         setLoading(false);
       })
       .catch(error => {
@@ -41,10 +42,10 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
     //need to add csrfToken to the header
     axios.post(`${endpoint}/talkpage/${match.params.articleId}/topic/${topicId}/comment`, newComment)
       .then(response => {
-        const updatedDiscussions = [...discussions];
-        const targetTopic = updatedDiscussions.find(d => d.topicId === topicId);
+        const updatedTopics = [...topics];
+        const targetTopic = updatedTopics.find(d => d.topicId === topicId);
         targetTopic.comments.push(newComment);
-        setDiscussions(updatedDiscussions);
+        setTopics(updatedTopics);
       })
       .catch(error => {
         console.error("Error posting comment:", error);
@@ -58,7 +59,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
 
   return (
     <div className="talk-page">
-      <TalkPageSidebar discussions={discussions}/>
+      <TalkPageSidebar topics={topics}/>
       <div className="talk-container">
         <div className="article-talk-container">
           <div className="article-talk-subcontainer">
@@ -77,13 +78,14 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
           )}
         </div>
 
-        {!discussions.length && <div className="discussion-message">No discussions yet.</div>}
+        {!topics.length && <div className="discussion-message">No discussions yet.</div>}
         <ul>
-          {discussions.map((discussion, index) => (
+          {topics.map((topic, index) => (
             <>
-              <li key={index}>
-                <h3>{discussion.topic}</h3>
-                {discussion.comments.map((comment, index) => (
+              <li className="topic" key={index}>
+                <h3>{topic.title}</h3>
+                <div className="topic-content" dangerouslySetInnerHTML={{ __html: topic.content }} />
+                {topic.comments.map((comment, index) => (
                   <div key={index} className="comment" id={`topic-${index}`}>
                     <strong>{comment.username}:</strong> {comment.content} <span>{comment.date}</span>
                   </div>
@@ -91,14 +93,14 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
               </li>
               {isAuthenticated && (
                 <div className="add-comment">
-                  <textarea placeholder="Add a comment..." id={`textarea-${discussion.topicId}`}></textarea>
+                  <textarea placeholder="Add a comment..." id={`textarea-${topic._id}`}></textarea>
                   <button className="add-comment-button" onClick={() => {
-                    const commentContent = document.getElementById(`textarea-${discussion.topicId}`).value;
-                    postComment(discussion.topicId, commentContent);
+                    const commentContent = document.getElementById(`textarea-${topic._id}`).value;
+                    postComment(topic._id, commentContent);
                   }}>Post</button>
                 </div>
               )}
-              {index !== discussions.length - 1 && <hr />}
+              {index !== topics.length - 1 && <hr />}
             </>
           ))}
         </ul>

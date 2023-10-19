@@ -28,6 +28,8 @@ const UserProfilePage = ({ match, endpoint, title }) => {
         setLoading(false);
       });
 
+      console.log(userData)
+
   }, [match.params.username, endpoint]);
 
   if (loading) return <div className="user-profile-page">
@@ -50,10 +52,10 @@ const UserProfilePage = ({ match, endpoint, title }) => {
           </div>
           <div className="user-contributions">
             <h3>Contributions</h3>
-            <ul>
-              {userData.contributions.map((article, index) => (
+            <ul className="article-list">
+              {userData.contributions.articles.map((article, index) => (
                 <li key={index}>
-                  <a href={article.link}>{article.title}</a>
+                  <Link to={`/${article.portalId}/article/${article.articleId}`}>article</Link>
                 </li>
               ))}
             </ul>
