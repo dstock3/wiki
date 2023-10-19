@@ -18,8 +18,8 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   useEffect(() => {
     axios.get(`${endpoint}/talk/${match.params.articleid}`, { withCredentials: true })
       .then(response => {
-        console.log(response.data);
-        setTopics(response.data.discussions);
+        setTopics(response.data.talkPage.discussions);
+        setIsAuthenticated(response.data.isAuthorized);
         setLoading(false);
       })
       .catch(error => {
@@ -27,9 +27,6 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         setError(error.message);
         setLoading(false);
       });
-    // Check if user is authenticated
-    // If authenticated, set isAuthenticated to true
-    setIsAuthenticated(true);
   }, [match.params.articleid]);
 
   const postComment = (topicId, commentContent) => {
