@@ -55,14 +55,14 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
       ) : searchResults.length > 0 ? (
         <>
           {searchResults.map((result, index) => {
-            const { _id, title, intro, image = {} } = result;
-            const parsedIntro = parseContentToHTML(intro);
-
+            console.log(result);
+            const { _id, title, intro, infoBox = {} } = result;
+            
             return (
               <div key={index} className="search-result">
-                {Object.keys(image).length > 0 ? (
+                {Object.keys(infoBox.image).length > 0 ? (
                   <div className="search-result-image-container">
-                    <img src={image.src} alt={image.alt} />
+                    <img src={infoBox.image.src} alt={infoBox.image.alt} />
                   </div>
                 ) :
                 <div className="search-result-image-container">
@@ -71,7 +71,7 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
                 }
                 <div className="search-result-container">
                   <h2><Link to={`/${match.params.portalid}/article/${_id}`}>{title}</Link></h2>
-                  <p>{parsedIntro}</p>
+                  <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(intro) }} />
                 </div>
               </div>
             );
