@@ -7,6 +7,7 @@ import Loading from '../../components/Loading';
 
 const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [topics, setTopics] = useState([]);
+  const [commentContents, setCommentContents] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,23 +31,27 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   }, [match.params.articleid]);
 
   const postComment = (topicId, commentContent) => {
+    
     const newComment = {
-      username: "LoggedInUser", // update this to use the actual username
       content: commentContent,
-      date: new Date().toISOString().split('T')[0] // YYYY-MM-DD format
     };
     
-    //need to add csrfToken to the header
-    axios.post(`${endpoint}/talkpage/${match.params.articleId}/topic/${topicId}/comment`, newComment)
+    axios.post(`${endpoint}/talkpage/${match.params.articleId}/topic/${topicId}/comment`, newComment, {
+      headers: {
+        'csrf-token': csrfToken
+      }
       .then(response => {
         const updatedTopics = [...topics];
-        const targetTopic = updatedTopics.find(d => d.topicId === topicId);
+        const targetTopic = updatedTopics.find(d => d._id === topicId);
         targetTopic.comments.push(newComment);
         setTopics(updatedTopics);
+        setCommentContents(prev => ({...prev, [topicId]: ''}));
       })
       .catch(error => {
         console.error("Error posting comment:", error);
-      });
+      })
+    })
+    
   };
 
   if (loading) return <div className="talk-page">
@@ -83,17 +88,20 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                 <h3>{topic.title}</h3>
                 <div className="topic-content" dangerouslySetInnerHTML={{ __html: topic.content }} />
                 {topic.comments.map((comment, index) => (
-                  <div key={index} className="comment" id={`topic-${index}`}>
+                  <div key={`${topic._id}-${index}`} className="comment" id={`topic-${index}`}>
                     <strong>{comment.username}:</strong> {comment.content} <span>{comment.date}</span>
                   </div>
                 ))}
               </li>
               {isAuthenticated && (
                 <div className="add-comment">
-                  <textarea placeholder="Add a comment..." id={`textarea-${topic._id}`}></textarea>
+                  <textarea 
+                    placeholder="Add a comment..." 
+                    value={commentContents[topic._id] || ''} 
+                    onChange={e => setCommentContents({...commentContents, [topic._id]: e.target.value})}
+                  />
                   <button className="add-comment-button" onClick={() => {
-                    const commentContent = document.getElementById(`textarea-${topic._id}`).value;
-                    postComment(topic._id, commentContent);
+                    postComment(topic._id, commentContents[topic._id]);
                   }}>Post</button>
                 </div>
               )}
