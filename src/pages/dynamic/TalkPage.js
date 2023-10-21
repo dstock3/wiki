@@ -35,25 +35,26 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
     const newComment = {
       content: commentContent,
     };
-    
-    axios.post(`${endpoint}/talkpage/${match.params.articleId}/topic/${topicId}/comment`, newComment, {
-      headers: {
-        'csrf-token': csrfToken
-      }
-      .then(response => {
-        const updatedTopics = [...topics];
-        const targetTopic = updatedTopics.find(d => d._id === topicId);
-        targetTopic.comments.push(newComment);
-        setTopics(updatedTopics);
-        setCommentContents(prev => ({...prev, [topicId]: ''}));
-      })
-      .catch(error => {
-        console.error("Error posting comment:", error);
-        setError(error.message);
-      })
-    })
-  };
 
+    const config = {
+      withCredentials: true,
+      headers: { 'csrf-token': csrfToken }
+  }
+    
+    axios.post(`${endpoint}/talk/${match.params.articleid}/topics/${topicId}/comments`, newComment, config)
+    .then(response => {
+      const updatedTopics = [...topics];
+      const targetTopic = updatedTopics.find(d => d._id === topicId);
+      targetTopic.comments.push(newComment);
+      setTopics(updatedTopics);
+      setCommentContents(prev => ({...prev, [topicId]: ''}));
+    })
+    .catch(error => {
+      console.error("Error posting comment:", error);
+      setError(error.message);
+    });
+  };
+  
   if (loading) return <div className="talk-page">
     <Loading loading={loading} />
   </div>;
