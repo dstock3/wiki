@@ -4,6 +4,7 @@ import TalkPageSidebar from '../../components/TalkPageSidebar';
 import '../../styles/TalkPage.css';
 import axios from 'axios';
 import Loading from '../../components/Loading';
+import ReactQuill from 'react-quill'; 
 
 const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [topics, setTopics] = useState([]);
@@ -31,7 +32,6 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   }, [match.params.articleid]);
 
   const postComment = (topicId, commentContent) => {
-    
     const newComment = {
       content: commentContent,
     };
@@ -49,15 +49,18 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
       })
       .catch(error => {
         console.error("Error posting comment:", error);
+        setError(error.message);
       })
     })
-    
   };
 
   if (loading) return <div className="talk-page">
     <Loading loading={loading} />
   </div>;
-  if (error) return <div className="talk-page">Error: {error}</div>;
+  
+  if (error) return <div className="talk-page">
+    Error: {error}
+  </div>;
 
   return (
     <div className="talk-page">
@@ -95,10 +98,10 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
               </li>
               {isAuthenticated && (
                 <div className="add-comment">
-                  <textarea 
-                    placeholder="Add a comment..." 
-                    value={commentContents[topic._id] || ''} 
-                    onChange={e => setCommentContents({...commentContents, [topic._id]: e.target.value})}
+                  <ReactQuill 
+                      placeholder="Add a comment..."
+                      value={commentContents[topic._id] || ''}
+                      onChange={value => setCommentContents({...commentContents, [topic._id]: value})}
                   />
                   <button className="add-comment-button" onClick={() => {
                     postComment(topic._id, commentContents[topic._id]);
