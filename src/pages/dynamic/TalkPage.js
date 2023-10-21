@@ -4,7 +4,8 @@ import TalkPageSidebar from '../../components/TalkPageSidebar';
 import '../../styles/TalkPage.css';
 import axios from 'axios';
 import Loading from '../../components/Loading';
-import ReactQuill from 'react-quill'; 
+import ReactQuill from 'react-quill';
+import { parseContentToHTML } from '../../utils/textParsers';
 
 const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [topics, setTopics] = useState([]);
@@ -39,7 +40,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
     const config = {
       withCredentials: true,
       headers: { 'csrf-token': csrfToken }
-  }
+    }
     
     axios.post(`${endpoint}/talk/${match.params.articleid}/topics/${topicId}/comments`, newComment, config)
     .then(response => {
@@ -93,7 +94,11 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                 <div className="topic-content" dangerouslySetInnerHTML={{ __html: topic.content }} />
                 {topic.comments.map((comment, index) => (
                   <div key={`${topic._id}-${index}`} className="comment" id={`topic-${index}`}>
-                    <strong>{comment.username}:</strong> {comment.content} <span>{comment.date}</span>
+                    <div className="comment-author">
+                      <strong>{comment.author}:</strong>
+                    </div>
+                    <div className="comment-content" dangerouslySetInnerHTML={{ __html: comment.content }} />
+                    <div className="comment-date">{comment.date}</div>
                   </div>
                 ))}
               </li>
