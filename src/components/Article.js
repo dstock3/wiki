@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Article.css';
 import InfoBox from './InfoBox';
+import EditLink from './EditLink';
 import { Link } from 'react-router-dom';
 import { parseContentToHTML } from '../utils/textParsers';
 
@@ -27,11 +28,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
                           <div className="section-head">
                               <h2>{section.title}</h2>
                               {isAuthenticated && (
-                                <span>[ 
-                                  <Link to={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} className="edit-section-link">
-                                      Edit
-                                  </Link>
-                                ]</span>
+                                <EditLink linkTo={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} linkClass="edit-section-link" />
                               )}
                           </div>
                           <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(section.text) }} />
