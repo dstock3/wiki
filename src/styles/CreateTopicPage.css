@@ -40,7 +40,12 @@
     min-height: 150px;
 }
 
-.create-topic-button {
+.topic-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.new-topic-button {
     background-color: #007bff;
     color: #ffffff;
     padding: 10px 15px;
@@ -49,9 +54,24 @@
     cursor: pointer;
     transition: background-color 0.2s;
     width: 150px;
-    align-self: flex-end;
 }
 
-.create-topic-button:hover {
+.new-topic-button:hover {
     background-color: #0056b3;
+}
+
+.delete-topic-button {
+    background-color: #ff4a4a;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 150px;
+    margin-right: 10px;
+}
+
+.delete-topic-button:hover {
+    background-color: #b30000;
 }

@@ -14,6 +14,19 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
         document.title = `${title} | Create Topic`;
     }, [title]);
 
+    useEffect(() => {
+        if (match.params.topicid) {
+            axios.get(`${endpoint}/talk/${match.params.articleid}/topics/${match.params.topicid}`, { withCredentials: true })
+            .then(response => {
+                setTopicTitle(response.data.topic.title);
+                setContent(response.data.topic.content);
+            })
+            .catch(error => {
+                console.error('Error fetching topic:', error);
+            });
+        }
+    }, [match.params.articleid, match.params.topicid]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const config = {
@@ -53,7 +66,15 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
                         formats={formats}
                     />
                 </div>
-                <button className="create-topic-button" type="submit">Create Topic</button>
+                <div className="topic-button-container">
+                    {match.params.topicid ? 
+                        <>
+                            <button className="delete-topic-button" type="submit">Delete Topic</button>
+                            <button className="new-topic-button" type="submit">Update Topic</button>
+                        </> : 
+                        <button className="new-topic-button" type="submit">Create Topic</button>
+                    }
+                </div>
             </form>
         </div>
     );
