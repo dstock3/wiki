@@ -5,7 +5,7 @@ import '../../styles/TalkPage.css';
 import axios from 'axios';
 import Loading from '../../components/Loading';
 import ReactQuill from 'react-quill';
-import { parseContentToHTML } from '../../utils/textParsers';
+import Comment from '../../components/Comment';
 
 const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [topics, setTopics] = useState([]);
@@ -93,13 +93,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                 <h3>{topic.title}</h3>
                 <div className="topic-content" dangerouslySetInnerHTML={{ __html: topic.content }} />
                 {topic.comments.map((comment, index) => (
-                  <div key={`${topic._id}-${index}`} className="comment" id={`topic-${index}`}>
-                    <div className="comment-author">
-                      <strong>{comment.author}:</strong>
-                    </div>
-                    <div className="comment-content" dangerouslySetInnerHTML={{ __html: comment.content }} />
-                    <div className="comment-date">{comment.date}</div>
-                  </div>
+                  <Comment key={`${topic._id}-${index}`} index={index} comment={comment} />
                 ))}
               </li>
               {isAuthenticated && (
