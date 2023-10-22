@@ -105,6 +105,10 @@ function App() {
               <CreateTopicPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
+            <Route path="/:portalid/article/:articleid/talk/:topicid/edit" exact render={(props) => 
+              <CreateTopicPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
+            } />
+
             <Route path="/:portalid/article/:articleid/edit" exact render={(props) => 
               <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />

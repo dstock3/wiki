@@ -6,6 +6,7 @@ import axios from 'axios';
 import Loading from '../../components/Loading';
 import ReactQuill from 'react-quill';
 import Comment from '../../components/Comment';
+import EditLink from '../../components/EditLink';
 
 const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [topics, setTopics] = useState([]);
@@ -91,7 +92,13 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
             <>
               <li className="topic" key={index}>
                 <div className="topic-header">
-                  <h3>{topic.title}</h3>
+                  <div className="topic-title">
+                    <h3>{topic.title}</h3>
+                    {topic.isAuthorized && (
+                        <EditLink linkTo={`/${match.params.portalid}/article/${match.params.articleid}/talk/${topic._id}/edit`} linkClass="edit-topic" />
+                    )}
+                  </div>
+
                   <div className="topic-subhead">
                     <div>Posted by <Link to={`/user/${topic.author}`}>{topic.author}</Link></div>
                     <div className="topic-date">{topic.date}</div>

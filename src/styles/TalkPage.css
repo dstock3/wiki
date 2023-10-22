@@ -93,9 +93,7 @@
 }
 
 .topics {
-    margin-inline-start: 0;
-    
-    
+    margin-inline-start: 0;   
 }
 
 .topic {
@@ -114,6 +112,15 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+}
+
+.topic-title {
+    display: flex;
+    align-items: center;
+}
+
+.topic-title span {
+    margin-left: 5px;
 }
 
 .topic-subhead {
