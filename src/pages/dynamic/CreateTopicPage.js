@@ -44,6 +44,22 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
         });
     };
 
+    const handleDelete = () => {
+        const config = {
+            withCredentials: true,
+            headers: { 'csrf-token': csrfToken }
+        };
+        const deleteEndpoint = `${endpoint}/talk/${match.params.articleid}/topics/${match.params.topicid}`;
+        axios.delete(deleteEndpoint, config)
+        .then(response => {
+            console.log('Topic deleted successfully:', response.data);
+            history.push(`/${match.params.portalid}/article/${match.params.articleid}/talk`);
+        })
+        .catch(error => {
+            console.error('Error deleting topic:', error);
+        });
+    };
+
     return (
         <div className="create-topic-page">
             <form onSubmit={handleSubmit}>
@@ -69,7 +85,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
                 <div className="topic-button-container">
                     {match.params.topicid ? 
                         <>
-                            <button className="delete-topic-button" type="submit">Delete Topic</button>
+                            <button type="button" className="delete-topic-button" onClick={handleDelete}>Delete Topic</button>
                             <button className="new-topic-button" type="submit">Update Topic</button>
                         </> : 
                         <button className="new-topic-button" type="submit">Create Topic</button>
