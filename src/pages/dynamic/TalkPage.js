@@ -10,6 +10,7 @@ import EditLink from '../../components/EditLink';
 
 const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [topics, setTopics] = useState([]);
+  const [articleTitle, setArticleTitle] = useState('');
   const [commentContents, setCommentContents] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -23,6 +24,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
     axios.get(`${endpoint}/talk/${match.params.articleid}`, { withCredentials: true })
       .then(response => {
         setTopics(response.data.talkPage.discussions);
+        setArticleTitle(response.data.talkPage.articleTitle)
         setIsAuthenticated(response.data.isAuthorized);
         setLoading(false);
       })
@@ -80,7 +82,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
           </div>
         </div>
         <div className="talk-head-container">
-          <h1>Talk: {match.params.articleId}</h1>
+          <h1>Talk: {articleTitle}</h1>
           {isAuthenticated && (
             <Link  to={`/${match.params.portalid}/article/${match.params.articleid}/talk/create`} className="create-topic">Create New Topic</Link>
           )}
