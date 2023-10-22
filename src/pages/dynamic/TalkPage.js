@@ -86,11 +86,18 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         </div>
 
         {!topics.length && <div className="discussion-message">No discussions yet.</div>}
-        <ul>
+        <ul className="topics">
           {topics.map((topic, index) => (
             <>
               <li className="topic" key={index}>
-                <h3>{topic.title}</h3>
+                <div className="topic-header">
+                  <h3>{topic.title}</h3>
+                  <div className="topic-subhead">
+                    <div>Posted by <Link to={`/user/${topic.author}`}>{topic.author}</Link></div>
+                    <div className="topic-date">{topic.date}</div>
+                  </div>
+                </div>
+                
                 <div className="topic-content" dangerouslySetInnerHTML={{ __html: topic.content }} />
                 {topic.comments.map((comment, index) => (
                   <Comment key={`${topic._id}-${index}`} index={index} comment={comment} />
@@ -98,6 +105,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
               </li>
               {isAuthenticated && (
                 <div className="add-comment">
+                  <div className="add-comment-header">Add a comment</div>
                   <ReactQuill 
                       placeholder="Add a comment..."
                       value={commentContents[topic._id] || ''}
@@ -108,7 +116,6 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                   }}>Post</button>
                 </div>
               )}
-              {index !== topics.length - 1 && <hr />}
             </>
           ))}
         </ul>
