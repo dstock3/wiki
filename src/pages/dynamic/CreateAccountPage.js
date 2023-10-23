@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/CreateAccountPage.css';
+import { useHistory } from 'react-router-dom'; 
 
 const CreateAccountPage = ({endpoint, title}) => {
     const [message, setMessage] = useState(null);
     const [isError, setIsError] = useState(false);
+    const history = useHistory(); 
 
     useEffect(() => {
         document.title = `${title} | Create Account`;
@@ -23,37 +25,41 @@ const CreateAccountPage = ({endpoint, title}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
+    
         if (formData.password !== formData.confirmPassword) {
             setMessage('Passwords do not match');
             setIsError(true);
             return;
         }
-
+    
         fetch(`${endpoint}/users`, {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
         })
-            .then((response) => response.json())
-            .then((data) => {
-            if (data.error) {
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                const errorMessage = data.errors.map(err => err.msg).join(', ');
+                setMessage(errorMessage);
+                setIsError(true);
+            } else if (data.error) {
                 setMessage(data.error);
                 setIsError(true);
             } else {
                 setMessage('User created successfully');
                 setIsError(false);
-                window.location.href = '/login';
+                history.push('/login'); 
             }
-            })
-            .catch((error) => {
-            setMessage('An error occurred');
+        })
+        .catch((error) => {
+            setMessage('An unexpected error occurred');
             setIsError(true);
         });
     };
-
+    
     return (
         <div className="create-account-page">
             <h2>Create an Account</h2>
