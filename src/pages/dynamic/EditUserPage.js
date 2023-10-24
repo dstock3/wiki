@@ -50,22 +50,21 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
       withCredentials: true,
       headers: { 'csrf-token': csrfToken }
     }
-    
-    axios.put(`${endpoint}/users/${userData._id}`, userData, config)
-      .then(response => {
-        history.push(`/user/${userData.username}`);
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          history.push('/login');
-        } else if (error.response.data.errors) {
-          console.log(error.response.data.errors[0].msg);
-          setError(error.response.data.errors);
-        }
-        setError(error.response.data.errors);
-      });
-  };
 
+    axios.put(`${endpoint}/users/${userData._id}`, userData, config)
+    .then(response => {
+      history.push(`/user/${userData.username}`);
+    })
+    .catch(error => {
+      if (error.response.status === 401) {
+        history.push('/login');
+      } else if (error.response.data.errors) {
+        setError(error.response.data.errors);
+      } else {
+        setError([{ msg: 'An unknown error occurred.' }]);
+      }
+    });
+  };
 
   if (loading) return <div className="edit-user-page">
     <Loading loading={loading} />

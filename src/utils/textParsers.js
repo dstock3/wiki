@@ -1,3 +1,5 @@
+import DOMPurify from 'dompurify';
+
 function parseContentToHTML(content) {
     const articleLinkRegex = /\[\[PortalID:\s*([^|]+)\s*\|\s*ArticleID:\s*([^|]+)\s*\|\s*([^\]]+)\]\]/g;
     const referenceLinkRegex = /\[(\d+)\]/g;
@@ -11,7 +13,7 @@ function parseContentToHTML(content) {
     });
     const contentWithParsedLinks = ensureLinksAreAbsolute(content);
 
-    return contentWithParsedLinks;
+    return DOMPurify.sanitize(contentWithParsedLinks);
 }
 
 function ensureLinksAreAbsolute(htmlString) {
