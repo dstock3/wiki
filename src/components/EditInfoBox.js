@@ -1,6 +1,17 @@
 import React from 'react'
 
 const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, handleInfoboxAltChange, handleInfoboxInfoChange, addInfoField, removeInfoField}) => {
+    const categoryColors = {
+        'Movies & TV': '#ffcccc',
+        'Music': '#b0c4de',
+        'Literature': '#ccffcc',
+        'Games': '#ccccff',
+        'Celebrities': '#f09eff',
+        'Sports': '#ffaa00',
+        'Technology': '#cccccc',
+        'Others': '#ddeedd'
+    };
+    
     return (
         <div className="infobox-editor">
             <h3>Infobox</h3>
@@ -39,6 +50,23 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, ha
                     /> :
                     <span>No Image Uploaded</span>
                 }
+            </div>
+            <div className="info-field-container">
+                <label>Category:</label>
+                <select
+                    value={infobox.category || ''}
+                    onChange={(e) => handleInfoboxChange('category', e.target.value)}
+                >
+                    {Object.keys(categoryColors).map(category => (
+                        <option
+                            key={category} 
+                            value={category}
+                            style={{backgroundColor: categoryColors[category]}}
+                        >
+                            {category}
+                        </option>
+                    ))}
+                </select>
             </div>
             <div className="label-value-pairs">
                 {infobox.info.map((infoField, index) => (
