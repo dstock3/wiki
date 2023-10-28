@@ -41,3 +41,13 @@
 .no-articles-found-msg {
     margin-inline: 20px;
 }
+
+.portal-image {
+    width: 100%;
+}
+
+.portal-image img {
+    max-width: 100%;  
+    height: auto;     
+    max-height: 300px; 
+}

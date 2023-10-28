@@ -1,7 +1,8 @@
 import React from 'react'
 
 const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, handleInfoboxAltChange, handleInfoboxInfoChange, addInfoField, removeInfoField}) => {
-    const categoryColors = {
+    
+    /*const categoryColors = {
         'Movies & TV': '#ffcccc',
         'Music': '#b0c4de',
         'Literature': '#ccffcc',
@@ -10,7 +11,7 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, ha
         'Sports': '#ffaa00',
         'Technology': '#cccccc',
         'Others': '#ddeedd'
-    };
+    };*/
     
     return (
         <div className="infobox-editor">
@@ -51,6 +52,7 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, ha
                     <span>No Image Uploaded</span>
                 }
             </div>
+            {/*
             <div className="info-field-container">
                 <label>Category:</label>
                 <select
@@ -67,7 +69,7 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, ha
                         </option>
                     ))}
                 </select>
-            </div>
+            </div>*/}
             <div className="label-value-pairs">
                 {infobox.info.map((infoField, index) => (
                     <div key={index} className="label-value-pair">
