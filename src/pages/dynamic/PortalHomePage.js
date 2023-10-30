@@ -4,10 +4,11 @@ import PortalSidebar from '../../components/PortalSidebar';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios'; 
 import Loading from '../../components/Loading';
-import { parseContentToHTML } from '../../utils/textParsers';
+import { abridgeHTMLContent, parseContentToHTML } from '../../utils/textParsers';
 
 const PortalHomePage = ({ match, endpoint, title }) => {
   const [portalData, setPortalData] = useState(null);
+  const [featuredArticle, setFeaturedArticle] = useState(null); 
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,6 +21,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
     axios.get(`${endpoint}/portals/${match.params.portalid}`, { withCredentials: true })
       .then(response => {
         setPortalData(response.data.portal);
+        setFeaturedArticle(response.data.portal.featuredArticle);
         setAuth(response.data.isViewerOwner);
         setLoading(false);
       })
@@ -59,8 +61,8 @@ const PortalHomePage = ({ match, endpoint, title }) => {
             </div>
             {portalData.featuredArticle && (
               <div className="featured-article">
-                <h2>Featured Article: {portalData.featuredArticle.title}</h2>
-                <p>{portalData.featuredArticle.summary}</p>
+                <h2>Featured Article: {featuredArticle.title}</h2>
+                <div dangerouslySetInnerHTML={{ __html: abridgeHTMLContent(parseContentToHTML(featuredArticle.intro), 150) }} />
                 <Link to={`/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
               </div>
             )}
