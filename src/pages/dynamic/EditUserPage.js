@@ -125,8 +125,10 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-
-        <button className="user-submit-button" type="submit">Update Profile</button>
+        <div className="profile-button-container">
+          <button className="user-delete-button" type="submit">Delete Account</button>
+          <button className="user-submit-button" type="submit">Update Profile</button>
+        </div>
       </form>
     </div>
   );
