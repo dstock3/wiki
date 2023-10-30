@@ -66,6 +66,35 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
     });
   };
 
+  const handleDelete = (event) => {
+    event.preventDefault();
+    
+    const userConfirmation = window.confirm("Are you sure you want to delete your account? This action is irreversible.");
+  
+    if (!userConfirmation) {
+      return;
+    }
+
+    const config = {
+      withCredentials: true,
+      headers: { 'csrf-token': csrfToken }
+    }
+
+    axios.delete(`${endpoint}/users/${userData._id}`, config)
+      .then(response => {
+        history.push('/');
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          history.push('/login');
+        } else if (error.response.data.errors) {
+          setError(error.response.data.errors);
+        } else {
+          setError([{ msg: 'An unknown error occurred.' }]);
+        }
+      });
+  }
+
   if (loading) return <div className="edit-user-page">
     <Loading loading={loading} />
   </div>;
@@ -126,7 +155,7 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
           />
         </div>
         <div className="profile-button-container">
-          <button className="user-delete-button" type="submit">Delete Account</button>
+          <button className="user-delete-button" type="button" onClick={handleDelete} >Delete Account</button>
           <button className="user-submit-button" type="submit">Update Profile</button>
         </div>
       </form>
