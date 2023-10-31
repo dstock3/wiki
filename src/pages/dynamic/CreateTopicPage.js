@@ -28,6 +28,11 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
     }, [match.params.articleid, match.params.topicid]);
 
     const handleSubmit = (e) => {
+        if (match.params.topicid) { return handleUpdate(e); }
+        return handleCreate(e);
+    };
+
+    const handleCreate = (e) => {
         e.preventDefault();
         const config = {
             withCredentials: true,
@@ -41,6 +46,23 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
         })
         .catch(error => {
             console.error('Error creating topic:', error);
+        });
+    };
+
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        const config = {
+            withCredentials: true,
+            headers: { 'csrf-token': csrfToken }
+        }
+        const updateEndpoint = `${endpoint}/talk/${match.params.articleid}/topics/${match.params.topicid}`;
+        axios.put(updateEndpoint, { title: topicTitle, content: content }, config)
+        .then(response => {
+            history.push(`/${match.params.portalid}/article/${match.params.articleid}/talk`);
+            console.log('Topic updated successfully:', response.data);
+        })
+        .catch(error => {
+            console.error('Error updating topic:', error);
         });
     };
 
