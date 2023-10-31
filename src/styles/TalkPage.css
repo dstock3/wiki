@@ -110,13 +110,18 @@
 .topic-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 15px;
 }
 
 .topic-title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.topic-title h3 {
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .topic-title span {

@@ -3,12 +3,6 @@ import { Link } from 'react-router-dom'
 import { formatDate } from '../utils/textParsers'
 
 const Comment = ({index, comment}) => {
-    const formattedDate = new Date(comment.date).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    });
-
     return (
         <div className="comment" id={`topic-${index}`}>
             <span className="comment-author">
