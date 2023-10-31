@@ -7,6 +7,7 @@ import Loading from '../../components/Loading';
 import ReactQuill from 'react-quill';
 import Comment from '../../components/Comment';
 import EditLink from '../../components/EditLink';
+import { formatDate } from '../../utils/textParsers';
 
 const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [topics, setTopics] = useState([]);
@@ -103,7 +104,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
 
                   <div className="topic-subhead">
                     <div>Posted by <Link to={`/user/${topic.author}`}>{topic.author}</Link></div>
-                    <div className="topic-date">{topic.date}</div>
+                    <div className="topic-date">{formatDate(topic.date)}</div>
                   </div>
                 </div>
                 

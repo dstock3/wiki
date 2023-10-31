@@ -1,5 +1,10 @@
 import DOMPurify from 'dompurify';
 
+function formatDate(dateString) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+}
+
 function parseContentToHTML(content) {
     const articleLinkRegex = /\[\[PortalID:\s*([^|]+)\s*\|\s*ArticleID:\s*([^|]+)\s*\|\s*([^\]]+)\]\]/g;
     const referenceLinkRegex = /\[(\d+)\]/g;
@@ -70,6 +75,6 @@ function abridgeHTMLContent(string, limit) {
     return serializer.serializeToString(doc.body);
 }
   
-export { parseContentToHTML, abridgeHTMLContent };
+export { formatDate, parseContentToHTML, abridgeHTMLContent };
 
 
