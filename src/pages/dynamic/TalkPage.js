@@ -20,11 +20,6 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("currentUserId", currentUserId);
-    console.log("authorId", articleAuthorId);
-  }, [currentUserId, articleAuthorId]);
-  
-  useEffect(() => {
     document.title = `${title} | Talk Page`;
   }, [title]);
 
@@ -37,6 +32,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         setArticleAuthorId(response.data.talkPage.articleAuthorId);
         setCurrentUserId(response.data.talkPage.currentUserId);
         setLoading(false);
+        console.log(response.data)
       })
       .catch(error => {
         console.error("Error fetching data:", error);
@@ -122,9 +118,20 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                   <Comment 
                     key={`${topic._id}-${index}`} 
                     index={index} 
+                    endpoint={endpoint}
+                    topicId={topic._id}
+                    articleId={match.params.articleid}
                     comment={comment} 
                     currentUserId={currentUserId}
                     articleAuthorId={articleAuthorId}
+                    csrfToken={csrfToken}
+                    onDeleteSuccess={commentId => {
+                      const updatedTopics = [...topics];
+                      const targetTopic = updatedTopics.find(d => d._id === topic._id);
+                      targetTopic.comments = targetTopic.comments.filter(c => c._id !== commentId);
+                      setTopics(updatedTopics);
+                      }
+                    }
                   />
                 ))}
               </li>
