@@ -14,8 +14,15 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [articleTitle, setArticleTitle] = useState('');
   const [commentContents, setCommentContents] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [articleAuthorId, setArticleAuthorId] = useState('');
+  const [currentUserId, setCurrentUserId] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    console.log("currentUserId", currentUserId);
+    console.log("authorId", articleAuthorId);
+  }, [currentUserId, articleAuthorId]);
   
   useEffect(() => {
     document.title = `${title} | Talk Page`;
@@ -27,6 +34,8 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         setTopics(response.data.talkPage.discussions);
         setArticleTitle(response.data.talkPage.articleTitle)
         setIsAuthenticated(response.data.isAuthorized);
+        setArticleAuthorId(response.data.talkPage.articleAuthorId);
+        setCurrentUserId(response.data.talkPage.currentUserId);
         setLoading(false);
       })
       .catch(error => {
@@ -110,7 +119,13 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                 
                 <div className="topic-content" dangerouslySetInnerHTML={{ __html: topic.content }} />
                 {topic.comments.map((comment, index) => (
-                  <Comment key={`${topic._id}-${index}`} index={index} comment={comment} />
+                  <Comment 
+                    key={`${topic._id}-${index}`} 
+                    index={index} 
+                    comment={comment} 
+                    currentUserId={currentUserId}
+                    articleAuthorId={articleAuthorId}
+                  />
                 ))}
               </li>
               {isAuthenticated && (

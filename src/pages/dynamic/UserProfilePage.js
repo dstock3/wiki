@@ -28,14 +28,12 @@ const UserProfilePage = ({ match, endpoint, title }) => {
         setLoading(false);
       });
 
-      console.log(userData)
-
   }, [match.params.username, endpoint]);
 
   if (loading) return <div className="user-profile-page">
     <Loading loading={loading} />
   </div>;
-  if (error) return <div className="user-profile-page">Error: {error}</div>;
+  if (error) return <div className="user-profile-page">Error: {error.message}</div>;
 
   return (
     <div className="user-profile-page">
@@ -55,7 +53,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
             <ul className="article-list">
               {userData.contributions.articles.map((article, index) => (
                 <li key={index}>
-                  <Link to={`/${article.portalId}/article/${article.articleId}`}>article</Link>
+                  <Link to={`/${article.portalId}/article/${article._id}`}>article</Link>
                 </li>
               ))}
             </ul>
