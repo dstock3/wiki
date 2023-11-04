@@ -64,32 +64,37 @@ const Comment = ({
 
     return (
         <div className="comment" id={`comment-${index}`}>
-            <span className="comment-author">
-                <Link to={`/user/${comment.authorId}`}>{comment.author}</Link>:
-            </span>
-            {editMode ? (
-                <textarea
-                    className="comment-edit-textarea"
-                    value={editedContent}
-                    onChange={(e) => setEditedContent(e.target.value)}
-                />
-            ) : (
-                <span className="comment-content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(comment.content) }} />
-            )}
-            <div className="comment-date">{formatDate(comment.date)}</div>
-            {error && <div className="error">{error}</div>}
-            {isAuthor && !editMode && (
-                <button onClick={handleEditToggle} className="comment-edit-button">Edit</button>
-            )}
-            {canDelete && !editMode && (
-                <button onClick={handleDelete} className="comment-delete-button">Delete</button>
-            )}
-            {editMode && (
-                <>
-                    <button onClick={handleSave} className="comment-save-button">Save</button>
-                    <button onClick={handleEditToggle} className="comment-cancel-button">Cancel</button>
-                </>
-            )}
+            <div className="comment-content-container">
+                <span className="comment-author">
+                    <Link to={`/user/${comment.authorId}`}>{comment.author}</Link>:
+                </span>
+                {editMode ? (
+                    <textarea
+                        className="comment-edit-textarea"
+                        value={editedContent}
+                        onChange={(e) => setEditedContent(e.target.value)}
+                    />
+                ) : (
+                    <span className="comment-content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(comment.content) }} />
+                )}
+                <div className="comment-date">{formatDate(comment.date)}</div>
+                {error && <div className="error">{error}</div>}
+            </div>
+
+            <div className="comment-button-container">
+                {isAuthor && !editMode && (
+                    <button onClick={handleEditToggle} className="comment-edit-button">Edit</button>
+                )}
+                {canDelete && !editMode && (
+                    <button onClick={handleDelete} className="comment-delete-button">Delete</button>
+                )}
+                {editMode && (
+                    <>
+                        <button onClick={handleSave} className="comment-save-button">Save</button>
+                        <button onClick={handleEditToggle} className="comment-cancel-button">Cancel</button>
+                    </>
+                )}
+            </div>
         </div>
     );
 };
