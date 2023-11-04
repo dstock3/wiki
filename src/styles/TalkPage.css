@@ -156,7 +156,20 @@
 }
 
 .comment-content-container {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 15px;
+}
+
+.comment-content-subcontainer {
+    display: flex;
+    align-items: flex-start;
+}
+
+.comment-edit-textarea {
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    padding: 10px 10px;
 }
 
 .comment-button-container {
@@ -191,4 +204,5 @@
     font-size: 0.8rem;
     margin-bottom: 10px;
 }
+
   

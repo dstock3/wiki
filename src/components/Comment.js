@@ -65,20 +65,23 @@ const Comment = ({
     return (
         <div className="comment" id={`comment-${index}`}>
             <div className="comment-content-container">
-                <span className="comment-author">
-                    <Link to={`/user/${comment.authorId}`}>{comment.author}</Link>:
-                </span>
-                {editMode ? (
-                    <textarea
-                        className="comment-edit-textarea"
-                        value={editedContent}
-                        onChange={(e) => setEditedContent(e.target.value)}
-                    />
-                ) : (
-                    <span className="comment-content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(comment.content) }} />
-                )}
+                <div className="comment-content-subcontainer">
+                    <span className="comment-author">
+                        <Link to={`/user/${comment.author}`}>{comment.author}</Link>:
+                    </span>
+                    {editMode ? (
+                        <textarea
+                            className="comment-edit-textarea"
+                            value={editedContent}
+                            onChange={(e) => setEditedContent(e.target.value)}
+                        />
+                    ) : (
+                        <span className="comment-content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(comment.content) }} />
+                    )}
+                </div>
+
                 <div className="comment-date">{formatDate(comment.date)}</div>
-                {error && <div className="error">{error}</div>}
+                {error && <div className="comment-error">{error}</div>}
             </div>
 
             <div className="comment-button-container">
