@@ -47,7 +47,7 @@ const Comment = ({
         };
         try {
             const response = await axios.put(`${endpoint}/talk/${articleId}/topics/${topicId}/comments/${comment._id}`, { content: editedContent }, config);
-            onEditSuccess(comment._id, response.data.updatedContent); // You need to implement this in the parent component
+            onEditSuccess(comment._id, response.data.updatedContent); 
             setEditMode(false);
         } catch (error) {
             setError("Error updating comment: " + (error.response?.data?.error || error.message));

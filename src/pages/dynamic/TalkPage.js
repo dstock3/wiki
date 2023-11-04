@@ -64,6 +64,25 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
       setError(error.message);
     });
   };
+
+  const onEditSuccess = (topicId, updatedComment) => {
+    setTopics(prevTopics => {
+      return prevTopics.map(topic => {
+        if (topic._id === topicId) {
+          return {
+            ...topic,
+            comments: topic.comments.map(comment => {
+              if (comment._id === updatedComment._id) {
+                return updatedComment;
+              }
+              return comment;
+            }),
+          };
+        }
+        return topic;
+      });
+    });
+  };
   
   if (loading) return <div className="talk-page">
     <Loading loading={loading} />
@@ -125,6 +144,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                     currentUserId={currentUserId}
                     articleAuthorId={articleAuthorId}
                     csrfToken={csrfToken}
+                    onEditSuccess={onEditSuccess}
                     onDeleteSuccess={commentId => {
                       const updatedTopics = [...topics];
                       const targetTopic = updatedTopics.find(d => d._id === topic._id);
