@@ -15,7 +15,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
     margin-right: 15px;
 }
   
@@ -23,6 +22,61 @@
     font-size: 1.5rem;
     margin-left: 25px;
     margin-bottom: 15px;
+}
+
+.talk-page-boilerplate {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-inline: 5%;
+    background-color: #f8eaba;
+    border: 1px solid #c0c090;
+}
+
+.talk-boiler {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.talk-boiler-intro {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-inline: 5%;
+}
+
+.guidelines-container {
+    display: flex;
+    justify-content: flex-start;
+    border-top: 1px solid #c0c090;
+}
+
+.guidelines-list {
+    padding-inline-start: 5px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+    border-right: 1px solid #c0c090;
+}
+
+.guidelines-list li:first-child {
+    margin-top: 15px;
+}
+
+.guidelines-list li:last-child {
+    margin-bottom: 15px;
+}
+
+.guidelines-contact {
+    font-weight: bold;
+    align-self: center;
+    text-align: center;
+}
+
+.guidelines-line-item {
+    margin-bottom: 0;
 }
 
 .article-talk-container {
@@ -111,7 +165,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 15px;
 }
 
 .topic-title {

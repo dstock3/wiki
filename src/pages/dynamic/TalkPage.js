@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TalkPageSidebar from '../../components/TalkPageSidebar';
+import TalkPageBoilerplate from '../../components/TalkPageBoilerplate';
 import '../../styles/TalkPage.css';
 import axios from 'axios';
 import Loading from '../../components/Loading';
@@ -112,6 +113,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
             <Link  to={`/${match.params.portalid}/article/${match.params.articleid}/talk/create`} className="create-topic">Create New Topic</Link>
           )}
         </div>
+        <TalkPageBoilerplate articleTitle={articleTitle}/>
 
         {!topics.length && <div className="discussion-message">No discussions yet.</div>}
         <ul className="topics">
