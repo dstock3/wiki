@@ -50,20 +50,22 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
     const config = {
       withCredentials: true,
       headers: { 'csrf-token': csrfToken }
-    }
+    };
     
     axios.post(`${endpoint}/talk/${match.params.articleid}/topics/${topicId}/comments`, newComment, config)
-    .then(response => {
-      const updatedTopics = [...topics];
-      const targetTopic = updatedTopics.find(d => d._id === topicId);
-      targetTopic.comments.push(newComment);
-      setTopics(updatedTopics);
-      setCommentContents(prev => ({...prev, [topicId]: ''}));
-    })
-    .catch(error => {
-      console.error("Error posting comment:", error);
-      setError(error.message);
-    });
+      .then(response => {
+        const updatedTopics = [...topics];
+        const targetTopicIndex = updatedTopics.findIndex(topic => topic._id === topicId);
+        
+        updatedTopics[targetTopicIndex].comments.push(response.data.comment);
+
+        setTopics(updatedTopics);
+        setCommentContents(prev => ({...prev, [topicId]: ''}));
+      })
+      .catch(error => {
+        console.error("Error posting comment:", error);
+        setError(error.message);
+      });
   };
 
   const onEditSuccess = (topicId, updatedComment) => {
