@@ -40,12 +40,12 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     if (userData.password && confirmPassword !== userData.password) {
       setError([{ msg: 'Password and Confirm Password do not match.' }]);
       return;
     }
-
+  
     const config = {
       withCredentials: true,
       headers: { 'csrf-token': csrfToken }
@@ -56,12 +56,18 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
       history.push(`/user/${userData.username}`);
     })
     .catch(error => {
-      if (error.response.status === 401) {
-        history.push('/login');
-      } else if (error.response.data.errors) {
-        setError(error.response.data.errors);
+      if (error.response) {
+        if (error.response.status === 401) {
+          history.push('/login');
+        } else if (error.response.data.errors) {
+          setError(error.response.data.errors);
+        } else {
+          setError([{ msg: 'An error occurred while updating the profile.' }]);
+        }
+      } else if (error.request) {
+        setError([{ msg: 'The request was made but no response was received.' }]);
       } else {
-        setError([{ msg: 'An unknown error occurred.' }]);
+        setError([{ msg: `Error setting up the request: ${error.message}` }]);
       }
     });
   };

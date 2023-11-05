@@ -60,7 +60,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         updatedTopics[targetTopicIndex].comments.push(response.data.comment);
 
         setTopics(updatedTopics);
-        setCommentContents(prev => ({...prev, [topicId]: ''}));
+        setCommentContents(prev => ({...prev, [topicId]: ''})); 
       })
       .catch(error => {
         console.error("Error posting comment:", error);
