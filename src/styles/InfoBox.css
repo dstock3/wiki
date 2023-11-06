@@ -37,3 +37,8 @@
 .category-option option:hover {
     background-color: inherit !important;
 }
+
+.infobox-caption {
+    text-align: center;
+    margin-top: .25em;
+}

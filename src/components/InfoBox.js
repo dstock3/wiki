@@ -17,6 +17,7 @@ const InfoBox = ({title, image, info}) => {
                             <span className="img-default-size">
                                 <img src={image.src} alt={image.alt} />
                             </span>
+                            <div className="infobox-caption">{image.alt}</div>
                         </td>
                     </tr>
                 )}
