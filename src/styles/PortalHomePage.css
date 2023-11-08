@@ -1,4 +1,7 @@
-.portal-home-page, .portal-description, .portal-home-header, .portal-home-header-links  {
+.portal-home-page, 
+.portal-description, 
+.portal-home-header, 
+.portal-home-header-links {
     display: flex;
     justify-content: space-between;
 }
@@ -40,10 +43,6 @@
 
 .no-articles-found-msg {
     margin-inline: 20px;
-}
-
-.portal-image {
-    width: 100%;
 }
 
 .portal-image img {
