@@ -50,7 +50,7 @@ function App() {
             } />
             
             <Route path="/contact" exact render={(props) =>
-              <ContactPage title={TITLE} contact={CONTACT} />
+              <ContactPage endpoint={ENDPOINT} title={TITLE} contact={CONTACT} />
             } />
             
             <Route path="/disclaimer" exact render={(props) =>
