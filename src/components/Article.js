@@ -2,11 +2,9 @@ import React from 'react';
 import '../styles/Article.css';
 import InfoBox from './InfoBox';
 import EditLink from './EditLink';
-import { Link } from 'react-router-dom';
-import { parseContentToHTML } from '../utils/textParsers';
+import { parseContentToComponents } from '../utils/textParsers';
 
 const Article = ({ match, title, intro, infobox, content, references, isAuthenticated }) => {
-
   return (
     <article className="article-container">
       <h1 className="article-title">{title}</h1>
@@ -20,7 +18,9 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
             />
           )}
           <div className="article-sections">
-            <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(intro) }} />
+            <div>
+              {parseContentToComponents(intro)}
+            </div>
             {content.map((section, index) => {
               return (
                   <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
@@ -31,7 +31,9 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
                                 <EditLink linkTo={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} linkClass="edit-section-link" />
                               )}
                           </div>
-                          <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(section.text) }} />
+                          <div>
+                            {parseContentToComponents(section.text)}
+                          </div>
                       </div>
                       {section.image && (
                         <div className="article-section-image">

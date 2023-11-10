@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/EditArticlePage.css'
+import EditIntro from '../../components/EditIntro';
 import EditSection from '../../components/EditSection';
 import EditReferences from '../../components/EditReferences';
 import EditInfoBox from '../../components/EditInfoBox';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
-import ReactQuill from 'react-quill';
-import { modules, formats } from '../../config/quillConfig';
+import useArticles from '../../hooks/useArticles';
 
 const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const history = useHistory();
@@ -26,7 +26,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [infoboxImageFile, setInfoboxImageFile] = useState(null);
-    const quillRef = useRef(null);
+    const { articles, er } = useArticles(match.params.portalid, endpoint);
 
     useEffect(() => {
         document.title = `${title} | Edit Article`;
@@ -220,15 +220,11 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
 
                 <div className="form-group">
                     <label className="main-label">Article Introduction:</label>
-                    <ReactQuill
-                        style={{ backgroundColor: 'white' }}
-                        ref={quillRef}
-                        value={article.intro}
-                        onChange={(content, delta, source, editor) => {
-                            setArticle(prev => ({ ...prev, intro: editor.getHTML() }));
-                        }}
-                        modules={modules}
-                        formats={formats}
+                    <EditIntro
+                        articles={articles}
+                        match={match}
+                        articleIntro={article.intro}
+                        setArticle={setArticle}
                     />
                 </div>
 
@@ -236,12 +232,12 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                     <label className="main-label">Article Section:</label>
                     {Array.isArray(article.content) && article.content.map((section, index) => (
                         <EditSection
-                            quillRef={quillRef}
+                            articles={articles}
+                            match={match}
                             index={index} 
                             section={section} 
                             handleSectionChange={handleContentChange}
                             handleSectionDelete={handleSectionDelete}
-                            
                         />
                     ))}
                     <button className="add-section-button" onClick={addSection}>+</button>

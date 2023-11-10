@@ -1,3 +1,5 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
 function formatDate(dateString) {
@@ -6,19 +8,48 @@ function formatDate(dateString) {
 }
 
 function parseContentToHTML(content) {
-    const articleLinkRegex = /\[\[PortalID:\s*([^|]+)\s*\|\s*ArticleID:\s*([^|]+)\s*\|\s*([^\]]+)\]\]/g;
-    const referenceLinkRegex = /\[(\d+)\]/g;
+  const referenceLinkRegex = /\[(\d+)\]/g;
 
-    content = content.replace(articleLinkRegex, (match, portalId, articleId, displayText) => {
-        return `<a href="/${portalId}/article/${articleId}">${displayText}</a>`;
-    });
+  content = content.replace(referenceLinkRegex, (match, referenceNumber) => {
+      return `<a class="reference-link" href="#reference-${referenceNumber}">[${referenceNumber}]</a>`;
+  });
+  const contentWithParsedLinks = ensureLinksAreAbsolute(content);
 
-    content = content.replace(referenceLinkRegex, (match, referenceNumber) => {
-        return `<a class="reference-link" href="#reference-${referenceNumber}">[${referenceNumber}]</a>`;
-    });
-    const contentWithParsedLinks = ensureLinksAreAbsolute(content);
+  return DOMPurify.sanitize(contentWithParsedLinks);
+}
 
-    return DOMPurify.sanitize(contentWithParsedLinks);
+function parseContentToComponents(content) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(content, 'text/html');
+  const elements = [];
+
+  function processNode(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+          return node.nodeValue;
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+          if (node.tagName === 'A') {
+              const href = node.getAttribute('href');
+
+              if (href.startsWith('/')) {
+                  return <Link to={href}>{node.textContent}</Link>;
+              } else {
+                  return <a href={href} target="_blank" rel="noopener noreferrer">{node.textContent}</a>;
+              }
+          } else {
+              return React.createElement(
+                  node.tagName.toLowerCase(),
+                  { key: Math.random().toString() },
+                  Array.from(node.childNodes).map(child => processNode(child))
+              );
+          }
+      }
+  }
+
+  Array.from(doc.body.childNodes).forEach(node => {
+      elements.push(processNode(node));
+  });
+
+  return elements;
 }
 
 function ensureLinksAreAbsolute(htmlString) {
@@ -75,6 +106,6 @@ function abridgeHTMLContent(string, limit) {
     return serializer.serializeToString(doc.body);
 }
   
-export { formatDate, parseContentToHTML, abridgeHTMLContent };
+export { formatDate, parseContentToComponents, parseContentToHTML, abridgeHTMLContent };
 
 
