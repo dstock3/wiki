@@ -4,7 +4,7 @@ import PortalSidebar from '../../components/PortalSidebar';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios'; 
 import Loading from '../../components/Loading';
-import { abridgeHTMLContent, parseContentToHTML } from '../../utils/textParsers';
+import { abridgeReactContent, parseContentToComponents } from '../../utils/textParsers';
 
 const PortalHomePage = ({ match, endpoint, title }) => {
   const [portalData, setPortalData] = useState(null);
@@ -54,7 +54,9 @@ const PortalHomePage = ({ match, endpoint, title }) => {
             </div>
             <hr />
             <div className="portal-description">
-              <div className="portal-desc" dangerouslySetInnerHTML={{ __html: parseContentToHTML(portalData.portalDescription) }} />
+              <div>
+                {parseContentToComponents(portalData.portalDescription)}
+              </div>
               <div className="portal-image">
                 <img src={portalData.portalImage.src} alt={portalData.portalImage.alt} />
               </div>
@@ -62,7 +64,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
             {portalData.featuredArticle && (
               <div className="featured-article">
                 <h2>Featured Article: {featuredArticle.title}</h2>
-                <div dangerouslySetInnerHTML={{ __html: abridgeHTMLContent(parseContentToHTML(featuredArticle.intro), 150) }} />
+                <div>{abridgeReactContent(parseContentToComponents(featuredArticle.intro), 150)}</div>
                 <Link to={`/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
               </div>
             )}

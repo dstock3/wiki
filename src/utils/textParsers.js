@@ -7,17 +7,6 @@ function formatDate(dateString) {
   return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
-function parseContentToHTML(content) {
-  const referenceLinkRegex = /\[(\d+)\]/g;
-
-  content = content.replace(referenceLinkRegex, (match, referenceNumber) => {
-      return `<a class="reference-link" href="#reference-${referenceNumber}">[${referenceNumber}]</a>`;
-  });
-  const contentWithParsedLinks = ensureLinksAreAbsolute(content);
-
-  return DOMPurify.sanitize(contentWithParsedLinks);
-}
-
 function parseContentToComponents(content) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(content, 'text/html');
@@ -72,40 +61,42 @@ function ensureAbsoluteURL(url) {
     }
 }
 
-function abridgeHTMLContent(string, limit) {
-    const parser = new DOMParser();
-    const serializer = new XMLSerializer();
-    const doc = parser.parseFromString(string, 'text/html');
-    let accumulatedLength = 0;
-  
-    function traverse(node) {
+function abridgeReactContent(elements, limit) {
+  let accumulatedLength = 0;
+
+  function traverse(element) {
       if (accumulatedLength >= limit) {
-        node.remove();
-        return;
+          return null;
       }
-      if (node.nodeType === Node.TEXT_NODE) {
-        accumulatedLength += node.nodeValue.length;
-        if (accumulatedLength > limit) {
-          
-          const lastSpaceIndex = node.nodeValue.lastIndexOf(' ', node.nodeValue.length - (accumulatedLength - limit));
-          if (lastSpaceIndex !== -1) {
-            node.nodeValue = node.nodeValue.substring(0, lastSpaceIndex);
+
+      if (typeof element === 'string') {
+          accumulatedLength += element.length;
+          if (accumulatedLength > limit) {
+              const truncatedLength = element.length - (accumulatedLength - limit);
+              return element.slice(0, truncatedLength).trim() + '...';
           }
-          
-          node.nodeValue = node.nodeValue.replace(/[\s,]+$/, '') + '...';
-        }
-      } else {
-        const babies = Array.from(node.childNodes);
-        for (let baby of babies) {
-          traverse(baby);
-        }
+          return element;
       }
-    }
-  
-    traverse(doc.body);
-    return serializer.serializeToString(doc.body);
+
+      if (React.isValidElement(element)) {
+          if (element.props.children) {
+              const newChildren = React.Children.map(element.props.children, child => {
+                  return traverse(child);
+              }).filter(child => child !== null);
+
+              if (newChildren.length === 0) {
+                  return null;
+              }
+
+              return React.cloneElement(element, {...element.props, key: Math.random().toString()}, newChildren);
+          }
+          return element;
+      }
+  }
+
+  return elements.map(element => traverse(element)).filter(element => element !== null);
 }
   
-export { formatDate, parseContentToComponents, parseContentToHTML, abridgeHTMLContent };
+export { formatDate, parseContentToComponents, abridgeReactContent };
 
 

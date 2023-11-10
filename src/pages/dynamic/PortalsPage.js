@@ -3,7 +3,7 @@ import axios from "axios";
 import "../../styles/PortalsPage.css";
 import { Link } from 'react-router-dom';
 import Loading from "../../components/Loading";
-import { parseContentToHTML, abridgeHTMLContent } from '../../utils/textParsers';
+import { parseContentToComponents, abridgeReactContent } from '../../utils/textParsers';
 
 const PortalsPage = ({ endpoint, title }) => {
     const [portals, setPortals] = useState(null);
@@ -49,7 +49,7 @@ const PortalsPage = ({ endpoint, title }) => {
                         </div>
                         <div className="portal-card-bottom">
                             <h2 className="portal-card-head">{portal.portalTitle}</h2>
-                            <div className="portal-desc" dangerouslySetInnerHTML={{ __html: abridgeHTMLContent(parseContentToHTML(portal.portalDescription), 200) }} />
+                            <div>{abridgeReactContent(parseContentToComponents(portal.portalDescription), 200)}</div>
                             <Link to={`/${portal._id}`}>Visit Portal</Link>
                         </div>
                     </div>

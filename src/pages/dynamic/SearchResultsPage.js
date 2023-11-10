@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/SearchResultsPage.css';
 import Loading from '../../components/Loading';
-import { parseContentToHTML } from '../../utils/textParsers';
+import { parseContentToComponents } from '../../utils/textParsers';
 
 const SearchResultsPage = ({ match, endpoint, title }) => {
   const [searchResults, setSearchResults] = useState([]);
@@ -71,7 +71,7 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
                 }
                 <div className="search-result-container">
                   <h2><Link to={`/${match.params.portalid}/article/${_id}`}>{title}</Link></h2>
-                  <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(intro) }} />
+                  <div>{parseContentToComponents(intro)}</div>
                 </div>
               </div>
             );

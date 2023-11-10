@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/UserProfilePage.css'
 import axios from 'axios';
 import Loading from '../../components/Loading';
-import { parseContentToHTML } from '../../utils/textParsers';
+import { parseContentToComponents } from '../../utils/textParsers';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const UserProfilePage = ({ match, endpoint, title }) => {
@@ -46,7 +46,9 @@ const UserProfilePage = ({ match, endpoint, title }) => {
             </div>  
             <p>Email: <a href={`mailto:${userData.email}`}>{userData.email}</a></p>
             <p>Joined: {new Date(userData.joinedDate).toLocaleDateString()}</p>
-            <div dangerouslySetInnerHTML={{ __html: parseContentToHTML(userData.bio) }} />
+            <div>
+              {parseContentToComponents(userData.bio)}
+            </div>
           </div>
           <div className="user-contributions">
             <h3>Contributions</h3>
