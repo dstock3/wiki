@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Loading from '../../components/Loading';
 import '../../styles/AdminDashboard.css';
+import LogsSection from '../../components/LogsSection';
 
 const AdminDashboard = ({ endpoint, title, csrfToken }) => {
     const [logs, setLogs] = useState([]);
-    const [logsLoading, setLogsLoading] = useState(true);
+    const [logsLoading, setLogsLoading] = useState(false);
     const [logsError, setLogsError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -56,40 +56,17 @@ const AdminDashboard = ({ endpoint, title, csrfToken }) => {
         <div className="admin-dashboard">
             <h1 className="admin-head">Admin Dashboard</h1>
 
-            <section className="logs-section">
-                <div className="logs-dashboard">
-                    <div className="logs-button-container">
-                        <button className="logs-button" onClick={() => fetchLogs()}>Retrieve All Logs</button>
-                        <button className="logs-button" onClick={() => fetchLogs('error')}>Retrieve Error Logs</button>
-                        <button className="logs-button" onClick={() => fetchLogs('info')}>Retrieve Info Logs</button>
-                        <button className="logs-button" onClick={() => fetchLogs('warn')}>Retrieve Warn Logs</button>
-                    </div>
+            <LogsSection
+                handleSearch={handleSearch}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                fetchLogs={fetchLogs}
+                logsLoading={logsLoading}
+                logs={logs}
+                logsError={logsError}
+                renderLogEntry={renderLogEntry}
+            />
 
-                    <form onSubmit={handleSearch} className="log-search-form">
-                        <input
-                            type="text"
-                            placeholder="Search logs..."
-                            className="search-logs-input"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                        <button className="search-logs-button" type="submit">Search</button>
-                    </form>
-                </div>
-
-                {logsLoading ? (
-                    <Loading loading={logsLoading} />
-                ) : logsError ? (
-                    <p className="log-error">Error: {logsError}</p>
-                ) : (
-                    <div className="logs-display">
-                        <h2>Logs</h2>
-                        <ul className="logs-list">
-                            {logs.map(log => renderLogEntry(log))}
-                        </ul>
-                    </div>
-                )}
-            </section>
         </div>
     );
 };

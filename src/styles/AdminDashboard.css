@@ -10,22 +10,41 @@
     margin-bottom: 20px;
 }
 
-.logs-dashboard {
+.logs-section {
+    width: 50%;
     background-color: white;
-    padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.logs-head {
+    padding-block: 20px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.logs-dashboard {
+    margin-inline: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 .logs-button-container {
+    display: flex;
+    width: 45%;
+    flex-wrap: wrap;
     margin-bottom: 15px;
 }
 
 .logs-button {
+    height: 40px;
     background-color: #e0e0e0;
     border: none;
     padding: 10px 20px;
     margin-right: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
     font-size: 16px;
 }
@@ -36,24 +55,34 @@
 
 .log-search-form {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     margin-bottom: 20px;
+    width: 45%;
+    height: 40px;
 }
 
 .log-search-form input {
+    width: 75%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
-    margin-right: 10px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    
 }
 
 .log-search-form button {
+    text-align: center;
     background-color: #4caf50;
     color: white;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     font-size: 16px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    font-weight: bold;
 }
 
 .log-search-form button:hover {
@@ -61,10 +90,12 @@
 }
 
 .logs-display {
-    background-color: white;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: visible;
 }
 
 .logs-display h2 {
@@ -87,4 +118,15 @@
 .log-level, .log-message, .log-service {
     font-family: 'Courier New', monospace;
     margin-bottom: 5px;
+}
+
+.logs-hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.log-msg {
+    font-weight: bold;
+    padding: 25px;
 }
