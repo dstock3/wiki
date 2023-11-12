@@ -1,25 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import '../../styles/EditSectionPage.css'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import ReactQuill from 'react-quill';
+import useArticles from '../../hooks/useArticles';
 import { modules, formats } from '../../config/quillConfig';
 
 const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
     const [section, setSection] = useState({title: '', text: ''})
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { articles, er } = useArticles(match.params.portalid, endpoint);
+    const quillRef = useRef(null);
     const history = useHistory();
 
     useEffect(() => {
         document.title = `${title} | Edit Section`;
     }, [title]);
-    
-
-    const handleInputChange = (e, field) => {
-        setSection(prevState => ({ ...prevState, [field]: e.target.value }));
-    };
 
     useEffect(() => {
         axios.get(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, { withCredentials: true })
@@ -37,6 +35,18 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
             text: 'Section Text'
         })
     }, [match.params.sectionid])
+    
+    const handleInputChange = (e, field) => {
+        setSection(prevState => ({ ...prevState, [field]: e.target.value }));
+    };
+
+    const extendedModules = {
+        ...modules,
+        articleDropdown: {
+            articles: articles,
+            portalId: match.params.portalid
+        }
+    };
 
     const handleSave = () => {
         const config = {
@@ -121,7 +131,7 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
                         style={{ backgroundColor: 'white' }}
                         value={section.text}
                         onChange={(content, delta, source, editor) => setSection(prev => ({ ...prev, text: editor.getHTML() }))}
-                        modules={modules}
+                        modules={extendedModules}
                         formats={formats}
                     />
                 </div>
