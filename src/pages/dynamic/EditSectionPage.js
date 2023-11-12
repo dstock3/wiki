@@ -129,6 +129,7 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
                 <div className="edit-section-container">
                     <ReactQuill
                         style={{ backgroundColor: 'white' }}
+                        ref={quillRef}
                         value={section.text}
                         onChange={(content, delta, source, editor) => setSection(prev => ({ ...prev, text: editor.getHTML() }))}
                         modules={extendedModules}

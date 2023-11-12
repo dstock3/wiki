@@ -10,6 +10,7 @@ import Loading from '../../components/Loading';
 import useArticles from '../../hooks/useArticles';
 
 const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
+    const [intro, setIntro] = useState(false);
     const history = useHistory();
     const [article, setArticle] = useState({
         title: '',
@@ -55,6 +56,11 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         
     }, [match.params.articleid, endpoint]);
 
+    const addIntro = e => {
+        e.preventDefault();
+        setIntro(true)
+    };
+    
     const addSection = e => {
         e.preventDefault();
         setArticle(prev => ({
@@ -219,13 +225,18 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
                 </div>
 
                 <div className="form-group">
-                    <label className="main-label">Article Introduction:</label>
-                    <EditIntro
-                        articles={articles}
-                        match={match}
-                        articleIntro={article.intro}
-                        setArticle={setArticle}
-                    />
+                <label className="main-label">Article Introduction:</label>
+                    {intro && (
+                        <EditIntro
+                            articles={articles}
+                            match={match}
+                            articleIntro={article.intro}
+                            setArticle={setArticle}
+                        /> 
+                    )}
+                    {!intro && (
+                        <button className="add-intro-button" onClick={addIntro}>+</button>
+                    )}
                 </div>
 
                 <div className="form-group">
