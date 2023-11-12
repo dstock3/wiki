@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loading from '../../components/Loading';
+import '../../styles/AdminDashboard.css';
 
 const AdminDashboard = ({ endpoint, title, csrfToken }) => {
     const [logs, setLogs] = useState([]);
@@ -33,7 +34,6 @@ const AdminDashboard = ({ endpoint, title, csrfToken }) => {
     const renderLogEntry = (log) => {
         let message = log.message;
         if (typeof message === 'object') {
-            // Stringify if message is an object
             message = JSON.stringify(message, null, 2);
         }
     
