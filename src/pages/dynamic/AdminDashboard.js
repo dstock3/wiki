@@ -38,7 +38,7 @@ const AdminDashboard = ({ endpoint, title, csrfToken }) => {
         }
     
         return (
-            <li key={log.timestamp || log._id || Math.random()}>
+            <li className="log-line-item" key={log.timestamp || log._id || Math.random()}>
                 <div className="log-level">
                     <strong>Level:</strong> {log.level || 'N/A'}
                 </div>
@@ -57,22 +57,25 @@ const AdminDashboard = ({ endpoint, title, csrfToken }) => {
             <h1 className="admin-head">Admin Dashboard</h1>
 
             <section className="logs-section">
-                <div className="logs-button-container">
-                    <button className="logs-button" onClick={() => fetchLogs()}>Retrieve All Logs</button>
-                    <button className="logs-button" onClick={() => fetchLogs('error')}>Retrieve Error Logs</button>
-                    <button className="logs-button" onClick={() => fetchLogs('info')}>Retrieve Info Logs</button>
-                    <button className="logs-button" onClick={() => fetchLogs('warn')}>Retrieve Warn Logs</button>
-                </div>
+                <div className="logs-dashboard">
+                    <div className="logs-button-container">
+                        <button className="logs-button" onClick={() => fetchLogs()}>Retrieve All Logs</button>
+                        <button className="logs-button" onClick={() => fetchLogs('error')}>Retrieve Error Logs</button>
+                        <button className="logs-button" onClick={() => fetchLogs('info')}>Retrieve Info Logs</button>
+                        <button className="logs-button" onClick={() => fetchLogs('warn')}>Retrieve Warn Logs</button>
+                    </div>
 
-                <form onSubmit={handleSearch} className="log-search-form">
-                    <input
-                        type="text"
-                        placeholder="Search logs..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                    <button type="submit">Search</button>
-                </form>
+                    <form onSubmit={handleSearch} className="log-search-form">
+                        <input
+                            type="text"
+                            placeholder="Search logs..."
+                            className="search-logs-input"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <button className="search-logs-button" type="submit">Search</button>
+                    </form>
+                </div>
 
                 {logsLoading ? (
                     <Loading loading={logsLoading} />
@@ -81,7 +84,7 @@ const AdminDashboard = ({ endpoint, title, csrfToken }) => {
                 ) : (
                     <div className="logs-display">
                         <h2>Logs</h2>
-                        <ul>
+                        <ul className="logs-list">
                             {logs.map(log => renderLogEntry(log))}
                         </ul>
                     </div>
