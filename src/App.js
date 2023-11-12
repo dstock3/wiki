@@ -24,6 +24,7 @@ import EditPortalPage from './pages/dynamic/EditPortalPage';
 import PortalsPage from './pages/dynamic/PortalsPage';
 import EditSectionPage from './pages/dynamic/EditSectionPage';
 import CreateTopicPage from './pages/dynamic/CreateTopicPage';
+import AdminDashboard from './pages/dynamic/AdminDashboard';
 import './App.css';
 
 function App() {
@@ -136,6 +137,10 @@ function App() {
             <Route path="/user/:username/edit" render={(props) =>
               <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />}
             />
+            
+            <Route path="/admin" exact render={(props) =>
+              <AdminDashboard {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
+            } />
 
             <Route path="/:portalid" exact render={(props) => 
               <PortalHomePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
