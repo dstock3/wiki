@@ -139,7 +139,7 @@ function App() {
             />
             
             <Route path="/admin" exact render={(props) =>
-              <AdminDashboard {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
+              <AdminDashboard {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} contact={CONTACT} />
             } />
 
             <Route path="/:portalid" exact render={(props) => 

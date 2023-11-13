@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../../styles/EditUserPage.css';
 import axios from 'axios';
 import Loading from '../../components/Loading';
@@ -13,14 +14,17 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
   const [loading, setLoading] = useState(true);
   const [isUser, setIsUser] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     document.title = `${title} | Edit User`;
 
     axios.get(`${endpoint}/users/username/${match.params.username}`, { withCredentials: true })
       .then(response => {
+        console.log(response.data)
         setUserData(response.data.user);
         setIsUser(response.data.isOwnProfile);
+        setIsAdmin(response.data.user.isAdmin);
         setLoading(false);
       })
       .catch(err => {
@@ -165,6 +169,9 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
           <button className="user-submit-button" type="submit">Update Profile</button>
         </div>
       </form>
+      {isAdmin && <div className="admin-link-container">
+        <Link className="admin-link" to="/admin">Admin Dashboard</Link>
+      </div>}
     </div>
   );
 };

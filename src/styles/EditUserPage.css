@@ -88,3 +88,10 @@
     color: red;
     margin-bottom: 10px;
 }
+
+.admin-link-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}

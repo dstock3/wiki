@@ -3,15 +3,28 @@ import axios from 'axios';
 import '../../styles/AdminDashboard.css';
 import LogsSection from '../../components/LogsSection';
 
-const AdminDashboard = ({ endpoint, title, csrfToken }) => {
+const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
     const [logs, setLogs] = useState([]);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [logsLoading, setLogsLoading] = useState(false);
     const [logsError, setLogsError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-
+    
     useEffect(() => {
         document.title = `${title} | Admin Dashboard`;
     }, [title]);
+
+    useEffect(() => {
+        axios.get(`${endpoint}/users/admin`, { withCredentials: true })
+        .then(response => {
+            console.log(response.data)
+
+        })
+        .catch(err => {
+            console.error(err.message);
+
+        });
+    }, []);
 
     const fetchLogs = async (logType = '') => {
         setLogsLoading(true);
@@ -30,6 +43,19 @@ const AdminDashboard = ({ endpoint, title, csrfToken }) => {
             fetchLogs(`search?query=${encodeURIComponent(searchQuery)}`);
         }
     };
+
+    if (!isAdmin) {
+        return (
+            <div className="admin-dashboard">
+                <h1 className="admin-head">Admin Dashboard</h1>
+                <div className="admin-error-container">
+                    <div className="admin-error">You are not an admin.</div>
+                    <p>For technical support, please contact <a href={`mailto:${contact}`}>{contact}</a>.</p>
+                </div>
+                
+            </div>
+        );
+    }
 
     return (
         <div className="admin-dashboard">
