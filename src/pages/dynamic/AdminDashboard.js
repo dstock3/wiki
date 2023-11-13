@@ -17,14 +17,17 @@ const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
     useEffect(() => {
         axios.get(`${endpoint}/users/admin`, { withCredentials: true })
         .then(response => {
-            console.log(response.data)
-
+            if (response.data.isAdmin) {
+                setIsAdmin(true);
+            } else {
+                setIsAdmin(false);
+            }
         })
         .catch(err => {
             console.error(err.message);
-
+            setIsAdmin(false);
         });
-    }, []);
+    }, [endpoint]);
 
     const fetchLogs = async (logType = '') => {
         setLogsLoading(true);
@@ -52,7 +55,6 @@ const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
                     <div className="admin-error">You are not an admin.</div>
                     <p>For technical support, please contact <a href={`mailto:${contact}`}>{contact}</a>.</p>
                 </div>
-                
             </div>
         );
     }
