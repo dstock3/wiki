@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/AdminDashboard.css';
 import LogsSection from '../../components/LogsSection';
+import UsersSection from '../../components/UsersSection';
 
 const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
     const [logs, setLogs] = useState([]);
@@ -63,6 +64,11 @@ const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
         <div className="admin-dashboard">
             <h1 className="admin-head">Admin Dashboard</h1>
 
+            <UsersSection 
+                endpoint={endpoint}
+                csrfToken={csrfToken} 
+            />
+
             <LogsSection
                 handleSearch={handleSearch}
                 searchQuery={searchQuery}
@@ -72,6 +78,8 @@ const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
                 logs={logs}
                 logsError={logsError}
             />
+
+
         </div>
     );
 };
