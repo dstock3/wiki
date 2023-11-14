@@ -64,22 +64,22 @@ const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
         <div className="admin-dashboard">
             <h1 className="admin-head">Admin Dashboard</h1>
 
-            <UsersSection 
-                endpoint={endpoint}
-                csrfToken={csrfToken} 
-            />
+            <div className="admin-section-container">
+                <UsersSection 
+                    endpoint={endpoint}
+                    csrfToken={csrfToken} 
+                />
 
-            <LogsSection
-                handleSearch={handleSearch}
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                fetchLogs={fetchLogs}
-                logsLoading={logsLoading}
-                logs={logs}
-                logsError={logsError}
-            />
-
-
+                <LogsSection
+                    handleSearch={handleSearch}
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                    fetchLogs={fetchLogs}
+                    logsLoading={logsLoading}
+                    logs={logs}
+                    logsError={logsError}
+                />
+            </div>
         </div>
     );
 };
