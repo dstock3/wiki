@@ -38,7 +38,7 @@ const UsersSection = ({ endpoint, csrfToken }) => {
 
     const handleBanUser = async (userId) => {
         try {
-          const response = await axios.put(`${endpoint}/admin/ban/${userId}`, {}, {
+          const response = await axios.put(`${endpoint}/users/admin/ban/${userId}`, {}, {
             withCredentials: true,
             headers: { 'csrf-token': csrfToken }
           });
