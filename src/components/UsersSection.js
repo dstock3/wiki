@@ -75,7 +75,7 @@ const UsersSection = ({ endpoint, csrfToken }) => {
                     <thead>
                         <tr>
                             <th>Username</th>
-                            <th>Email</th>
+                            <th className="email">Email</th>
                             <th>Joined Date</th>
                             <th>Banned</th>
                             <th>Actions</th>
@@ -85,7 +85,7 @@ const UsersSection = ({ endpoint, csrfToken }) => {
                         {users.map(user => (
                             <tr key={user._id}>
                                 <td>{user.username}</td>
-                                <td>{user.email}</td>
+                                <td className="email">{user.email}</td>
                                 <td>{new Date(user.joinedDate).toLocaleDateString()}</td>
                                 <td>{user.isBanned ? "Banned" : "Not Banned"}</td>
                                 <td className="admin-users-button-container">
