@@ -77,6 +77,7 @@ const UsersSection = ({ endpoint, csrfToken }) => {
                             <th>Username</th>
                             <th>Email</th>
                             <th>Joined Date</th>
+                            <th>Banned</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -86,6 +87,7 @@ const UsersSection = ({ endpoint, csrfToken }) => {
                                 <td>{user.username}</td>
                                 <td>{user.email}</td>
                                 <td>{new Date(user.joinedDate).toLocaleDateString()}</td>
+                                <td>{user.isBanned ? "Banned" : "Not Banned"}</td>
                                 <td className="admin-users-button-container">
                                     <button className ="user-action-button delete" onClick={() => handleDeleteUser(user._id)}>Delete</button>
                                     <button className ="user-action-button ban" onClick={() => handleBanUser(user._id)}>Ban</button>
