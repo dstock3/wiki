@@ -7,17 +7,22 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    useEffect(() => {
+    const fetchUsers = () => {
         axios.get(`${endpoint}/users/admin/manage`, { withCredentials: true })
-            .then(response => {
-                setUsers(response.data.users);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error(err.message);
-                setError(err.message);
-                setLoading(false);
-            });
+        .then(response => {
+            setUsers(response.data.users);
+            setLoading(false);
+        })
+        .catch(err => {
+            console.error(err.message);
+            setError(err.message);
+            setLoading(false);
+        });
+    }
+
+    useEffect(() => {
+        fetchUsers();
+
     }, [endpoint]);
 
     const handleDeleteUser = async (userId) => {
@@ -27,26 +32,26 @@ const UsersSection = ({ endpoint, csrfToken }) => {
                     withCredentials: true,
                     headers: { 'csrf-token': csrfToken }
                 });
-                // Update local state or refetch users to reflect changes
                 console.log(response.data.message);
+                fetchUsers(); 
             } catch (err) {
                 console.error(err.message);
-                // Handle error
+                alert(err.response?.data?.error || 'Failed to delete user');
             }
         }
     };
-
+    
     const handleBanUser = async (userId) => {
         try {
-          const response = await axios.put(`${endpoint}/users/admin/ban/${userId}`, {}, {
-            withCredentials: true,
-            headers: { 'csrf-token': csrfToken }
-          });
-          alert(response.data.message);
-          // Refresh users list or update the UI to reflect changes
+            const response = await axios.put(`${endpoint}/users/admin/ban/${userId}`, {}, {
+                withCredentials: true,
+                headers: { 'csrf-token': csrfToken }
+            });
+            alert(response.data.message);
+            fetchUsers(); 
         } catch (err) {
-          console.error('Error banning user:', err);
-          alert(err.response?.data?.error || 'Failed to ban user');
+            console.error('Error banning user:', err);
+            alert(err.response?.data?.error || 'Failed to ban user');
         }
     };
 
