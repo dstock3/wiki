@@ -37,7 +37,17 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     };
 
     const handleBanUser = async (userId) => {
-        // ban logic
+        try {
+          const response = await axios.put(`${endpoint}/admin/ban/${userId}`, {}, {
+            withCredentials: true,
+            headers: { 'csrf-token': csrfToken }
+          });
+          alert(response.data.message);
+          // Refresh users list or update the UI to reflect changes
+        } catch (err) {
+          console.error('Error banning user:', err);
+          alert(err.response?.data?.error || 'Failed to ban user');
+        }
     };
 
     const handleResetPassword = async (userId) => {
