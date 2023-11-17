@@ -34,16 +34,28 @@
 }
 
 @media (max-width: 1100px) {
-    .search-bar-container {
-        min-width: 33%;    
+    .header-search {
+        width: 45%;
     }
 
+    .search-bar-container {
+        max-width: 100%;
+    }
+    
     .search-input {
-        min-width: 75%;
+        min-width: 85%;
     }
 }
 
 @media (max-width: 600px) {
+    .search-bar-container {
+        margin-bottom: 15px;
+    }
+    
+    .header-search {
+        width: 85%;
+    }
+
     .search-input {
         min-width: 85%;
     }
