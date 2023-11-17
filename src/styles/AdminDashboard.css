@@ -263,7 +263,7 @@
 .users-table-container th, .users-table-container td {
     overflow: hidden; 
     text-overflow: ellipsis; 
-    white-space: wrap; 
+    white-space: nowrap; 
 }
 
 .users-table-container th.email, .users-table-container td.email {

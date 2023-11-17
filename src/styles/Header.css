@@ -46,3 +46,23 @@
     outline: inherit;
 }
 
+@media (max-width: 1100px) {
+    .header-container {
+        flex-direction: column;
+        height: 20vh;
+    }
+
+    .header-subcontainer {
+        justify-content: space-between;
+        width: 90%;
+        margin: 0;
+        margin-top: 25px;
+    }
+
+    .header-auth {
+        width: 90%;
+        justify-content: space-between;
+        margin: 0;
+        margin-bottom: 25px;
+    }
+}
