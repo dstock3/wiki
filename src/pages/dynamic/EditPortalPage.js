@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import '../../styles/EditPortalPage.css';
 import Loading from '../../components/Loading';
 import ReactQuill from 'react-quill';
 import { modules, formats } from '../../config/quillConfig';
+import useArticles from '../../hooks/useArticles';
 
 const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const [portalData, setPortalData] = useState({
@@ -15,6 +16,18 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   
   const [loading, setLoading] = useState(true);
   const isEditMode = !!match.params.portalid;
+  const { articles, er } = useArticles(match.params.portalid, endpoint);
+  const quillRef = useRef(null);
+
+  const extendedModules = {
+    ...modules,
+    ...(articles.length > 0 && {
+        articleDropdown: {
+            articles: articles,
+            portalId: match.params.portalid
+        }
+    })
+  };
 
   useEffect(() => {
     document.title = `${title} | ${isEditMode ? "Edit Portal" : "Create Portal"}`;
@@ -158,9 +171,10 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
             <label className="portal-main-label">Description:</label>
             <ReactQuill
               style={{ backgroundColor: 'white' }}
+              ref={quillRef}
               value={portalData.portalDescription}
               onChange={(content) => setPortalData(prev => ({ ...prev, portalDescription: content }))}
-              modules={modules}
+              modules={extendedModules}
               formats={formats}
             />
           </div>
