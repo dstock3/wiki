@@ -51,6 +51,15 @@
 .portal-card-bottom {
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+.portal-card-bottom h2 {
+    text-align: center;
+}
+
+.portal-card-bottom div {
+    width: 100%;
 }
 
 .portal-card-head {
