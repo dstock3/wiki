@@ -33,7 +33,6 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         setArticleAuthorId(response.data.talkPage.articleAuthorId);
         setCurrentUserId(response.data.talkPage.currentUserId);
         setLoading(false);
-        console.log(response.data)
       })
       .catch(error => {
         console.error("Error fetching data:", error);

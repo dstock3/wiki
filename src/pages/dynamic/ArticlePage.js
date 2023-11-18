@@ -50,7 +50,6 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   useEffect(() => {
     axios.get(`${endpoint}/articles/${match.params.articleid}`, { withCredentials: true })
       .then(response => {
-        console.log(response.data);
         setArticleData(response.data.article);
         setIsAuthenticated(response.data.isAuthor);
         setLoading(false);

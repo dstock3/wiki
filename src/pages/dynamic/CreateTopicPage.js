@@ -12,15 +12,13 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
     const { articles, er } = useArticles(match.params.portalid, endpoint);
     const quillRef = useRef(null);
     const history = useHistory();
-
+    
     const extendedModules = {
         ...modules,
-        ...(articles.length > 0 && {
-            articleDropdown: {
-                articles: articles,
-                portalId: match.params.portalid
-            }
-        })
+        articleDropdown: {
+            articles: articles,
+            portalId: match.params.portalid
+        }
     };
     
     useEffect(() => {
@@ -114,7 +112,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
                         ref={quillRef}
                         value={content}
                         onChange={setContent}
-                        modules={extendedModules}
+                        modules={modules}
                         formats={formats}
                     />
                 </div>
