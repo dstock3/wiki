@@ -53,3 +53,22 @@
     height: auto;     
     max-height: 300px; 
 }
+
+@media (max-width: 600px) {
+    .portal-home-page {
+        display: block;
+    }
+
+    .portal-description {
+        flex-direction: column;
+    }
+
+    .portal-image {
+        order: -1; 
+    }
+
+    .portal-description > div:first-child {
+        order: 1; 
+    }
+}
+
