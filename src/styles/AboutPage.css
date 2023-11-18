@@ -17,3 +17,9 @@
     line-height: 1.6;
     color: #666;
 }
+
+@media (max-width: 1100px) {
+    .about-page {
+        flex-direction: column;
+    }
+}
