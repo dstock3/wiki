@@ -1,15 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../../styles/CreateTopicPage.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import ReactQuill from 'react-quill';
+import useArticles from '../../hooks/useArticles';
 import { modules, formats } from '../../config/quillConfig';
 
 const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
     const [topicTitle, setTopicTitle] = useState('');
     const [content, setContent] = useState('');
+    const { articles, er } = useArticles(match.params.portalid, endpoint);
+    const quillRef = useRef(null);
     const history = useHistory();
 
+    const extendedModules = {
+        ...modules,
+        ...(articles.length > 0 && {
+            articleDropdown: {
+                articles: articles,
+                portalId: match.params.portalid
+            }
+        })
+    };
+    
     useEffect(() => {
         document.title = `${title} | Create Topic`;
     }, [title]);
@@ -98,9 +111,10 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
                     <label htmlFor="initial-post">Initial Post:</label>
                     <ReactQuill
                         style={{ backgroundColor: 'white' }}
+                        ref={quillRef}
                         value={content}
                         onChange={setContent}
-                        modules={modules}
+                        modules={extendedModules}
                         formats={formats}
                     />
                 </div>
