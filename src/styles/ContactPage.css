@@ -88,3 +88,36 @@ label {
 .contact-button:hover {
     background-color: #0056b3;
 }
+
+@media (max-width: 600px) {
+    .contact-page {
+        display: block;
+    }
+
+    .contact-container {
+        margin-left: unset;
+        margin-inline: 15px;
+    }
+
+    .contact-form {
+        width: 90%;
+    }
+
+    .contact-form-container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .contact-form-group {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .message-form-group {
+        width: 90% !important;
+    }
+
+    .contact-button {
+        margin-left: 0;
+    }
+}
