@@ -258,4 +258,30 @@
     margin-bottom: 10px;
 }
 
+@media (max-width: 600px) {
+    .talk-page {
+        flex-direction: column;
+    }
+
+    .guidelines-container {
+        flex-direction: column;
+    }
+
+    .guidelines-list {
+        border-right: none;
+        border-bottom: 1px solid #c0c090;
+        margin-left: 0;
+        margin-bottom: 15px;
+    }
+
+    .guidelines-list li {
+        margin-left: 15px;
+    }
+
+    .guidelines-contact {
+        margin-inline: 25px;
+        margin-bottom: 15px;
+    }
+
+}
   
