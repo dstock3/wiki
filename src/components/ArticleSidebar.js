@@ -3,7 +3,7 @@ import '../styles/SideMenu.css'
 
 const ArticleSidebar = ({intro, content}) => {
     return (
-      <div className="side-menu-container">
+      <div className="side-menu-container article-sidebar-container">
         <h3>Contents</h3>
   
         {content && (

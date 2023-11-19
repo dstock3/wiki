@@ -53,3 +53,27 @@
 .article-delete-button:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+    .article-page {
+        display: block;
+    }
+
+    .article-content {
+        margin-inline: 10px;
+    }
+
+    .infobox {
+        margin-left: 0;
+        float: none;
+        width: 100%;
+    }
+
+    .main-container {
+        flex-direction: column;
+    }
+
+    .article-references ul {
+        margin-right: 0;
+    }
+}

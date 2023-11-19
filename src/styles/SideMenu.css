@@ -11,7 +11,7 @@
     margin-left: 15px;
 }
   
-.side-menu-container ul {
+.article-sidebar-container ul, .side-menu-container ul {
     list-style-type: none;
     margin-left: 15px;
     padding-inline-start: 0;
@@ -43,6 +43,19 @@
         flex-direction: row;
         justify-content: space-between;
         margin-inline: 20px;
+    }
+
+    .article-sidebar-container h3 {
+        text-align: center;
+    }
+
+    .article-sidebar-container ul {
+        margin-left: 0;
+        display: block;
+    }
+
+    .article-sidebar-container ul li {
+        margin-left: 15px;
     }
 }
   
