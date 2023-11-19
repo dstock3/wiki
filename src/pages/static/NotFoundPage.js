@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import '../../styles/NotFoundPage.css';
 
 const NotFoundPage = ({title}) => {
   useEffect(() => {
