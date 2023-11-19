@@ -5,3 +5,9 @@
 .tos-container {
     margin-left: 25px;
 }
+
+@media (max-width: 768px) {
+    .tos-page {
+        display: block
+    }
+}

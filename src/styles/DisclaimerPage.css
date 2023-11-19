@@ -6,3 +6,9 @@
 .disclaimer-container {
     margin-left: 25px;
 }
+
+@media (max-width: 600px) {
+    .disclaimer-page {
+        display: block
+    }
+}
