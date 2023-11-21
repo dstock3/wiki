@@ -39,3 +39,7 @@
 .user-contributions ul {
     list-style-type: disc;
 }
+
+.contributions-msg {
+    margin-left: 25px;
+}

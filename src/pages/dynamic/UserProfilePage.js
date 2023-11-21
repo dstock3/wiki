@@ -52,6 +52,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
           </div>
           <div className="user-contributions">
             <h3>Contributions</h3>
+            {userData.contributions.articles.length === 0 && <div className="contributions-msg">No articles yet</div>}
             <ul className="article-list">
               {userData.contributions.articles.map((article, index) => (
                 <li key={index}>
