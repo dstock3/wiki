@@ -116,3 +116,35 @@
     background-color: #ff4a4a;
 }
 
+@media (max-width: 600px) {
+    .portal-form {
+        width: 100%;
+    }
+
+    .portal-form-group-container {
+        flex-direction: column;
+        height: unset;
+    }
+
+    .portal-form-group {
+        width: unset;
+    }
+    
+    .portal-form-group .ql-editor {
+        height: 200px;
+    }
+
+    .submit-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .title-group {
+        display: block;
+    }
+
+    .edit-portal-button, .delete-button {
+        width: fit-content;
+    }
+}
