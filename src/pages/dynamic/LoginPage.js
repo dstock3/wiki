@@ -58,10 +58,9 @@ const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn, username, set
     };
 
     const handleCapsLock = (e) => {
-        const capsLockOn = e.getModifierState('CapsLock');
-        setIsCapsLockOn(capsLockOn);
+        setIsCapsLockOn(e.getModifierState('CapsLock'));
     };
-      
+
     return (
         <div className="login-page">
             <h2>Log In to WikiWise</h2>
