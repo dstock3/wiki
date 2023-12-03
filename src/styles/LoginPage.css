@@ -37,3 +37,19 @@ p {
     color: #4F8A10;
     padding: 10px;
 }
+
+.caps-lock-warning {
+    align-self: center;
+    font-weight: bold;
+    text-align: center;
+    width: 85px;
+    padding: 5px 10px;
+    background-color: #f8d7da; 
+    color: #721c24; 
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+    z-index: 10;
+    margin-bottom: 10px;
+}

@@ -7,6 +7,7 @@ const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn, username, set
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState(null);
     const [isError, setIsError] = useState(false);
+    const [isCapsLockOn, setIsCapsLockOn] = useState(false);
     
     useEffect(() => {
         document.title = `${title} | Log In`;
@@ -55,6 +56,11 @@ const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn, username, set
           setIsError(true);
       });
     };
+
+    const handleCapsLock = (e) => {
+        const capsLockOn = e.getModifierState('CapsLock');
+        setIsCapsLockOn(capsLockOn);
+    };
       
     return (
         <div className="login-page">
@@ -79,10 +85,17 @@ const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn, username, set
                         type="password" 
                         id="password" 
                         value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
+                        onChange={(e) => setPassword(e.target.value)}
+                        onKeyUp={handleCapsLock}
+                        onKeyDown={handleCapsLock}
                         required 
                     />
                 </div>
+                {isCapsLockOn && (
+                    <div className="caps-lock-warning">
+                        Caps Lock is on
+                    </div>
+                )}
                 <button className="login-button" type="submit">Log In</button>
             </form>
             <p>
