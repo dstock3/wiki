@@ -56,7 +56,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
             <ul className="article-list">
               {userData.contributions.articles.map((article, index) => (
                 <li key={index}>
-                  <Link to={`/${article.portalId}/article/${article._id}`}>article</Link>
+                  <Link to={`/${article.portalId}/article/${article._id}`}>{article.title}</Link>
                 </li>
               ))}
             </ul>
