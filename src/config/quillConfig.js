@@ -21,17 +21,14 @@ class ArticleDropdown {
             this.container.onchange = () => {
                 if (this.container.value) {
                     const range = this.quill.getSelection();
-                    if (range) {
+                    if (range && range.length > 0) {
                         const articleId = this.container.value;
-                        const link = `#article/${articleId}`;
-                        this.quill.format('link', link);
-                        const [leaf] = this.quill.getLeaf(range.index);
-                        if (leaf instanceof HTMLAnchorElement) {
-                            leaf.setAttribute('data-article-id', articleId);
-                            leaf.setAttribute('data-portal-id', options.portalId);
-                            leaf.classList.add('custom-article-link');
-                        }
-                        this.container.value = '';
+                        const baseUrl = window.location.origin; 
+                        const link = `${baseUrl}/${options.portalId}/article/${articleId}`;
+    
+                        this.quill.formatText(range.index, range.length, 'link', link, Quill.sources.USER);
+    
+                        this.container.value = ''; 
                     }
                 }
             };
