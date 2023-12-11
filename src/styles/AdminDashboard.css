@@ -35,7 +35,7 @@
     text-align: center;
 }
 
-.logs-dashboard {
+.users-dashboard, .logs-dashboard {
     margin-inline: 25px;
     display: flex;
     justify-content: space-between;
@@ -65,13 +65,21 @@
     background-color: #d5d5d5;
 }
 
-.log-search-form {
+.user-search-form, .log-search-form {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    width: 45%;
     height: 40px;
+    margin-bottom: 20px;
+}
+
+.log-search-form {
+    width: 45%;
+    justify-content: space-between;
+}
+
+.user-search-form {
+    width: 75%;
+    margin-inline: 25px;
 }
 
 .log-search-form input {
@@ -214,7 +222,7 @@
     margin-bottom: 20px;
 }
 
-.users-section button {
+.delete, .ban, .reset {
     background-color: #4caf50;
     color: white;
     border: none;
@@ -225,6 +233,22 @@
     cursor: pointer;
     font-size: 14px;
     width: 100%;
+}
+
+.search-users-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    width: 25%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.search-users-input {
+    width: 100%;
+    font-size: 16px;
 }
 
 .users-section button:hover {
@@ -274,3 +298,4 @@
     white-space: normal; 
     max-width: 200px; 
 }
+

@@ -13,7 +13,7 @@ const UsersSection = ({ endpoint, csrfToken }) => {
         axios.get(`${endpoint}/users/admin/manage`, { withCredentials: true })
         .then(response => {
             setUsers(response.data.users);
-            setFilteredUsers(response.data.users); // Initialize filteredUsers with all users
+            setFilteredUsers(response.data.users); 
             setLoading(false);
         })
         .catch(err => {
@@ -85,16 +85,16 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     return (
         <section className="users-section">
             <h2>Manage Users</h2>
-            <div className="users-search-bar">
-                <form onSubmit={handleSearch}>
+            <div className="users-dashboard"> 
+                <form onSubmit={handleSearch} className="user-search-form">
                     <input
                         type="text"
                         placeholder="Search users..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="users-search-input"
+                        className="search-users-input"
                     />
-                    <button type="submit" className="users-search-button">Search</button>
+                    <button type="submit" className="search-users-button">Search</button>
                 </form>
             </div>
             <div className="users-table-container">
