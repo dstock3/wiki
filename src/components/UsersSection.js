@@ -4,13 +4,16 @@ import Loading from './Loading';
 
 const UsersSection = ({ endpoint, csrfToken }) => {
     const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
     const fetchUsers = () => {
         axios.get(`${endpoint}/users/admin/manage`, { withCredentials: true })
         .then(response => {
             setUsers(response.data.users);
+            setFilteredUsers(response.data.users); // Initialize filteredUsers with all users
             setLoading(false);
         })
         .catch(err => {
@@ -22,8 +25,16 @@ const UsersSection = ({ endpoint, csrfToken }) => {
 
     useEffect(() => {
         fetchUsers();
-
     }, [endpoint]);
+
+    useEffect(() => {
+        const lowercasedQuery = searchQuery.toLowerCase();
+        const filtered = users.filter(user => 
+            user.username.toLowerCase().includes(lowercasedQuery) ||
+            user.email.toLowerCase().includes(lowercasedQuery)
+        );
+        setFilteredUsers(filtered);
+    }, [searchQuery, users]);
 
     const handleDeleteUser = async (userId) => {
         if(window.confirm("Are you sure you want to delete this user? This action cannot be undone.")) {
@@ -56,7 +67,7 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     };
 
     const handleResetPassword = async (userId) => {
-        // password reset 
+        // password reset logic here
     };
 
     if (loading) {
@@ -67,9 +78,25 @@ const UsersSection = ({ endpoint, csrfToken }) => {
         return <div>Error: {error}</div>;
     }
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+    };
+
     return (
         <section className="users-section">
             <h2>Manage Users</h2>
+            <div className="users-search-bar">
+                <form onSubmit={handleSearch}>
+                    <input
+                        type="text"
+                        placeholder="Search users..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="users-search-input"
+                    />
+                    <button type="submit" className="users-search-button">Search</button>
+                </form>
+            </div>
             <div className="users-table-container">
                 <table>
                     <thead>
@@ -82,16 +109,16 @@ const UsersSection = ({ endpoint, csrfToken }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(user => (
+                        {filteredUsers.map(user => (
                             <tr key={user._id}>
                                 <td>{user.username}</td>
                                 <td className="email">{user.email}</td>
                                 <td>{new Date(user.joinedDate).toLocaleDateString()}</td>
                                 <td>{user.isBanned ? "Banned" : "Not Banned"}</td>
                                 <td className="admin-users-button-container">
-                                    <button className ="user-action-button delete" onClick={() => handleDeleteUser(user._id)}>Delete</button>
-                                    <button className ="user-action-button ban" onClick={() => handleBanUser(user._id)}>Ban</button>
-                                    <button className ="user-action-button reset" onClick={() => handleResetPassword(user._id)}>Reset Password</button>
+                                    <button className="user-action-button delete" onClick={() => handleDeleteUser(user._id)}>Delete</button>
+                                    <button className="user-action-button ban" onClick={() => handleBanUser(user._id)}>Ban</button>
+                                    <button className="user-action-button reset" onClick={() => handleResetPassword(user._id)}>Reset Password</button>
                                 </td>
                             </tr>
                         ))}
