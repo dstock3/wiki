@@ -101,7 +101,7 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     const handleResetPasswordSubmit = async (newPassword, userId) => {
         setIsResetModalOpen(false);
         try {
-            const response = await axios.put(`${endpoint}/users/admin/reset/${userId}`, { newPassword }, {
+            const response = await axios.put(`${endpoint}/users/admin/reset-password/${userId}`, { newPassword }, {
                 withCredentials: true,
                 headers: { 'csrf-token': csrfToken }
             });
