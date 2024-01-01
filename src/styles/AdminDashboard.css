@@ -320,9 +320,23 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
-    max-width: 500px; 
+    width: 100%;
+    max-width: 425px; 
     box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.modal-content h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.reset-pw-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .close {
@@ -339,7 +353,8 @@
     cursor: pointer;
 }
 
-.form-group {
+.reset-pw-form-group {
+    width: 75%;
     margin-bottom: 15px;
 }
 
@@ -348,7 +363,7 @@
     margin-bottom: 5px;
 }
 
-input[type=password] {
+.reset-pw-input {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 10px;
@@ -357,7 +372,7 @@ input[type=password] {
 }
 
 .reset-pw-button {
-    width: 100%;
+    width: 75%;
     padding: 10px;
     background-color: #007bff;
     color: white;

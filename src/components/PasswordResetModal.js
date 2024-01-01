@@ -25,8 +25,8 @@ const PasswordResetModal = ({ isOpen, onClose, onSubmit, user }) => {
                     }}>&times;</span>
                     <h2>Reset Password for {user.username}</h2>
                     {errorMessage && <p className="pw-error-message">{errorMessage}</p>}
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
+                    <form className="reset-pw-form" onSubmit={handleSubmit}>
+                        <div className="reset-pw-form-group">
                             <label className="reset-pw-label">New Password:</label>
                             <input
                                 type="password"
@@ -34,9 +34,10 @@ const PasswordResetModal = ({ isOpen, onClose, onSubmit, user }) => {
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
                                 required
+                                className="reset-pw-input"
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="reset-pw-form-group">
                             <label className="reset-pw-label">Confirm New Password:</label>
                             <input
                                 type="password"
@@ -44,6 +45,7 @@ const PasswordResetModal = ({ isOpen, onClose, onSubmit, user }) => {
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
+                                className="reset-pw-input"
                             />
                         </div>
                         <button className="reset-pw-button" type="submit">Reset Password</button>
