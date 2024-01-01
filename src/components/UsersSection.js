@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loading from './Loading';
+import PasswordResetModal from './PasswordResetModal';
 
 const UsersSection = ({ endpoint, csrfToken }) => {
     const [users, setUsers] = useState([]);
@@ -8,6 +9,8 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
+    const [isResetModalOpen, setIsResetModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
 
     const fetchUsers = () => {
         axios.get(`${endpoint}/users/admin/manage`, { withCredentials: true })
@@ -66,8 +69,23 @@ const UsersSection = ({ endpoint, csrfToken }) => {
         }
     };
 
-    const handleResetPassword = async (userId) => {
-        // password reset logic here
+    const handleResetPasswordClick = (user) => {
+        setSelectedUser(user);
+        setIsResetModalOpen(true);
+    };
+    
+    const handleResetPasswordSubmit = async (newPassword, userId) => {
+        setIsResetModalOpen(false);
+        try {
+            const response = await axios.put(`${endpoint}/users/admin/reset/${userId}`, { newPassword }, {
+                withCredentials: true,
+                headers: { 'csrf-token': csrfToken }
+            });
+            alert(`Password for ${selectedUser.username} has been reset.`);
+        } catch (err) {
+            console.error('Error resetting password:', err);
+            alert(err.response?.data?.error || 'Failed to reset password');
+        }
     };
 
     if (loading) {
@@ -83,49 +101,57 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     };
 
     return (
-        <section className="users-section">
-            <h2>Manage Users</h2>
-            <div className="users-dashboard"> 
-                <form onSubmit={handleSearch} className="user-search-form">
-                    <input
-                        type="text"
-                        placeholder="Search users..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="search-users-input"
-                    />
-                    <button type="submit" className="search-users-button">Search</button>
-                </form>
-            </div>
-            <div className="users-table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th className="email">Email</th>
-                            <th>Joined Date</th>
-                            <th>Banned</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredUsers.map(user => (
-                            <tr key={user._id}>
-                                <td>{user.username}</td>
-                                <td className="email">{user.email}</td>
-                                <td>{new Date(user.joinedDate).toLocaleDateString()}</td>
-                                <td>{user.isBanned ? "Banned" : "Not Banned"}</td>
-                                <td className="admin-users-button-container">
-                                    <button className="user-action-button delete" onClick={() => handleDeleteUser(user._id)}>Delete</button>
-                                    <button className="user-action-button ban" onClick={() => handleBanUser(user._id)}>Ban</button>
-                                    <button className="user-action-button reset" onClick={() => handleResetPassword(user._id)}>Reset Password</button>
-                                </td>
+        <>
+            <section className="users-section">
+                <h2>Manage Users</h2>
+                <div className="users-dashboard"> 
+                    <form onSubmit={handleSearch} className="user-search-form">
+                        <input
+                            type="text"
+                            placeholder="Search users..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="search-users-input"
+                        />
+                        <button type="submit" className="search-users-button">Search</button>
+                    </form>
+                </div>
+                <div className="users-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th className="email">Email</th>
+                                <th>Joined Date</th>
+                                <th>Banned</th>
+                                <th>Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                        </thead>
+                        <tbody>
+                            {filteredUsers.map(user => (
+                                <tr key={user._id}>
+                                    <td>{user.username}</td>
+                                    <td className="email">{user.email}</td>
+                                    <td>{new Date(user.joinedDate).toLocaleDateString()}</td>
+                                    <td>{user.isBanned ? "Banned" : "Not Banned"}</td>
+                                    <td className="admin-users-button-container">
+                                        <button className="user-action-button delete" onClick={() => handleDeleteUser(user._id)}>Delete</button>
+                                        <button className="user-action-button ban" onClick={() => handleBanUser(user._id)}>Ban</button>
+                                        <button className="user-action-button reset" onClick={() => handleResetPasswordClick(user)}>Reset Password</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <PasswordResetModal
+                isOpen={isResetModalOpen}
+                onClose={() => setIsResetModalOpen(false)}
+                onSubmit={handleResetPasswordSubmit}
+                user={selectedUser}
+            />
+        </>
     );
 };
 
