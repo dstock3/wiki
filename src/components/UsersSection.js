@@ -85,6 +85,14 @@ const UsersSection = ({ endpoint, csrfToken }) => {
         }
     };
 
+    const handleToggleBan = async (user) => {
+        if (user.isBanned) {
+            handleUnbanUser(user._id);
+        } else {
+            handleBanUser(user._id);
+        }
+    };
+
     const handleResetPasswordClick = (user) => {
         setSelectedUser(user);
         setIsResetModalOpen(true);
@@ -152,7 +160,9 @@ const UsersSection = ({ endpoint, csrfToken }) => {
                                     <td>{user.isBanned ? "Banned" : "Not Banned"}</td>
                                     <td className="admin-users-button-container">
                                         <button className="user-action-button delete" onClick={() => handleDeleteUser(user._id)}>Delete</button>
-                                        <button className="user-action-button ban" onClick={() => handleBanUser(user._id)}>{user.isBanned ? "Unban" : "Ban"}</button>
+                                        <button className="user-action-button ban" onClick={() => handleToggleBan(user)}>
+                                            {user.isBanned ? "Unban" : "Ban"}
+                                        </button>
                                         <button className="user-action-button reset" onClick={() => handleResetPasswordClick(user)}>Reset Password</button>
                                     </td>
                                 </tr>
