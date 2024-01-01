@@ -69,6 +69,22 @@ const UsersSection = ({ endpoint, csrfToken }) => {
         }
     };
 
+    const handleUnbanUser = async (userId) => {
+        if(window.confirm("Are you sure you want to unban this user?")) {
+            try {
+                const response = await axios.put(`${endpoint}/users/admin/unban/${userId}`, {}, {
+                    withCredentials: true,
+                    headers: { 'csrf-token': csrfToken }
+                });
+                alert(response.data.message);
+                fetchUsers(); 
+            } catch (err) {
+                console.error('Error unbanning user:', err);
+                alert(err.response?.data?.error || 'Failed to unban user');
+            }
+        }
+    };
+
     const handleResetPasswordClick = (user) => {
         setSelectedUser(user);
         setIsResetModalOpen(true);
@@ -136,7 +152,7 @@ const UsersSection = ({ endpoint, csrfToken }) => {
                                     <td>{user.isBanned ? "Banned" : "Not Banned"}</td>
                                     <td className="admin-users-button-container">
                                         <button className="user-action-button delete" onClick={() => handleDeleteUser(user._id)}>Delete</button>
-                                        <button className="user-action-button ban" onClick={() => handleBanUser(user._id)}>Ban</button>
+                                        <button className="user-action-button ban" onClick={() => handleBanUser(user._id)}>{user.isBanned ? "Unban" : "Ban"}</button>
                                         <button className="user-action-button reset" onClick={() => handleResetPasswordClick(user)}>Reset Password</button>
                                     </td>
                                 </tr>
