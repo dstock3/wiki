@@ -24,10 +24,10 @@ const PasswordResetModal = ({ isOpen, onClose, onSubmit, user }) => {
                         setErrorMessage(''); 
                     }}>&times;</span>
                     <h2>Reset Password for {user.username}</h2>
-                    {errorMessage && <p className="error-message">{errorMessage}</p>}
+                    {errorMessage && <p className="pw-error-message">{errorMessage}</p>}
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <label>New Password:</label>
+                            <label className="reset-pw-label">New Password:</label>
                             <input
                                 type="password"
                                 placeholder="Enter new password"
@@ -37,7 +37,7 @@ const PasswordResetModal = ({ isOpen, onClose, onSubmit, user }) => {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Confirm New Password:</label>
+                            <label className="reset-pw-label">Confirm New Password:</label>
                             <input
                                 type="password"
                                 placeholder="Confirm new password"
@@ -46,7 +46,7 @@ const PasswordResetModal = ({ isOpen, onClose, onSubmit, user }) => {
                                 required
                             />
                         </div>
-                        <button type="submit">Reset Password</button>
+                        <button className="reset-pw-button" type="submit">Reset Password</button>
                     </form>
                 </div>
             </div>
