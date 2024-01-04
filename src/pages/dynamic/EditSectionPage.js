@@ -1,18 +1,23 @@
-import { useEffect, useState, useRef } from 'react'
-import '../../styles/EditSectionPage.css'
-import axios from 'axios'
-import { useHistory } from 'react-router-dom'
-import Loading from '../../components/Loading'
+import { useEffect, useState, useRef } from 'react';
+import '../../styles/EditSectionPage.css';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import Loading from '../../components/Loading';
 import ReactQuill from 'react-quill';
 import useArticles from '../../hooks/useArticles';
 import { modules, formats } from '../../config/quillConfig';
 
 const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
-    const [section, setSection] = useState({title: '', text: ''})
+    const [section, setSection] = useState({
+        title: '',
+        text: '',
+        sectionImage: null,
+        sectionImageFile: null
+    });
+    const [imageAlt, setImageAlt] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { articles, er } = useArticles(match.params.portalid, endpoint);
-    const quillRef = useRef(null);
+    const { articles } = useArticles(match.params.portalid, endpoint);
     const history = useHistory();
 
     useEffect(() => {
@@ -20,87 +25,94 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
     }, [title]);
 
     useEffect(() => {
+        setLoading(true);
         axios.get(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, { withCredentials: true })
         .then(response => {
             setSection(response.data);
+            setImageAlt(response.data.image ? response.data.image.alt : '');
             setLoading(false);
-          })
-          .catch(err => {
+        })
+        .catch(err => {
             setError(err.message);
             setLoading(false);
-          });
+        });
+    }, [match.params.articleid, match.params.sectionid, endpoint, title]);
 
-        setSection({
-            title: 'Section Title',
-            text: 'Section Text'
-        })
-    }, [match.params.sectionid])
-    
     const handleInputChange = (e, field) => {
         setSection(prevState => ({ ...prevState, [field]: e.target.value }));
     };
 
-    const extendedModules = {
-        ...modules,
-        articleDropdown: {
-            articles: articles,
-            portalId: match.params.portalid
+    const handleImageSelection = (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image')) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setSection(prevSection => ({
+                    ...prevSection,
+                    sectionImage: reader.result,
+                    sectionImageFile: file
+                }));
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert("Please select an image file.");
         }
     };
 
-    const handleSave = () => {
-        const config = {
-            withCredentials: true,
-            headers: {
-                'csrf-token': csrfToken
-            }
+    const handleSave = async () => {
+        setLoading(true);
+        const formData = new FormData();
+        formData.append("title", section.title);
+        formData.append("text", section.text);
+        if (section.sectionImageFile) {
+            formData.append("image", section.sectionImageFile);
+            formData.append("imageAlt", imageAlt);
         }
-        axios.put(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, section, config)
-        .then(response => {
-            history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
-        })
-        .catch(error => {
-            console.error("Error updating section", error);
-        });
-    };
-    
-    const handleDelete = () => {
-        axios.delete(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, {
+
+        const config = {
             headers: {
+                'Content-Type': 'multipart/form-data',
                 'csrf-token': csrfToken
-            }
-        })
-        .then(response => {
-            console.log("Section deleted successfully", response.data);
+            },
+            withCredentials: true,
+        };
+
+        try {
+            await axios.put(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, formData, config);
             history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
-        })
-        .catch(error => {
-            console.error("Error deleting section", error);
-        });
+        } catch (error) {
+            console.error("Error updating section", error);
+            setError(error.message || "Error updating section");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleDelete = () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this section? This action cannot be undone.");
+        if (confirmDelete) {
+            setLoading(true);
+            axios.delete(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, {
+                headers: { 'csrf-token': csrfToken },
+                withCredentials: true,
+            })
+            .then(response => {
+                history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
+            })
+            .catch(error => {
+                console.error("Error deleting section", error);
+                setError(error.message || "Error deleting section");
+            }).finally(() => {
+                setLoading(false);
+            });
+        }
     };
 
     const handleCancel = () => {
         history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
     }
 
-    const handleImageUpload = e => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSection(prevData => ({
-                    ...prevData,
-                    sectionImage: reader.result,
-                    sectionImageFile: file
-                }));
-            }
-            reader.readAsDataURL(file);
-        }
-    }
-    
-    if (loading) return <div className="edit-section-page">
-        <Loading loading={loading} />
-    </div>;
+    if (loading) return <div className="edit-section-page"><Loading loading={loading} /></div>;
     if (error) return <div className="edit-section-page">Error: {error}</div>;
 
     return (
@@ -119,20 +131,33 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
                     <button className="delete-btn delete-section" onClick={handleDelete}>Delete Section</button>
                 </div>
                 <div className="img-upload-container">
-                        <label className="portal-main-label">Upload Image:</label>
-                        <input 
-                            type="file" 
-                            name="portalImageFile" 
-                            onChange={handleImageUpload}
-                        />
+                    <label className="portal-main-label">Upload Image:</label>
+                    <input 
+                        type="file" 
+                        accept="image/*"
+                        onChange={handleImageSelection}
+                    />
+                    {section.sectionImage && (
+                        <>
+                            <img src={section.sectionImage} alt="Preview" />
+                            <div className="img-alt-container">
+                                <label>Image Alt Text:</label>
+                                <input 
+                                    type="text" 
+                                    placeholder="Describe the image briefly" 
+                                    value={imageAlt}
+                                    onChange={e => setImageAlt(e.target.value)}
+                                />
+                            </div>
+                        </>
+                    )}
                 </div>
                 <div className="edit-section-container">
                     <ReactQuill
                         style={{ backgroundColor: 'white' }}
-                        ref={quillRef}
                         value={section.text}
                         onChange={(content, delta, source, editor) => setSection(prev => ({ ...prev, text: editor.getHTML() }))}
-                        modules={extendedModules}
+                        modules={modules}
                         formats={formats}
                     />
                 </div>
@@ -142,7 +167,8 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
                 </div>
             </div>
         </div>
-  )
-}
+    );
+};
 
-export default EditSectionPage
+export default EditSectionPage;
+

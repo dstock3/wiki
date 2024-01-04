@@ -65,7 +65,7 @@
 }
 
 .reference-link:hover {
-    text-decoration: underline; /* add underline on hover for better UX */
+    text-decoration: underline;
 }
 
 .article-references ul li a {
@@ -76,4 +76,12 @@
 .article-subcontainer.dual-section {
     display: flex;
     justify-content: space-between;
+}
+
+.article-section-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin-right: 25px;
 }
