@@ -101,9 +101,12 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     const handleResetPasswordSubmit = async (newPassword, userId) => {
         setIsResetModalOpen(false);
         try {
-            const response = await axios.put(`${endpoint}/users/admin/reset-password/${userId}`, { newPassword }, {
+            const response = await axios.put(`${endpoint}/users/admin/reset-password/${userId}`, { password: newPassword }, {
                 withCredentials: true,
-                headers: { 'csrf-token': csrfToken }
+                headers: {
+                    'Content-Type': 'application/json',
+                    'csrf-token': csrfToken
+                }
             });
             alert(`Password for ${selectedUser.username} has been reset.`);
         } catch (err) {
