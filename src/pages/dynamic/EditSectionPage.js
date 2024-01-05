@@ -61,24 +61,23 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
 
     const handleSave = async () => {
         setLoading(true);
-        const formData = new FormData();
-        formData.append("title", section.title);
-        formData.append("text", section.text);
-        if (section.sectionImageFile) {
-            formData.append("image", section.sectionImageFile);
-            formData.append("imageAlt", imageAlt);
-        }
-
+        let payload = {
+            title: section.title,
+            text: section.text,
+            image: section.sectionImage,
+            imageAlt: imageAlt
+        };
+    
         const config = {
             headers: {
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',  
                 'csrf-token': csrfToken
             },
             withCredentials: true,
         };
-
+    
         try {
-            await axios.put(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, formData, config);
+            await axios.put(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, payload, config);
             history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
         } catch (error) {
             console.error("Error updating section", error);
