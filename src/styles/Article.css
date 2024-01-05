@@ -80,9 +80,14 @@
 
 .article-section-image {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin-left: 25px;
     margin-top: 10%;
+    padding: 5px;
+    border: 1px solid #c8ccd1;
+    background-color: #f1f1f1;
+    height: fit-content;
 }
 
 .article-section-image img {
@@ -91,4 +96,8 @@
     width: auto;  
     height: auto;
     object-fit: cover;
-  }
+}
+
+.section-image-caption {
+    margin-top: 5px;
+}

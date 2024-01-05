@@ -38,6 +38,12 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
                       {section.image && (
                         <div className="article-section-image">
                             <img src={section.image.src} alt={section.image.alt} />
+
+                            {section.image.alt && (
+                              <div className="section-image-caption">
+                                <span>{section.image.alt}</span>
+                              </div>
+                            )}
                         </div>
                       )}
                   </div>
