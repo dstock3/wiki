@@ -22,7 +22,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
       .then(response => {
         setPortalData(response.data.portal);
         setFeaturedArticle(response.data.portal.featuredArticle);
-        setAuth(response.data.isViewerOwner);
+        setAuth(response.data.isViewerOwner || response.data.isAdmin);
         setLoading(false);
       })
       .catch(err => {
