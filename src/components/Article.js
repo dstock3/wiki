@@ -23,30 +23,29 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
             </div>
             {content.map((section, index) => {
               return (
-                  <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
-                      <div className="article-section" id={`section-${index}`}>
-                          <div className="section-head">
-                              <h2>{section.title}</h2>
-                              {isAuthenticated && (
-                                <EditLink linkTo={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} linkClass="edit-section-link" />
-                              )}
-                          </div>
-                          <div>
-                            {parseContentToComponents(section.text)}
-                          </div>
-                      </div>
-                      {section.image && (
-                        <div className="article-section-image">
-                            <img src={section.image.src} alt={section.image.alt} />
-
-                            {section.image.alt && (
-                              <div className="section-image-caption">
-                                <span>{section.image.alt}</span>
-                              </div>
-                            )}
-                        </div>
+                <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
+                  <div className="article-section" id={`section-${index}`}>
+                    <div className="section-head">
+                      <h2>{section.title}</h2>
+                      {isAuthenticated && (
+                        <EditLink linkTo={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} linkClass="edit-section-link" />
                       )}
+                    </div>
+                    {section.image && (
+                      <div className="article-section-image">
+                        <img src={section.image.src} alt={section.image.alt} />
+                        {section.image.alt && (
+                          <div className="section-image-caption">
+                            <span>{section.image.alt}</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    <div>
+                      {parseContentToComponents(section.text)}
+                    </div>
                   </div>
+                </div>
               );
             })}
           </div>
