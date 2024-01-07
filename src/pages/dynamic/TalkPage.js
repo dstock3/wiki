@@ -126,7 +126,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                 <div className="topic-header">
                   <div className="topic-title">
                     <h3>{topic.title}</h3>
-                    {topic.isAuthorized && (
+                    {(topic.isAuthorized || isAdmin) && (
                         <EditLink linkTo={`/${match.params.portalid}/article/${match.params.articleid}/talk/${topic._id}/edit`} linkClass="edit-topic" />
                     )}
                   </div>
