@@ -19,6 +19,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const [currentUserId, setCurrentUserId] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     document.title = `${title} | Talk Page`;
@@ -32,6 +33,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         setIsAuthenticated(response.data.isAuthorized);
         setArticleAuthorId(response.data.talkPage.articleAuthorId);
         setCurrentUserId(response.data.talkPage.currentUserId);
+        setIsAdmin(response.data.isAdmin);
         setLoading(false);
       })
       .catch(error => {
@@ -148,6 +150,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                     articleAuthorId={articleAuthorId}
                     csrfToken={csrfToken}
                     onEditSuccess={onEditSuccess}
+                    isAdmin={isAdmin}
                     onDeleteSuccess={commentId => {
                       const updatedTopics = [...topics];
                       const targetTopic = updatedTopics.find(d => d._id === topic._id);

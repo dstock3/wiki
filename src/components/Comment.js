@@ -14,7 +14,8 @@ const Comment = ({
     articleId,
     onDeleteSuccess,
     onEditSuccess,
-    csrfToken
+    csrfToken,
+    isAdmin
 }) => {
     const [editMode, setEditMode] = useState(false);
     const [editedContent, setEditedContent] = useState(comment.content);
@@ -85,10 +86,10 @@ const Comment = ({
             </div>
 
             <div className="comment-button-container">
-                {isAuthor && !editMode && (
+                {(isAuthor || isAdmin) && !editMode && (
                     <button onClick={handleEditToggle} className="comment-edit-button">Edit</button>
                 )}
-                {canDelete && !editMode && (
+                {(canDelete || isAdmin) && !editMode && (
                     <button onClick={handleDelete} className="comment-delete-button">Delete</button>
                 )}
                 {editMode && (
