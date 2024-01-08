@@ -22,6 +22,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
               {parseContentToComponents(intro)}
             </div>
             {content.map((section, index) => {
+              const imageAlignmentClass = section.image ? `align-${section.image.align}` : '';
               return (
                 <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
                   <div className="article-section" id={`section-${index}`}>
@@ -32,7 +33,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
                       )}
                     </div>
                     {section.image && (
-                      <div className="article-section-image">
+                      <div className={`article-section-image ${imageAlignmentClass}`}>
                         <img src={section.image.src} alt={section.image.alt} />
                         {section.image.alt && (
                           <div className="section-image-caption">

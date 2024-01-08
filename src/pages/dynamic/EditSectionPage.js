@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/EditSectionPage.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -18,11 +18,16 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { articles } = useArticles(match.params.portalid, endpoint);
+    const [imageAlignment, setImageAlignment] = useState('left');
     const history = useHistory();
 
     useEffect(() => {
         document.title = `${title} | Edit Section`;
     }, [title]);
+
+    const handleImageAlignmentChange = (e) => {
+        setImageAlignment(e.target.value);
+    };
 
     useEffect(() => {
         setLoading(true);
@@ -65,7 +70,8 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
             title: section.title,
             text: section.text,
             image: section.sectionImage,
-            imageAlt: imageAlt
+            imageAlt: imageAlt,
+            imageAlignment: imageAlignment 
         };
     
         const config = {
@@ -130,27 +136,36 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
                     <button className="delete-btn delete-section" onClick={handleDelete}>Delete Section</button>
                 </div>
                 <div className="img-upload-container">
-                    <label className="portal-main-label">Upload Image:</label>
-                    <input 
-                        type="file" 
-                        accept="image/*"
-                        onChange={handleImageSelection}
-                    />
-                    {section.sectionImage && (
-                        <>
-                            <img src={section.sectionImage} alt="Preview" />
-                            <div className="img-alt-container">
-                                <label>Image Alt Text:</label>
-                                <input 
-                                    type="text" 
-                                    placeholder="Describe the image briefly" 
-                                    value={imageAlt}
-                                    onChange={e => setImageAlt(e.target.value)}
-                                />
-                            </div>
-                        </>
-                    )}
+                    <div className="img-upload">
+                        <label className="portal-main-label">Upload Image:</label>
+                        <input 
+                            type="file" 
+                            accept="image/*"
+                            onChange={handleImageSelection}
+                        />
+                    </div>
+                    <div className="img-alignment">
+                        <label>Image Alignment:</label>
+                        <select value={imageAlignment} onChange={handleImageAlignmentChange}>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
                 </div>
+                {section.sectionImage && (
+                    <>
+                        <img className="section-image-preview" src={section.sectionImage} alt="Preview" />
+                        <div className="img-alt-container">
+                            <label>Image Alt Text:</label>
+                            <input 
+                                type="text" 
+                                placeholder="Describe the image briefly" 
+                                value={imageAlt}
+                                onChange={e => setImageAlt(e.target.value)}
+                            />
+                        </div>
+                    </>
+                )}
                 <div className="edit-section-container">
                     <ReactQuill
                         style={{ backgroundColor: 'white' }}

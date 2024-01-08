@@ -73,10 +73,18 @@
     text-decoration: none;
 }
 
+.align-left {
+    float: left; 
+    margin-right: 20px; 
+}
+
+.align-right {
+    float: right;
+    margin-left: 20px;
+}
+
 .article-section-image {
-    float: right; 
-    margin-top: 20px;
-    margin-left: 20px; 
+    margin-block: 20px;
     max-width: 175px;
     padding: 3px;
     border: 1px solid #c8ccd1;
