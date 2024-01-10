@@ -7,38 +7,63 @@ function formatDate(dateString) {
   return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
-function parseContentToComponents(content) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(content, 'text/html');
-  const elements = [];
+function parseContentToComponents(content, references = []) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
 
-  function processNode(node) {
-      if (node.nodeType === Node.TEXT_NODE) {
-          return node.nodeValue;
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
-          if (node.tagName === 'A') {
-              const href = node.getAttribute('href');
+    function processNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.nodeValue;
+            const referenceRegex = /\[(\d+)\]/g;
+            let lastIndex = 0;
+            let result;
 
-              if (href.startsWith('/')) {
-                  return <Link to={href}>{node.textContent}</Link>;
-              } else {
-                  return <a href={href} target="_blank" rel="noopener noreferrer">{node.textContent}</a>;
-              }
-          } else {
-              return React.createElement(
-                  node.tagName.toLowerCase(),
-                  { key: Math.random().toString() },
-                  Array.from(node.childNodes).map(child => processNode(child))
-              );
-          }
-      }
-  }
+            const textElements = [];
+            while ((result = referenceRegex.exec(text)) !== null) {
+                const index = result.index;
+                const referenceIndex = parseInt(result[1], 10) - 1; 
 
-  Array.from(doc.body.childNodes).forEach(node => {
-      elements.push(processNode(node));
-  });
+                console.log(`Found reference: [${result[1]}], Index in array: ${referenceIndex}`);
 
-  return elements;
+                textElements.push(text.substring(lastIndex, index));
+
+                if (referenceIndex >= 0 && referenceIndex < references.length) {
+                    textElements.push(
+                        <a href={`#reference-${referenceIndex + 1}`} key={`ref-${referenceIndex + 1}`}>
+                            [{referenceIndex + 1}]
+                        </a>
+                    );
+                } else {
+                    textElements.push(`[${referenceIndex + 1}]`);
+                }
+                
+                lastIndex = referenceRegex.lastIndex;
+            }
+
+            textElements.push(text.substring(lastIndex));
+            return textElements;
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+            if (node.tagName === 'BR') {
+                return React.createElement('br', { key: Math.random().toString() });
+            }
+            if (node.tagName === 'A') {
+                const href = node.getAttribute('href');
+                if (href.startsWith('/')) {
+                    return <Link to={href} key={Math.random().toString()}>{Array.from(node.childNodes).map(child => processNode(child))}</Link>;
+                } else {
+                    return <a href={href} target="_blank" rel="noopener noreferrer" key={Math.random().toString()}>{Array.from(node.childNodes).map(child => processNode(child))}</a>;
+                }
+            }
+            return React.createElement(
+                node.tagName.toLowerCase(),
+                { key: Math.random().toString() },
+                Array.from(node.childNodes).map(child => processNode(child))
+            );
+        }
+    }
+
+    const elements = Array.from(doc.body.childNodes).map(node => processNode(node));
+    return elements;
 }
 
 function ensureLinksAreAbsolute(htmlString) {

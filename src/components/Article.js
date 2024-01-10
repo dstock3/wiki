@@ -19,7 +19,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
           )}
           <div className="article-sections">
             <div>
-              {parseContentToComponents(intro)}
+              {<div>{parseContentToComponents(intro, references)}</div>}
             </div>
             {content.map((section, index) => {
               const imageAlignmentClass = section.image && section.image.src ? `align-${section.image.align}` : '';
@@ -43,7 +43,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
                       </div>
                     )}
                     <div>
-                      {parseContentToComponents(section.text)}
+                      {parseContentToComponents(section.text, references)}
                     </div>
                   </div>
                 </div>
