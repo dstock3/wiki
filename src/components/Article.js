@@ -15,6 +15,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
               title={infobox.title}
               image={infobox.image}
               info={infobox.info}
+              category={infobox.category}
             />
           )}
           <div className="article-sections">

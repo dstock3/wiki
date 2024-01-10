@@ -1,13 +1,15 @@
 import React from 'react'
 import '../styles/InfoBox.css'
 
-const InfoBox = ({title, image, info}) => {
+const InfoBox = ({title, image, info, category}) => {
+    const categoryClass = category ? `infobox-category-${category}` : '';
+
     return (
         <table className="infobox">
             <tbody>
                 <tr>
                     <th colSpan="2">
-                        <div className="infobox-title">{title}</div>
+                        <div className={`infobox-title ${categoryClass}`}>{title}</div>
                     </th>
                 </tr>
                 
@@ -24,7 +26,7 @@ const InfoBox = ({title, image, info}) => {
                 {info && info.map((item, index) => (
                     item.header ? (
                         <tr key={index}>
-                            <th colSpan="2" className="infobox-header">
+                            <th colSpan="2" className={`infobox-header ${categoryClass}`}>
                                 {item.label}
                             </th>
                         </tr>

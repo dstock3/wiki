@@ -1,7 +1,6 @@
 import React from 'react'
 
 const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, handleInfoboxAltChange, handleInfoboxInfoChange, addInfoField, removeInfoField}) => {
-    
     const categoryColors = {
         'maroon': '#800000',
         'chocolate': '#D2691E',
