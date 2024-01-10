@@ -59,6 +59,9 @@ a:hover, .logout-button:hover {
     cursor: pointer;
     transition: background-color 0.3s;
     width: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
   
 #back-to-top:hover {

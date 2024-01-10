@@ -6,6 +6,7 @@ import ArticleSidebar from '../../components/ArticleSidebar';
 import axios from 'axios'; 
 import { useHistory, useLocation } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import upArrow from '../../assets/up.svg';
 
 const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   const [articleData, setArticleData] = useState(null);
@@ -123,12 +124,12 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
             />
         )}
       </main>
-      <button 
+      <button
         onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} 
         id="back-to-top" 
         style={{ display: showButton ? 'block' : 'none' }}>
-        {/* replace this with icon*/}
-        ↑ Top
+          <img src={upArrow} alt="up arrow" /> 
+          <div>Top</div>
       </button>
     </div>
   );
