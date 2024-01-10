@@ -2,16 +2,25 @@ import React from 'react'
 
 const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, handleInfoboxAltChange, handleInfoboxInfoChange, addInfoField, removeInfoField}) => {
     
-    /*const categoryColors = {
-        'Movies & TV': '#ffcccc',
-        'Music': '#b0c4de',
-        'Literature': '#ccffcc',
-        'Games': '#ccccff',
-        'Celebrities': '#f09eff',
-        'Sports': '#ffaa00',
-        'Technology': '#cccccc',
-        'Others': '#ddeedd'
-    };*/
+    const categoryColors = {
+        'maroon': '#800000',
+        'chocolate': '#D2691E',
+        'salmon': '#FA8072',
+        'pink': '#FFC0CB',
+        'yellow': '#FFFF00',
+        'lavender': '#B57EDC',
+        'orange': '#FFA500',
+        'lightgreen': '#90EE90',
+        'darkseagreen': '#8FBC8F',
+        'lightblue': '#ADD8E6',
+        'darkturquoise': '#00CED1',
+        'deepskyblue': '#00BFFF',
+        'navy': '#000080',
+        'lightgrey': '#D3D3D3',
+        'black': '#000000',
+        'lightsteelblue': '#B0C4DE',
+        'powderblue': '#B0E0E6'
+    };
     
     return (
         <div className="infobox-editor">
@@ -52,7 +61,6 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, ha
                     <span>No Image Uploaded</span>
                 }
             </div>
-            {/*
             <div className="info-field-container">
                 <label>Category:</label>
                 <select
@@ -69,7 +77,7 @@ const EditInfoBox = ({infobox, handleInfoboxChange, handleInfoboxImageUpload, ha
                         </option>
                     ))}
                 </select>
-            </div>*/}
+            </div>
             <div className="label-value-pairs">
                 {infobox.info.map((infoField, index) => (
                     <div key={index} className="label-value-pair">
