@@ -22,9 +22,9 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
               {parseContentToComponents(intro)}
             </div>
             {content.map((section, index) => {
-              const imageAlignmentClass = section.image ? `align-${section.image.align}` : '';
+              const imageAlignmentClass = section.image && section.image.src ? `align-${section.image.align}` : '';
               return (
-                <div className={`article-subcontainer ${section.image ? 'dual-section' : ''}`} key={index}>
+                <div className={`article-subcontainer ${section.image && section.image.src ? 'dual-section' : ''}`} key={index}>
                   <div className="article-section" id={`section-${index}`}>
                     <div className="section-head">
                       <h2>{section.title}</h2>
@@ -32,9 +32,9 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
                         <EditLink linkTo={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} linkClass="edit-section-link" />
                       )}
                     </div>
-                    {section.image && (
+                    {section.image && section.image.src && (
                       <div className={`article-section-image ${imageAlignmentClass}`}>
-                        <img src={section.image.src} alt={section.image.alt} />
+                        <img src={section.image.src} alt={section.image.alt || 'Section image'} />
                         {section.image.alt && (
                           <div className="section-image-caption">
                             <span>{section.image.alt}</span>
