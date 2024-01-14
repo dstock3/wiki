@@ -18,7 +18,7 @@ const ContactPage = ({ endpoint, title, contact }) => {
         };
 
         try {
-            const response = await fetch(`${endpoint}/contact/send-message`, {
+            const response = await fetch(`${endpoint}/users/contact/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,23 +50,23 @@ const ContactPage = ({ endpoint, title, contact }) => {
   
                 <h2 className="contact-head">Contact Form</h2>
                 <form className="contact-form" onSubmit={handleSubmit}>
-                    <div className="contact-form-container">
-                        <div className="contact-form-group">
-                            <label className="name-label" htmlFor="name">Name</label>
-                            <input className="name-input" type="text" id="name" name="name" required />
-                        </div>
-                        
+                    <div className="contact-form-container">                        
                         <div className="contact-form-group">
                             <label className="email-label" htmlFor="email">Email</label>
                             <input className="email-input" type="email" id="email" name="email" required />
                         </div>
 
                         <div className="contact-form-group">
-                            <label className="subject-label" htmlFor="subject">Subject</label>
-                            <input className="subject-input" type="text" id="subject" name="subject" required />
+                          <label className="name-label" htmlFor="name">Name</label>
+                          <input className="name-input" type="text" id="name" name="name" required />
                         </div>
                     </div>
-
+                    
+                    <div className="contact-form-subject-container">
+                      <label className="subject-label" htmlFor="subject">Subject</label>
+                      <input className="subject-input" type="text" id="subject" name="subject" required />
+                    </div>
+                    
                     <div className="contact-form-group message-form-group">
                         <label className="message-label" htmlFor="message">Message</label>
                         <textarea className="message-textarea" id="message" name="message" rows="5" required></textarea>
