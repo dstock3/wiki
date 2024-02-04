@@ -23,8 +23,6 @@ function parseContentToComponents(content, references = []) {
                 const index = result.index;
                 const referenceIndex = parseInt(result[1], 10) - 1; 
 
-                console.log(`Found reference: [${result[1]}], Index in array: ${referenceIndex}`);
-
                 textElements.push(text.substring(lastIndex, index));
 
                 if (referenceIndex >= 0 && referenceIndex < references.length) {
