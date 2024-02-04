@@ -48,9 +48,12 @@ const PortalsPage = ({ endpoint, title }) => {
                             <img src={portal.portalImage.src} alt={portal.portalImage.alt} />
                         </div>
                         <div className="portal-card-bottom">
-                            <h2 className="portal-card-head">{portal.portalTitle}</h2>
-                            <div>{abridgeReactContent(parseContentToComponents(portal.portalDescription), 200)}</div>
-                            <Link to={`/${portal._id}`}>Visit Portal</Link>
+                            <div className="portal-card-bottom-subcontainer">
+                                <h2 className="portal-card-head">{portal.portalTitle}</h2>
+                                <div>{abridgeReactContent(parseContentToComponents(portal.portalDescription), 200)}</div>
+                            </div>
+
+                            <Link className="portal-card-bottom-link" to={`/${portal._id}`}>Visit Portal</Link>
                         </div>
                     </div>
                 ))}
