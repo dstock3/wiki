@@ -28,7 +28,8 @@ import AdminDashboard from './pages/dynamic/AdminDashboard';
 import './App.css';
 
 function App() {
-  const ENDPOINT= 'https://shielded-ridge-83302-a11940a35896.herokuapp.com';
+  const ENDPOINT = 'http://localhost:5000'
+  /* const ENDPOINT= 'https://shielded-ridge-83302-a11940a35896.herokuapp.com'; */
   const TITLE = 'WikiWise';
   const CONTACT = 'support@wikiwise.com'
 

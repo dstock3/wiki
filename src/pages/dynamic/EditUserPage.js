@@ -21,7 +21,6 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
 
     axios.get(`${endpoint}/users/username/${match.params.username}`, { withCredentials: true })
       .then(response => {
-        console.log(response.data)
         setUserData(response.data.user);
         setIsUser(response.data.isOwnProfile);
         setIsAdmin(response.data.user.isAdmin);
@@ -115,7 +114,7 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
       <p>You are not authorized to view this page.</p>
     </div>
   );
-  
+
   return (
     <div className="edit-user-page">
       <h2>Edit Profile</h2>

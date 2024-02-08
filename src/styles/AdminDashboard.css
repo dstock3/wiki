@@ -393,3 +393,37 @@
     border-left: 3px solid red;
     border-radius: 5px;
 }
+
+@media (max-width: 600px) {
+    .admin-dashboard {
+        padding: 0;
+    }
+
+    .admin-section-container {
+        flex-direction: column;
+    }
+
+    .users-section {
+        width: 100%;
+        padding: 0;
+    }
+
+    .logs-section {
+        width: 100%;
+    }
+
+    .logs-dashboard {
+        flex-direction: column;
+        margin-inline: 0;
+    }
+
+    .log-search-form {
+        width: 95%;
+    }
+
+    .logs-button-container {
+        width: 95%;
+    }
+
+}
+
