@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/wiki/static/css/main.08008d54.css",
+    "main.js": "/wiki/static/js/main.01681328.js",
+    "index.html": "/wiki/index.html",
+    "static/media/up.svg": "/wiki/static/media/up.d179f6fb6ccb0608ffeb8d89c52dd003.svg",
+    "main.08008d54.css.map": "/wiki/static/css/main.08008d54.css.map",
+    "main.01681328.js.map": "/wiki/static/js/main.01681328.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.08008d54.css",
+    "static/js/main.01681328.js"
+  ]
+}
