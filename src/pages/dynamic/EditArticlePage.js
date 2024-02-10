@@ -185,13 +185,13 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         if (match.params.articleid) {
             axios.put(`${endpoint}/articles/${match.params.articleid}`, formData, config)
                 .then(response => {
-                    history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
+                    history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}`);
                 })
                 .catch(handleError);
         } else {
             axios.post(`${endpoint}/articles/`, formData, config)
                 .then(response => {
-                    history.push(`/${match.params.portalid}/article/${response.data._id}`);
+                    history.push(`/wiki/${match.params.portalid}/article/${response.data._id}`);
                 })
                 .catch(handleError);
         }

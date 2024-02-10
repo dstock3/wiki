@@ -84,7 +84,7 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
     
         try {
             await axios.put(`${endpoint}/articles/${match.params.articleid}/${match.params.sectionid}`, payload, config);
-            history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
+            history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}`);
         } catch (error) {
             console.error("Error updating section", error);
             setError(error.message || "Error updating section");
@@ -102,7 +102,7 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
                 withCredentials: true,
             })
             .then(response => {
-                history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
+                history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}`);
             })
             .catch(error => {
                 console.error("Error deleting section", error);
@@ -114,7 +114,7 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
     };
 
     const handleCancel = () => {
-        history.push(`/${match.params.portalid}/article/${match.params.articleid}`);
+        history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}`);
     }
 
     if (loading) return <div className="edit-section-page"><Loading loading={loading} /></div>;

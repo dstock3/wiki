@@ -48,7 +48,7 @@ const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn, username, set
             setIsLoggedIn(true);
             setUsername(data.username);
             setIsError(false);
-            history.push('/');
+            history.push('/wiki/');
           }
       })
       .catch((error) => {

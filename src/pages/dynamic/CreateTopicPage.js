@@ -52,7 +52,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
         const topicEndpoint = `${endpoint}/talk/${match.params.articleid}/topics`;
         axios.post(topicEndpoint, { title: topicTitle, content: content }, config)
         .then(response => {
-            history.push(`/${match.params.portalid}/article/${match.params.articleid}/talk`);
+            history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
             console.log('Topic created successfully:', response.data);
         })
         .catch(error => {
@@ -69,7 +69,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
         const updateEndpoint = `${endpoint}/talk/${match.params.articleid}/topics/${match.params.topicid}`;
         axios.put(updateEndpoint, { title: topicTitle, content: content }, config)
         .then(response => {
-            history.push(`/${match.params.portalid}/article/${match.params.articleid}/talk`);
+            history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
             console.log('Topic updated successfully:', response.data);
         })
         .catch(error => {
@@ -86,7 +86,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
         axios.delete(deleteEndpoint, config)
         .then(response => {
             console.log('Topic deleted successfully:', response.data);
-            history.push(`/${match.params.portalid}/article/${match.params.articleid}/talk`);
+            history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
         })
         .catch(error => {
             console.error('Error deleting topic:', error);

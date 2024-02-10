@@ -70,7 +70,7 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
     };
     axios.delete(`${endpoint}/articles/${match.params.articleid}`, config)
     .then(response => {
-      history.push(`/${match.params.portalid}`);
+      history.push(`/wiki/${match.params.portalid}`);
     })
     .catch(error => {
       setError(error);

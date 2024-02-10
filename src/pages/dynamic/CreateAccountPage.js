@@ -51,7 +51,7 @@ const CreateAccountPage = ({endpoint, title}) => {
             } else {
                 setMessage('User created successfully');
                 setIsError(false);
-                history.push('/login'); 
+                history.push('/wiki/login'); 
             }
         })
         .catch((error) => {

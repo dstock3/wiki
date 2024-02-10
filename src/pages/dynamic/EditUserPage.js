@@ -56,12 +56,12 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
 
     axios.put(`${endpoint}/users/${userData._id}`, userData, config)
     .then(response => {
-      history.push(`/user/${userData.username}`);
+      history.push(`/wiki/user/${userData.username}`);
     })
     .catch(error => {
       if (error.response) {
         if (error.response.status === 401) {
-          history.push('/login');
+          history.push('/wiki/login');
         } else if (error.response.data.errors) {
           setError(error.response.data.errors);
         } else {
@@ -95,7 +95,7 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
       })
       .catch(error => {
         if (error.response.status === 401) {
-          history.push('/login');
+          history.push('/wiki/login');
         } else if (error.response.data.errors) {
           setError(error.response.data.errors);
         } else {
