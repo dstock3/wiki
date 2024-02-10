@@ -9,23 +9,23 @@ const Footer = ({title}) => {
         <div className="footer-section">
           <h4>About</h4>
           <ul>
-            <li><Link to="/about">About {title}</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
-            <li><Link to="/disclaimer">Disclaimer</Link></li>
+            <li><Link to="/wiki/about">About {title}</Link></li>
+            <li><Link to="/wiki/contact">Contact Us</Link></li>
+            <li><Link to="/wiki/disclaimer">Disclaimer</Link></li>
           </ul>
         </div>
         <div className="footer-section">
           <h4>Contribute</h4>
           <ul>
-            <li><Link to="/contribute">How to Contribute</Link></li>
-            <li><Link to="/donate">Donate</Link></li>
+            <li><Link to="/wiki/contribute">How to Contribute</Link></li>
+            <li><Link to="/wiki/donate">Donate</Link></li>
           </ul>
         </div>
         <div className="footer-section">
           <h4>Legal</h4>
           <ul>
-            <li><Link to="/terms">Terms of Use</Link></li>
-            <li><Link to="/privacy">Privacy Policy</Link></li>
+            <li><Link to="/wiki/terms">Terms of Use</Link></li>
+            <li><Link to="/wiki/privacy">Privacy Policy</Link></li>
           </ul>
         </div>
       </div>

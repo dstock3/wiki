@@ -30,7 +30,7 @@ const Article = ({ match, title, intro, infobox, content, references, isAuthenti
                     <div className="section-head">
                       <h2>{section.title}</h2>
                       {isAuthenticated && (
-                        <EditLink linkTo={`/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} linkClass="edit-section-link" />
+                        <EditLink linkTo={`/wiki/${match.params.portalid}/article/${match.params.articleid}/${section._id}/edit`} linkClass="edit-section-link" />
                       )}
                     </div>
                     {section.image && section.image.src && (

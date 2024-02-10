@@ -22,7 +22,7 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) 
     <div className="header-container">
       <div className="header-subcontainer">
         <div className="header-logo">
-          <Link to="/">
+          <Link to="/wiki/">
             {/* logo here */}
             <img src="your-logo-here.png" alt="Site Logo" />
           </Link>
@@ -44,10 +44,10 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) 
           </>
         ) : (
           <>
-            <Link to="/create-account">
+            <Link to="/wiki/create-account">
               <div className="create-account-link">Create Account</div>
             </Link>
-            <Link to="/login">
+            <Link to="/wiki/login">
               <div className="login-link">Login</div>
             </Link>
           </>

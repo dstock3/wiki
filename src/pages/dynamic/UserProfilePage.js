@@ -42,7 +42,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
           <div className="user-info">
             <div className="user-info-subcontainer">
               <h2>{userData.username}</h2>
-              {isUser && <Link to={`/user/${userData.username}/edit`}>Edit Profile</Link>}
+              {isUser && <Link to={`/wiki/user/${userData.username}/edit`}>Edit Profile</Link>}
             </div>  
             <p>Email: <a href={`mailto:${userData.email}`}>{userData.email}</a></p>
             <p>Joined: {new Date(userData.joinedDate).toLocaleDateString()}</p>
@@ -56,7 +56,7 @@ const UserProfilePage = ({ match, endpoint, title }) => {
             <ul className="article-list">
               {userData.contributions.articles.map((article, index) => (
                 <li key={index}>
-                  <Link to={`/${article.portalId}/article/${article._id}`}>{article.title}</Link>
+                  <Link to={`/wiki/${article.portalId}/article/${article._id}`}>{article.title}</Link>
                 </li>
               ))}
             </ul>

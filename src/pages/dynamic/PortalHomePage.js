@@ -47,8 +47,8 @@ const PortalHomePage = ({ match, endpoint, title }) => {
               <h1>{portalData.portalTitle}</h1>
               {auth && (
                 <div className="portal-home-header-links">
-                  <Link to={`/${match.params.portalid}/edit`}>Edit Portal</Link>
-                  <Link to={`/${match.params.portalid}/article/create`}>Create Article</Link>
+                  <Link to={`/wiki/${match.params.portalid}/edit`}>Edit Portal</Link>
+                  <Link to={`/wiki/${match.params.portalid}/article/create`}>Create Article</Link>
                 </div>
               )}
             </div>
@@ -65,7 +65,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
               <div className="featured-article">
                 <h2>Featured Article: {featuredArticle.title}</h2>
                 <div>{abridgeReactContent(parseContentToComponents(featuredArticle.intro), 150)}</div>
-                <Link to={`/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
+                <Link to={`/wiki/${match.params.portalid}/article/${portalData.featuredArticle._id}`}>Read More</Link>
               </div>
             )}
             {portalData.recentUpdates && portalData.recentUpdates.length > 0 && (
@@ -74,7 +74,7 @@ const PortalHomePage = ({ match, endpoint, title }) => {
                 <ul>
                   {portalData.recentUpdates.map((article, index) => (
                     <li key={index}>
-                      <Link to={`/${match.params.portalid}/article/${article._id}`}>{article.title}</Link>
+                      <Link to={`/wiki/${match.params.portalid}/article/${article._id}`}>{article.title}</Link>
                     </li>
                   ))}
                 </ul>

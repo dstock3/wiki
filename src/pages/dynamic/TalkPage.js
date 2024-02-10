@@ -102,10 +102,10 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
       <div className="talk-container">
         <div className="article-talk-container">
           <div className="article-talk-subcontainer">
-            <Link to={`/${match.params.portalid}/article/${match.params.articleid}`} className="">
+            <Link to={`/wiki/${match.params.portalid}/article/${match.params.articleid}`} className="">
               Article
             </Link>
-            <Link to={`/${match.params.portalid}/article/${match.params.articleid}/talk`} className="selected-tab">
+            <Link to={`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`} className="selected-tab">
               Talk
             </Link>
           </div>
@@ -113,7 +113,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         <div className="talk-head-container">
           <h1>Talk: {articleTitle}</h1>
           {isAuthenticated && (
-            <Link  to={`/${match.params.portalid}/article/${match.params.articleid}/talk/create`} className="create-topic">Create New Topic</Link>
+            <Link  to={`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk/create`} className="create-topic">Create New Topic</Link>
           )}
         </div>
         <TalkPageBoilerplate articleTitle={articleTitle}/>
@@ -127,12 +127,12 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
                   <div className="topic-title">
                     <h3>{topic.title}</h3>
                     {(topic.isAuthorized || isAdmin) && (
-                        <EditLink linkTo={`/${match.params.portalid}/article/${match.params.articleid}/talk/${topic._id}/edit`} linkClass="edit-topic" />
+                        <EditLink linkTo={`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk/${topic._id}/edit`} linkClass="edit-topic" />
                     )}
                   </div>
 
                   <div className="topic-subhead">
-                    <div>Posted by <Link to={`/user/${topic.author}`}>{topic.author}</Link></div>
+                    <div>Posted by <Link to={`/wiki/user/${topic.author}`}>{topic.author}</Link></div>
                     <div className="topic-date">{formatDate(topic.date)}</div>
                   </div>
                 </div>

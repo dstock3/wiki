@@ -5,7 +5,7 @@ const TalkPageBoilerplate = ({ articleTitle }) => {
         <div className="talk-page-boilerplate">
             <div className="talk-boiler-intro">
                 <div className="talk-boiler">This is the talk page for <Link to="">{articleTitle}</Link>. This is not a forum for general discussion of the article's subject. Please use this page to discuss improvements to the article.</div>
-                <div className="talk-boiler">This is a place for respectful discussion and debate. Please keep comments relevant to the topic at hand. By posting a comment, you agree to our <Link to="/terms">Terms of Service</Link>.</div>
+                <div className="talk-boiler">This is a place for respectful discussion and debate. Please keep comments relevant to the topic at hand. By posting a comment, you agree to our <Link to="/wiki/terms">Terms of Service</Link>.</div>
             </div>
 
             <div className="guidelines-container">
@@ -23,7 +23,7 @@ const TalkPageBoilerplate = ({ articleTitle }) => {
                     <li className="guidelines-line-item">Do not post comments that are not your own work.</li>
                 </ul>
 
-                <div className="guidelines-contact">If you have any questions, please <Link to="/contact">contact us</Link>.</div>
+                <div className="guidelines-contact">If you have any questions, please <Link to="/wiki/contact">contact us</Link>.</div>
             </div>
         </div>
     );

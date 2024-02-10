@@ -68,7 +68,7 @@ const Comment = ({
             <div className="comment-content-container">
                 <div className="comment-content-subcontainer">
                     <span className="comment-author">
-                        <Link to={`/user/${comment.author}`}>{comment.author}</Link>:
+                        <Link to={`/wiki/user/${comment.author}`}>{comment.author}</Link>:
                     </span>
                     {editMode ? (
                         <textarea

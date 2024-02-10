@@ -94,17 +94,17 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
       <main className="article-page-container">
         <div className="article-talk-container">
           <div className="article-talk-subcontainer">
-            <Link to={`/${match.params.portalid}/article/${match.params.articleid}`} className="selected-tab">
+            <Link to={`/wiki/${match.params.portalid}/article/${match.params.articleid}`} className="selected-tab">
               Article
             </Link>
-            <Link to={`/${match.params.portalid}/article/${match.params.articleid}/talk`}>
+            <Link to={`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`}>
               Talk
             </Link>
           </div>
           <div className="article-edit-container">
             {isAuthenticated && (
               <>
-                <Link to={`/${match.params.portalid}/article/${match.params.articleid}/edit`}>
+                <Link to={`/wiki/${match.params.portalid}/article/${match.params.articleid}/edit`}>
                   Edit
                 </Link>
                 <button className="article-delete-button" onClick={articleDeleteHandler}>Delete</button>

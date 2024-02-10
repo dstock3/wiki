@@ -169,7 +169,7 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
         </div>
       </form>
       {isAdmin && <div className="admin-link-container">
-        <Link className="admin-link" to="/admin">Admin Dashboard</Link>
+        <Link className="admin-link" to="/wiki/admin">Admin Dashboard</Link>
       </div>}
     </div>
   );

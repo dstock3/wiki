@@ -9,7 +9,7 @@ const PortalSidebar = ({articles, portalId}) => {
       <ul>
         {articles && articles.slice(0, 10).map((article, index) => (
           <li key={index}>
-            <Link to={`/${portalId}/article/${article._id}`}>{article.title}</Link>
+            <Link to={`/wiki/${portalId}/article/${article._id}`}>{article.title}</Link>
           </li>
         ))}
       </ul>

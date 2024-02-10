@@ -70,7 +70,7 @@ const SearchResultsPage = ({ match, endpoint, title }) => {
                 </div>
                 }
                 <div className="search-result-container">
-                  <h2><Link to={`/${match.params.portalid}/article/${_id}`}>{title}</Link></h2>
+                  <h2><Link to={`/wiki/${match.params.portalid}/article/${_id}`}>{title}</Link></h2>
                   <div>{parseContentToComponents(intro)}</div>
                 </div>
               </div>

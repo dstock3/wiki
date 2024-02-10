@@ -34,7 +34,7 @@ const PortalsPage = ({ endpoint, title }) => {
         <div className="portals-page">
             <h1>Portals</h1>
             <div className="create-portal-link-container">
-                {isAuthenticated && <Link className="create-portal-link" to="/create-portal">Create Portal</Link>}
+                {isAuthenticated && <Link className="create-portal-link" to="/wiki/create-portal">Create Portal</Link>}
             </div>
             <div className="portals-desc">
                 <h2>What are portals?</h2>
@@ -53,7 +53,7 @@ const PortalsPage = ({ endpoint, title }) => {
                                 <div>{abridgeReactContent(parseContentToComponents(portal.portalDescription), 200)}</div>
                             </div>
 
-                            <Link className="portal-card-bottom-link" to={`/${portal._id}`}>Visit Portal</Link>
+                            <Link className="portal-card-bottom-link" to={`/wiki/${portal._id}`}>Visit Portal</Link>
                         </div>
                     </div>
                 ))}

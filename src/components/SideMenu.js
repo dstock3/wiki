@@ -7,10 +7,10 @@ const SideMenu = () => {
     <div className="side-menu-container">
       <h3>Navigation</h3>
       <ul>
-        <li><Link to="/">Main page</Link></li>
-        <li><Link to="/portals">Portals</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/donate">Donate</Link></li>
+        <li><Link to="/wiki/">Main page</Link></li>
+        <li><Link to="/wiki/portals">Portals</Link></li>
+        <li><Link to="/wiki/about">About</Link></li>
+        <li><Link to="/wiki/donate">Donate</Link></li>
       </ul>
     </div>
   );
