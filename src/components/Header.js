@@ -35,7 +35,7 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) 
       <div className="header-auth">
         {isLoggedIn ? (
           <>
-            <Link to={`/user/${username}/edit`}>
+            <Link to={`/wiki/user/${username}/edit`}>
               <div className="account-link">My Account</div>
             </Link>
             <button onClick={handleLogout} className="logout-button">

@@ -115,7 +115,7 @@ const CreateAccountPage = ({endpoint, title}) => {
                 </div>
                 <button className="create-account-button" type="submit">Create Account</button>
             </form>
-            <p>Already have an account? <a href="/login">Log in</a></p>
+            <p>Already have an account? <a href="/wiki/login">Log in</a></p>
         </div>
     );
 };
