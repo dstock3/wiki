@@ -47,107 +47,107 @@ function App() {
         <Header endpoint={ENDPOINT} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} />
         <div className="app-container">
           <Switch>
-            <Route path="/" exact render={(props) =>
+            <Route path="/wiki" exact render={(props) =>
               <HomePage title={TITLE}/>
             } />
             
-            <Route path="/about" exact render={(props) => 
+            <Route path="/wiki/about" exact render={(props) => 
               <AboutPage title={TITLE} contact={CONTACT} />
             } />
             
-            <Route path="/contact" exact render={(props) =>
+            <Route path="/wiki/contact" exact render={(props) =>
               <ContactPage endpoint={ENDPOINT} title={TITLE} contact={CONTACT} />
             } />
             
-            <Route path="/disclaimer" exact render={(props) =>
+            <Route path="/wiki/disclaimer" exact render={(props) =>
               <DisclaimerPage title={TITLE} contact={CONTACT} />
             } />
             
-            <Route path="/contribute" exact render={(props) =>
+            <Route path="/wiki/contribute" exact render={(props) =>
               <ContributePage title={TITLE} />
             } />
             
-            <Route path="/donate" exact render={(props) => 
+            <Route path="/wiki/donate" exact render={(props) => 
               <DonatePage title={TITLE}/>
             } />
             
-            <Route path="/terms" exact render={(props) =>
+            <Route path="/wiki/terms" exact render={(props) =>
               <TOSPage title={TITLE} contact={CONTACT}/>
             } />
 
-            <Route path="/privacy" exact render={(props) =>
+            <Route path="/wiki/privacy" exact render={(props) =>
               <PrivacyPage title={TITLE} contact={CONTACT} />
             } />
 
-            <Route path="/create-account" exact render={(props) => 
+            <Route path="/wiki/create-account" exact render={(props) => 
               <CreateAccountPage title={TITLE} endpoint={ENDPOINT} />
             } />
             
-            <Route path="/login" exact render={(props) =>
+            <Route path="/wiki/login" exact render={(props) =>
               <LoginPage title={TITLE} endpoint={ENDPOINT} setCsrfToken={setCsrfToken} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} />
             } />
 
-            <Route path="/create-portal" exact render={(props) =>
+            <Route path="/wiki/create-portal" exact render={(props) =>
               <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
-            <Route path="/portals" exact render={(props) => 
+            <Route path="/wiki/portals" exact render={(props) => 
               <PortalsPage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
             
-            <Route path="/search/:query" exact render={(props) =>
+            <Route path="/wiki/search/:query" exact render={(props) =>
               <SearchResultsPage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
 
-            <Route path="/:portalid/article/create" render={(props) =>
+            <Route path="/wiki/:portalid/article/create" render={(props) =>
               <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
-            <Route path="/:portalid/article/:articleid/talk" exact render={(props) => 
+            <Route path="/wiki/:portalid/article/:articleid/talk" exact render={(props) => 
               <TalkPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
-            <Route path="/:portalid/article/:articleid/talk/create" exact render={(props) => 
+            <Route path="/wiki/:portalid/article/:articleid/talk/create" exact render={(props) => 
               <CreateTopicPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
-            <Route path="/:portalid/article/:articleid/talk/:topicid/edit" exact render={(props) => 
+            <Route path="/wiki/:portalid/article/:articleid/talk/:topicid/edit" exact render={(props) => 
               <CreateTopicPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
-            <Route path="/:portalid/article/:articleid/edit" exact render={(props) => 
+            <Route path="/wiki/:portalid/article/:articleid/edit" exact render={(props) => 
               <EditArticlePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
-            <Route path="/:portalid/article/:articleid/:sectionid/edit" exact render={(props) => 
+            <Route path="/wiki/:portalid/article/:articleid/:sectionid/edit" exact render={(props) => 
               <EditSectionPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
-            <Route path="/:portalid/article/:articleid" exact render={(props) => 
+            <Route path="/wiki/:portalid/article/:articleid" exact render={(props) => 
               <ArticlePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
             
-            <Route path="/:portalid/edit" exact render={(props) => 
+            <Route path="/wiki/:portalid/edit" exact render={(props) => 
               <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
             
-            <Route path="/user/create" render={(props) => 
+            <Route path="/wiki/user/create" render={(props) => 
               <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} />}
             />
             
-            <Route path="/user/:username" exact render={(props) =>
+            <Route path="/wiki/user/:username" exact render={(props) =>
               <UserProfilePage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
             
-            <Route path="/user/:username/edit" render={(props) =>
+            <Route path="/wiki/user/:username/edit" render={(props) =>
               <EditUserPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />}
             />
             
-            <Route path="/admin" exact render={(props) =>
+            <Route path="/wiki/admin" exact render={(props) =>
               <AdminDashboard {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} contact={CONTACT} />
             } />
 
-            <Route path="/:portalid" exact render={(props) => 
+            <Route path="/wiki/:portalid" exact render={(props) => 
               <PortalHomePage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
             
