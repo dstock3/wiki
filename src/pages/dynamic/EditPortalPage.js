@@ -18,6 +18,7 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const isEditMode = !!match.params.portalid;
   const { articles, er } = useArticles(match.params.portalid, endpoint);
   const quillRef = useRef(null);
+  const [error, setError] = useState(null);
 
   const extendedModules = {
     ...modules,
@@ -93,15 +94,16 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
       }
   
       const responseData = await response.json();
-      console.log(responseData);
-      
+
       if (!response.ok) {
+        setError(responseData.error);
         throw new Error(responseData.error || 'An error occurred');
       }
   
       history.push(isEditMode ? `/${match.params.portalid}` : `/${responseData._id}`);
     } catch (error) {
       console.error("Error processing portal:", error.message);
+      setError(error.message);
     }
   };
   
@@ -139,6 +141,7 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
         <h1 className="edit-portal-header">
           {isEditMode ? "Edit Portal" : "Create Portal"}
         </h1>
+        {error && <div className="error-message">{error}</div>}
         <form className="portal-form" onSubmit={handleSubmit}>
           <div className="portal-form-group-container">
             <div className="portal-form-group title-group">
