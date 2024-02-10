@@ -10,7 +10,7 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) 
       .then(response => {
         setIsLoggedIn(false);
         setUsername("");
-        window.location.href = "/";
+        window.location.href = "/wiki/";
 
       })
       .catch(error => {
