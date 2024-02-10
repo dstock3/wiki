@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/LoginPage.css';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn, username, setUsername }) => {
     const history = useHistory();
@@ -98,8 +99,9 @@ const LoginPage = ({ endpoint, title, setCsrfToken, setIsLoggedIn, username, set
                 <button className="login-button" type="submit">Log In</button>
             </form>
             <p>
-                Don't have an account? <a href="/create-account">Create one</a>
+                Don't have an account? <Link to={`/wiki/create-account`}>Create one</Link>
             </p>
+            
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/CreateAccountPage.css';
-import { useHistory } from 'react-router-dom'; 
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const CreateAccountPage = ({endpoint, title}) => {
     const [message, setMessage] = useState(null);
@@ -115,7 +116,8 @@ const CreateAccountPage = ({endpoint, title}) => {
                 </div>
                 <button className="create-account-button" type="submit">Create Account</button>
             </form>
-            <p>Already have an account? <a href="/wiki/login">Log in</a></p>
+            <p>Already have an account? <Link to={`/wiki/login`}>Log i</Link></p>
+            
         </div>
     );
 };
