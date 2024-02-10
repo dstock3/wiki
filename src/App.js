@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -36,6 +36,10 @@ function App() {
   const [csrfToken, setCsrfToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    console.log("App.js: csrfToken: ", csrfToken);
+  }, [csrfToken]);
 
   return (
     <Router>
