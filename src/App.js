@@ -37,10 +37,6 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
-  useEffect(() => {
-    console.log("App.js: csrfToken: ", csrfToken);
-  }, [csrfToken]);
-
   return (
     <Router>
       <div className="app">

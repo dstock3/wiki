@@ -7,10 +7,6 @@ import { modules, formats } from '../../config/quillConfig';
 import useArticles from '../../hooks/useArticles';
 
 const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
-  useEffect(() => {
-    console.log("EditPortalPage: csrfToken: ", csrfToken);
-  }, [csrfToken]);
-
   const [portalData, setPortalData] = useState({
     portalTitle: '',
     portalDescription: '',

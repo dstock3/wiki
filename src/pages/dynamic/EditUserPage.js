@@ -56,6 +56,7 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
 
     axios.put(`${endpoint}/users/${userData._id}`, userData, config)
     .then(response => {
+      console.log(config)
       history.push(`/wiki/user/${userData.username}`);
     })
     .catch(error => {
