@@ -49,31 +49,30 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
       return;
     }
   
-    const config = {
-      withCredentials: true,
-      headers: { 'csrf-token': csrfToken }
-    }
-
-    axios.put(`${endpoint}/users/${userData._id}`, userData, config)
-    .then(response => {
-      console.log(config)
-      history.push(`/wiki/user/${userData.username}`);
-    })
-    .catch(error => {
-      if (error.response) {
-        if (error.response.status === 401) {
-          history.push('/wiki/login');
-        } else if (error.response.data.errors) {
-          setError(error.response.data.errors);
+    const updatedUserData = {
+      ...userData,
+      _csrf: csrfToken, 
+    };
+  
+    axios.put(`${endpoint}/users/${userData._id}`, updatedUserData, { withCredentials: true })
+      .then(response => {
+        history.push(`/wiki/user/${userData.username}`);
+      })
+      .catch(error => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            history.push('/wiki/login');
+          } else if (error.response.data.errors) {
+            setError(error.response.data.errors);
+          } else {
+            setError([{ msg: 'An error occurred while updating the profile.' }]);
+          }
+        } else if (error.request) {
+          setError([{ msg: 'The request was made but no response was received.' }]);
         } else {
-          setError([{ msg: 'An error occurred while updating the profile.' }]);
+          setError([{ msg: `Error setting up the request: ${error.message}` }]);
         }
-      } else if (error.request) {
-        setError([{ msg: 'The request was made but no response was received.' }]);
-      } else {
-        setError([{ msg: `Error setting up the request: ${error.message}` }]);
-      }
-    });
+      });
   };
 
   const handleDelete = (event) => {
