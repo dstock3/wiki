@@ -45,12 +45,8 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
 
     const handleCreate = (e) => {
         e.preventDefault();
-        const config = {
-            withCredentials: true,
-            headers: { 'csrf-token': csrfToken }
-        }
         const topicEndpoint = `${endpoint}/talk/${match.params.articleid}/topics`;
-        axios.post(topicEndpoint, { title: topicTitle, content: content }, config)
+        axios.post(topicEndpoint, { title: topicTitle, content: content, _csrf: csrfToken }, config)
         .then(response => {
             history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
             console.log('Topic created successfully:', response.data);
@@ -67,7 +63,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
             headers: { 'csrf-token': csrfToken }
         }
         const updateEndpoint = `${endpoint}/talk/${match.params.articleid}/topics/${match.params.topicid}`;
-        axios.put(updateEndpoint, { title: topicTitle, content: content }, config)
+        axios.put(updateEndpoint, { title: topicTitle, content: content, _csrf: csrfToken }, config)
         .then(response => {
             history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
             console.log('Topic updated successfully:', response.data);
@@ -78,12 +74,8 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
     };
 
     const handleDelete = () => {
-        const config = {
-            withCredentials: true,
-            headers: { 'csrf-token': csrfToken }
-        };
-        const deleteEndpoint = `${endpoint}/talk/${match.params.articleid}/topics/${match.params.topicid}`;
-        axios.delete(deleteEndpoint, config)
+        const deleteEndpoint = `${endpoint}/talk/${match.params.articleid}/topics/${match.params.topicid}?_csrf=${encodeURIComponent(csrfToken)}`;
+        axios.delete(deleteEndpoint, { withCredentials: true })
         .then(response => {
             console.log('Topic deleted successfully:', response.data);
             history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
@@ -92,7 +84,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
             console.error('Error deleting topic:', error);
         });
     };
-
+    
     return (
         <div className="create-topic-page">
             <form onSubmit={handleSubmit}>
