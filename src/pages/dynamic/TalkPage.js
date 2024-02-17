@@ -46,14 +46,10 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
   const postComment = (topicId, commentContent) => {
     const newComment = {
       content: commentContent,
+      _csrf: csrfToken 
     };
 
-    const config = {
-      withCredentials: true,
-      headers: { 'csrf-token': csrfToken }
-    };
-    
-    axios.post(`${endpoint}/talk/${match.params.articleid}/topics/${topicId}/comments`, newComment, config)
+    axios.post(`${endpoint}/talk/${match.params.articleid}/topics/${topicId}/comments`, newComment, { withCredentials: true })
       .then(response => {
         const updatedTopics = [...topics];
         const targetTopicIndex = updatedTopics.findIndex(topic => topic._id === topicId);
@@ -67,7 +63,8 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         console.error("Error posting comment:", error);
         setError(error.message);
       });
-  };
+};
+
 
   const onEditSuccess = (topicId, updatedComment) => {
     setTopics(prevTopics => {
