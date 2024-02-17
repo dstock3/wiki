@@ -63,8 +63,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
         console.error("Error posting comment:", error);
         setError(error.message);
       });
-};
-
+  };
 
   const onEditSuccess = (topicId, updatedComment) => {
     setTopics(prevTopics => {
