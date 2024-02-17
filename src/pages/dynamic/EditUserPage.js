@@ -77,26 +77,23 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
 
   const handleDelete = (event) => {
     event.preventDefault();
-    
+  
     const userConfirmation = window.confirm("Are you sure you want to delete your account? This action is irreversible.");
   
     if (!userConfirmation) {
       return;
     }
-
-    const config = {
-      withCredentials: true,
-      headers: { 'csrf-token': csrfToken }
-    }
-
-    axios.delete(`${endpoint}/users/${userData._id}`, config)
+  
+    const urlWithCsrfToken = `${endpoint}/users/${userData._id}?_csrf=${encodeURIComponent(csrfToken)}`;
+  
+    axios.delete(urlWithCsrfToken, { withCredentials: true })
       .then(response => {
-        history.push('/');
+        history.push('/'); 
       })
       .catch(error => {
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
           history.push('/wiki/login');
-        } else if (error.response.data.errors) {
+        } else if (error.response && error.response.data && error.response.data.errors) {
           setError(error.response.data.errors);
         } else {
           setError([{ msg: 'An unknown error occurred.' }]);
