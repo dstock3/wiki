@@ -25,12 +25,10 @@ const Comment = ({
     const canDelete = isAuthor || articleAuthorId === currentUserId;
 
     const handleDelete = async () => {
-        const config = {
-            withCredentials: true,
-            headers: { 'csrf-token': csrfToken },
-        };
         try {
-            await axios.delete(`${endpoint}/talk/${articleId}/topics/${topicId}/comments/${comment._id}`, config);
+            await axios.delete(`${endpoint}/talk/${articleId}/topics/${topicId}/comments/${comment._id}?_csrf=${encodeURIComponent(csrfToken)}`, {
+                withCredentials: true,
+            });
             onDeleteSuccess(comment._id);
         } catch (error) {
             setError("Error deleting comment: " + (error.response?.data?.error || error.message));
@@ -42,24 +40,18 @@ const Comment = ({
     };
 
     const handleSave = async () => {
-        const config = {
-          withCredentials: true,
-          headers: { 'csrf-token': csrfToken },
-        };
-      
         try {
-          const response = await axios.put(
-            `${endpoint}/talk/${articleId}/topics/${topicId}/comments/${comment._id}`,
-            { content: editedContent },
-            config
-          );
-          
-          const updatedComment = response.data;
-      
-          onEditSuccess(topicId, updatedComment);
-          setEditMode(false);
+            const response = await axios.put(
+                `${endpoint}/talk/${articleId}/topics/${topicId}/comments/${comment._id}`,
+                { content: editedContent, _csrf: csrfToken },
+                { withCredentials: true }
+            );
+            
+            const updatedComment = response.data;
+            onEditSuccess(topicId, updatedComment);
+            setEditMode(false);
         } catch (error) {
-          setError("Error updating comment: " + (error.response?.data?.error || error.message));
+            setError("Error updating comment: " + (error.response?.data?.error || error.message));
         }
     };
 
