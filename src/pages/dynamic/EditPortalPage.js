@@ -73,62 +73,43 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
     let formData = new FormData();
     formData.append('portalTitle', portalData.portalTitle);
     formData.append('portalDescription', portalData.portalDescription);
-    formData.append('portalImage[src]', portalData.portalImage.src || "");
-    formData.append('portalImage[alt]', portalData.portalImage.alt || "");
+    formData.append('_csrf', csrfToken);
+    if (portalData.portalImageFile) {
+        formData.append('image', portalData.portalImageFile);
+    }
 
     try {
-      let response;
-      const requestOptions = {
-        method: isEditMode ? 'PUT' : 'POST',
-        body: formData,
-        credentials: 'include',
-        headers: {
-          'csrf-token': csrfToken
-        }
-      };
-  
-      if (isEditMode) {
-        response = await fetch(`${endpoint}/portals/${match.params.portalid}`, requestOptions);
-      } else {
-        response = await fetch(`${endpoint}/portals`, requestOptions);
-      }
-  
-      const responseData = await response.json();
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            withCredentials: true
+        };
+        
+        const response = isEditMode ? 
+            await axios.put(`${endpoint}/portals/${match.params.portalid}`, formData, config) :
+            await axios.post(`${endpoint}/portals`, formData, config);
 
-      if (!response.ok) {
-        setError(responseData.error);
-        throw new Error(responseData.error || 'An error occurred');
-      }
-  
-      history.push(isEditMode ? `/wiki/${match.params.portalid}` : `/${responseData._id}`);
+        history.push(isEditMode ? `/wiki/${match.params.portalid}` : `/${response.data._id}`);
     } catch (error) {
-      console.error("Error processing portal:", error.message);
-      setError(error.message);
+        console.error("Error processing portal:", error.message);
+        setError(error.message);
     }
   };
   
   const handleDelete = async () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this portal? This action cannot be undone.');
     if (confirmDelete) {
-      try {
-          const response = await fetch(`${endpoint}/portals/${match.params.portalid}`, {
-              method: 'DELETE',
-              credentials: 'include',
-              headers: {
-                  'csrf-token': csrfToken
-              }
-          });
-
-          if (response.ok) {
-              history.push("/");
-          } else {
-              const errorData = await response.json();
-              alert(`Error deleting portal: ${errorData.error || 'Unknown error'}`);
-          }
-      } catch (error) {
-          alert(`Error: ${error.message}`);
+        try {
+            await axios.delete(`${endpoint}/portals/${match.params.portalid}?_csrf=${encodeURIComponent(csrfToken)}`, {
+                withCredentials: true
+            });
+            history.push("/");
+        } catch (error) {
+            console.error("Error deleting portal:", error.message);
+            alert(`Error: ${error.message}`);
+        }
       }
-    }
   };
 
   if (loading) return <div className="edit-portal-page">
