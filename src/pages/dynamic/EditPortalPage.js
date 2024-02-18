@@ -90,9 +90,10 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
             await axios.put(`${endpoint}/portals/${match.params.portalid}`, formData, config) :
             await axios.post(`${endpoint}/portals`, formData, config);
 
-        history.push(isEditMode ? `/wiki/${match.params.portalid}` : `/${response.data._id}`);
+        history.push(isEditMode ? `/wiki/${match.params.portalid}` : `/wiki/${response.data._id}`);
     } catch (error) {
         console.error("Error processing portal:", error.message);
+        console.log(error);
         setError(error.message);
     }
   };
@@ -104,7 +105,7 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
             await axios.delete(`${endpoint}/portals/${match.params.portalid}?_csrf=${encodeURIComponent(csrfToken)}`, {
                 withCredentials: true
             });
-            history.push("/");
+            history.push("/wiki");
         } catch (error) {
             console.error("Error deleting portal:", error.message);
             alert(`Error: ${error.message}`);
