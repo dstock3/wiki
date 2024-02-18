@@ -49,7 +49,6 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
         axios.post(topicEndpoint, { title: topicTitle, content: content, _csrf: csrfToken })
         .then(response => {
             history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
-            console.log('Topic created successfully:', response.data);
         })
         .catch(error => {
             console.error('Error creating topic:', error);
@@ -58,12 +57,10 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-
         const updateEndpoint = `${endpoint}/talk/${match.params.articleid}/topics/${match.params.topicid}`;
         axios.put(updateEndpoint, { title: topicTitle, content: content, _csrf: csrfToken }, { withCredentials: true })
         .then(response => {
             history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
-            console.log('Topic updated successfully:', response.data);
         })
         .catch(error => {
             console.error('Error updating topic:', error);

@@ -168,32 +168,34 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         formData.append("infoBox", JSON.stringify(infobox));
         formData.append("references", JSON.stringify(references));
         if (infobox.image.alt) {
-            formData.append("image", infobox.image.alt);
+            formData.append("imageAlt", infobox.image.alt); 
         }
         if (infoboxImageFile) {
-            formData.append("image", infoboxImageFile);
+            formData.append("imageFile", infoboxImageFile); 
         }
         formData.append("portalid", match.params.portalid);
-        
-        const config = {
-            withCredentials: true,
-            headers: {
-                'csrf-token': csrfToken
-            }
-        };
+        formData.append("_csrf", csrfToken);
     
-        if (match.params.articleid) {
-            axios.put(`${endpoint}/articles/${match.params.articleid}`, formData, config)
-                .then(response => {
-                    history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}`);
-                })
-                .catch(handleError);
-        } else {
-            axios.post(`${endpoint}/articles/`, formData, config)
-                .then(response => {
-                    history.push(`/wiki/${match.params.portalid}/article/${response.data._id}`);
-                })
-                .catch(handleError);
+        try {
+            const config = {
+                withCredentials: true,
+            };
+        
+            if (match.params.articleid) {
+                await axios.put(`${endpoint}/articles/${match.params.articleid}`, formData, config)
+                    .then(response => {
+                        history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}`);
+                    })
+                    .catch(handleError);
+            } else {
+                await axios.post(`${endpoint}/articles/`, formData, config)
+                    .then(response => {
+                        history.push(`/wiki/${match.params.portalid}/article/${response.data._id}`);
+                    })
+                    .catch(handleError);
+            }
+        } catch (err) {
+            handleError(err);
         }
     };
     
