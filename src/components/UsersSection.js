@@ -70,8 +70,11 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     const handleUnbanUser = async (userId) => {
         if(window.confirm("Are you sure you want to unban this user?")) {
             try {
-                const unbanUrl = `${endpoint}/users/admin/unban/${userId}?_csrf=${encodeURIComponent(csrfToken)}`;
-                const response = await axios.put(unbanUrl, {}, { withCredentials: true });
+                const response = await axios.put(`${endpoint}/users/admin/unban/${userId}`, {
+                    _csrf: csrfToken,
+                }, {
+                    withCredentials: true,
+                });
                 alert(response.data.message);
                 fetchUsers(); 
             } catch (err) {
