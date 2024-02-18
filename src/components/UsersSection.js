@@ -42,27 +42,25 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     const handleDeleteUser = async (userId) => {
         if(window.confirm("Are you sure you want to delete this user? This action cannot be undone.")) {
             try {
-                const response = await axios.delete(`${endpoint}/users/admin/${userId}`, {
-                    withCredentials: true,
-                    headers: { 'csrf-token': csrfToken }
-                });
-                console.log(response.data.message);
-                fetchUsers(); 
-            } catch (err) {
-                console.error(err.message);
-                alert(err.response?.data?.error || 'Failed to delete user');
+                const deleteUrl = `${endpoint}/users/admin/${userId}?_csrf=${encodeURIComponent(csrfToken)}`;
+                await axios.delete(deleteUrl, { withCredentials: true });
+                fetchUsers();
+            } catch (error) {
+                console.error("Error deleting user:", error);
+                setError("Failed to delete user: " + (error.response?.data?.error || error.message));
             }
         }
     };
     
     const handleBanUser = async (userId) => {
         try {
-            const response = await axios.put(`${endpoint}/users/admin/ban/${userId}`, {}, {
+            const response = await axios.put(`${endpoint}/users/admin/ban/${userId}`, {
+                _csrf: csrfToken,
+            }, {
                 withCredentials: true,
-                headers: { 'csrf-token': csrfToken }
             });
             alert(response.data.message);
-            fetchUsers(); 
+            fetchUsers();
         } catch (err) {
             console.error('Error banning user:', err);
             alert(err.response?.data?.error || 'Failed to ban user');
@@ -72,10 +70,8 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     const handleUnbanUser = async (userId) => {
         if(window.confirm("Are you sure you want to unban this user?")) {
             try {
-                const response = await axios.put(`${endpoint}/users/admin/unban/${userId}`, {}, {
-                    withCredentials: true,
-                    headers: { 'csrf-token': csrfToken }
-                });
+                const unbanUrl = `${endpoint}/users/admin/unban/${userId}?_csrf=${encodeURIComponent(csrfToken)}`;
+                const response = await axios.put(unbanUrl, {}, { withCredentials: true });
                 alert(response.data.message);
                 fetchUsers(); 
             } catch (err) {
@@ -101,11 +97,15 @@ const UsersSection = ({ endpoint, csrfToken }) => {
     const handleResetPasswordSubmit = async (newPassword, userId) => {
         setIsResetModalOpen(false);
         try {
-            const response = await axios.put(`${endpoint}/users/admin/reset-password/${userId}`, { password: newPassword }, {
+            const payload = {
+                password: newPassword,
+                _csrf: csrfToken 
+            };
+
+            const response = await axios.put(`${endpoint}/users/admin/reset-password/${userId}`, payload, {
                 withCredentials: true,
                 headers: {
-                    'Content-Type': 'application/json',
-                    'csrf-token': csrfToken
+                    'Content-Type': 'application/json'
                 }
             });
             alert(`Password for ${selectedUser.username} has been reset.`);
