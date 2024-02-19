@@ -12,6 +12,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
     const { articles, er } = useArticles(match.params.portalid, endpoint);
     const quillRef = useRef(null);
     const history = useHistory();
+    const [error, setError] = useState(null);
     
     const extendedModules = {
         ...modules,
@@ -33,6 +34,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
                 setContent(response.data.topic.content);
             })
             .catch(error => {
+                setError(error.message);
                 console.error('Error fetching topic:', error);
             });
         }
@@ -51,6 +53,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
             history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
         })
         .catch(error => {
+            setError(error.message);
             console.error('Error creating topic:', error);
         });
     };
@@ -63,6 +66,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
             history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
         })
         .catch(error => {
+            setError(error.message);
             console.error('Error updating topic:', error);
         });
     };
@@ -75,12 +79,14 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
             history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
         })
         .catch(error => {
+            setError(error.message);
             console.error('Error deleting topic:', error);
         });
     };
     
     return (
         <div className="create-topic-page">
+            {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="topic-group">
                     <label htmlFor="topic-title">Topic Title:</label>
