@@ -62,13 +62,9 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   }, [match.params.articleid]);
 
   const articleDeleteHandler = () => {
-    const config = {
-      withCredentials: true,
-      headers: {
-          'csrf-token': csrfToken
-      }
-    };
-    axios.delete(`${endpoint}/articles/${match.params.articleid}`, config)
+    const deleteUrl = `${endpoint}/articles/${match.params.articleid}?_csrf=${encodeURIComponent(csrfToken)}`;
+  
+    axios.delete(deleteUrl, { withCredentials: true })
     .then(response => {
       history.push(`/wiki/${match.params.portalid}`);
     })
@@ -76,6 +72,7 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
       setError(error);
     });
   };
+  
 
   if (loading) return <div className="article-page">
     <Loading loading={loading} />
