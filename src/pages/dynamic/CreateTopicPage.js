@@ -48,7 +48,7 @@ const CreateTopicPage = ({ match, title, endpoint, csrfToken }) => {
     const handleCreate = (e) => {
         e.preventDefault();
         const topicEndpoint = `${endpoint}/talk/${match.params.articleid}/topics`;
-        axios.post(topicEndpoint, { title: topicTitle, content: content, _csrf: csrfToken })
+        axios.post(topicEndpoint, { title: topicTitle, content: content, _csrf: csrfToken }, { withCredentials: true })
         .then(response => {
             history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk`);
         })
