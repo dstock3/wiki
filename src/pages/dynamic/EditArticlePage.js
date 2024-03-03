@@ -92,15 +92,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
     const handleInfoboxImageUpload = e => {
         const file = e.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setInfobox(prev => ({
-                    ...prev,
-                    image: { src: reader.result, alt: prev.image.alt }
-                }));
-                setInfoboxImageFile(file);
-            };
-            reader.readAsDataURL(file);
+            setInfoboxImageFile(file);
         }
     };
 
@@ -165,35 +157,35 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         formData.append("title", article.title);
         formData.append("intro", article.intro);
         formData.append("content", JSON.stringify(article.content));
-        formData.append("infoBox", JSON.stringify(infobox));
+        formData.append("infoBox", JSON.stringify({
+            ...infobox,
+            image: { ...infobox.image, src: '' }
+        }));
         formData.append("references", JSON.stringify(references));
-        if (infobox.image.alt) {
-            formData.append("imageAlt", infobox.image.alt); 
-        }
+    
         if (infoboxImageFile) {
-            formData.append("imageFile", infoboxImageFile); 
+            formData.append("infoboxImageFile", infoboxImageFile);
         }
+    
         formData.append("portalid", match.params.portalid);
         formData.append("_csrf", csrfToken);
     
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            withCredentials: true,
+        };
+    
         try {
-            const config = {
-                withCredentials: true,
-            };
-        
+            let response;
             if (match.params.articleid) {
-                await axios.put(`${endpoint}/articles/${match.params.articleid}`, formData, config)
-                    .then(response => {
-                        history.push(`/wiki/${match.params.portalid}/article/${match.params.articleid}`);
-                    })
-                    .catch(handleError);
+                response = await axios.put(`${endpoint}/articles/${match.params.articleid}`, formData, config);
             } else {
-                await axios.post(`${endpoint}/articles/`, formData, config)
-                    .then(response => {
-                        history.push(`/wiki/${match.params.portalid}/article/${response.data._id}`);
-                    })
-                    .catch(handleError);
+                response = await axios.post(`${endpoint}/articles`, formData, config);
             }
+    
+            history.push(`/wiki/${match.params.portalid}/article/${response.data._id}`);
         } catch (err) {
             handleError(err);
         }

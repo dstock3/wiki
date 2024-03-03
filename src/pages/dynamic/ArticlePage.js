@@ -69,7 +69,7 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
       history.push(`/wiki/${match.params.portalid}`);
     })
     .catch(error => {
-      setError(error);
+      setError(error.response?.data?.message || error.message);
     });
   };
   
