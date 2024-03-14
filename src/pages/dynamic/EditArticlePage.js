@@ -162,21 +162,26 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
             image: { ...infobox.image, src: '' }
         }));
         formData.append("references", JSON.stringify(references));
-    
+
         if (infoboxImageFile) {
             formData.append("infoboxImageFile", infoboxImageFile);
         }
-    
+
         formData.append("portalid", match.params.portalid);
         formData.append("_csrf", csrfToken);
-    
+
+        console.log("Form Data:");
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+
         const config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
             },
             withCredentials: true,
         };
-    
+
         try {
             let response;
             if (match.params.articleid) {
@@ -184,7 +189,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
             } else {
                 response = await axios.post(`${endpoint}/articles`, formData, config);
             }
-    
+
             history.push(`/wiki/${match.params.portalid}/article/${response.data._id}`);
         } catch (err) {
             handleError(err);

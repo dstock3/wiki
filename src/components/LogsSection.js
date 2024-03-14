@@ -19,6 +19,7 @@ const LogsSection = ({ handleSearch, searchQuery, setSearchQuery, fetchLogs, log
                     <strong>Service:</strong> {log.service || 'N/A'}
                 </div>
             </li>
+            
         );
     };
     
