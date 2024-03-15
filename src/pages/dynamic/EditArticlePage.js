@@ -164,7 +164,7 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         formData.append("references", JSON.stringify(references));
 
         if (infoboxImageFile) {
-            formData.append("infoboxImageFile", infoboxImageFile);
+            formData.append("image", infoboxImageFile);
         }
 
         formData.append("portalid", match.params.portalid);
