@@ -170,11 +170,6 @@ const EditArticlePage = ({ match, endpoint, title, csrfToken }) => {
         formData.append("portalid", match.params.portalid);
         formData.append("_csrf", csrfToken);
 
-        console.log("Form Data:");
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-        }
-
         const config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
