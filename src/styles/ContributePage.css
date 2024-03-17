@@ -24,6 +24,12 @@ section {
     margin-bottom: 25px;
 }
 
+.dark-theme .contribute-container h1, 
+.dark-theme .contribute-container h2, 
+.dark-theme .contribute-container p, 
+.dark-theme .contribute-container li {
+    color: var(--text-color);
+}
 
 @media (max-width: 768px) {
     .contribute-page {

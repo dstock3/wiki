@@ -18,8 +18,14 @@
     color: #666;
 }
 
-.dark-theme .about-container h1, h2, p {
+.dark-theme .about-container h1,
+.dark-theme .about-container h2,
+.dark-theme .about-container p {
     color: var(--text-color);
+}
+
+.dark-theme .about-container a {
+    color: var(--link-color);
 }
 
 @media (max-width: 1100px) {

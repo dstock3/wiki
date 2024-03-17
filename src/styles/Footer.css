@@ -48,6 +48,10 @@
     color: var(--text-color);
 }
 
+.dark-theme .footer-section ul li a {
+    color: var(--link-color);
+}
+
 @media (max-width: 1100px) {
     .footer-container {
         width: 100vw;

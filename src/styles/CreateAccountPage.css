@@ -32,13 +32,14 @@ label {
 }
 
 .create-account-button {
-    width: 325px;
+    width: 100%;
     padding: 10px;
     background-color: #007BFF;
     color: #FFF;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .create-account-button:hover {
@@ -48,6 +49,10 @@ label {
 .dark-theme .create-account-page {
     background-color: var(--background-color);
     color: var(--text-color);
+}
+
+.dark-theme .create-account-page a {
+    color: var(--link-color);
 }
   
 .dark-theme .username-input,
@@ -65,5 +70,8 @@ label {
 }
   
 .dark-theme .create-account-button:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-background-hover-color);
 }
+
+
+

@@ -50,6 +50,10 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+.dark-theme .header-auth a {
+    color: var(--link-color);
+}
+
 @media (max-width: 1100px) {
     .header-container {
         flex-direction: column;

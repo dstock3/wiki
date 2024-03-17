@@ -65,5 +65,5 @@ p {
 }
   
 .dark-theme .login-button:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-background-hover-color);
 }

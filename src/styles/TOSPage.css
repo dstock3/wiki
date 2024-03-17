@@ -6,6 +6,11 @@
     margin-left: 25px;
 }
 
+.dark-theme .tos-container h1,
+.dark-theme .tos-container h2 {
+    color: var(--text-color);
+}
+
 @media (max-width: 768px) {
     .tos-page {
         display: block
