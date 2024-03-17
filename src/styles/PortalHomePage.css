@@ -58,6 +58,14 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+.dark-theme .portal-home-header h1 {
+    color: var(--text-color);
+}
+
+.dark-theme .portal-home-container hr {
+    visibility: hidden;
+}
+
 @media (max-width: 600px) {
     .portal-home-page {
         display: block;
