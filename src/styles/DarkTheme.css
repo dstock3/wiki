@@ -4,7 +4,7 @@
     --link-color: #5ea7ff;
     --border-color: #333333;
     --input-background-color: #333333;
-    --button-background-color: #555555;
+    --button-background-color: #476ffe;
+    --button-background-hover-color: #3451bb;
     --button-text-color: #f0f0f0;
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
