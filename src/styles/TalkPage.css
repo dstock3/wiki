@@ -258,6 +258,75 @@
     margin-bottom: 10px;
 }
 
+.dark-theme .talk-page {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.dark-theme .talk-page-boilerplate {
+    background-color: var(--talk-boilerplate-background-color);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .guidelines-container {
+    border-top: 1px solid var(--border-color);
+}
+
+.dark-theme .guidelines-list {
+    border-right: 1px solid var(--border-color);
+}
+
+.dark-theme .article-talk-container {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dark-theme .add-comment {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark-theme .add-comment textarea {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .add-comment-button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+}
+
+.dark-theme .topic {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark-theme .comment {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark-theme .comment-edit-textarea {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .comment-edit-button,
+.dark-theme .comment-save-button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+}
+
+.dark-theme .comment-delete-button,
+.dark-theme .comment-cancel-button {
+    background-color: var(--delete-button-background-color);
+    color: var(--button-text-color);
+}
+
 @media (max-width: 600px) {
     .talk-page {
         flex-direction: column;

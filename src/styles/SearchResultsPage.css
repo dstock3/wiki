@@ -70,3 +70,29 @@
 .pagination-controls span {
     font-weight: 600;
 }
+
+.dark-theme .search-results-page {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.dark-theme .search-result {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dark-theme .pagination-controls {
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .pagination-controls button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+}
+
+.dark-theme .pagination-controls button:hover {
+    background-color: var(--button-hover-background-color);
+}
+
+.dark-theme .pagination-controls button:disabled {
+    background-color: var(--disabled-button-background-color);
+}

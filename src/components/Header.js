@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import SearchBar from './SearchBar';
 import axios from 'axios';
+import ThemeToggle from './ThemeToggle';
 
-const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) => {
+const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername, isDarkTheme, setIsDarkTheme }) => {
+  
   const handleLogout = () => {
     axios.post(`${endpoint}/users/logout`, {}, { withCredentials: true })
       .then(response => {
         setIsLoggedIn(false);
         setUsername("");
         window.location.href = "/wiki/";
-
       })
       .catch(error => {
         console.error("Error during logout:", error);
@@ -19,7 +20,7 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) 
   }
 
   return (
-    <div className="header-container">
+    <header className="header-container">
       <div className="header-subcontainer">
         <div className="header-logo">
           <Link to="/wiki/">
@@ -52,8 +53,9 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername }) 
             </Link>
           </>
         )}
+        <ThemeToggle isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
       </div>
-    </div>
+    </header>
   );
 };
 

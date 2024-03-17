@@ -2,6 +2,7 @@ body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
     background-color: #f1f1f1;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a, .logout-button {
@@ -93,6 +94,26 @@ a:hover, .logout-button:hover {
     color: #ff4a4a;
     font-weight: 600;
     margin-block: 1em;
+}
+
+.dark-theme body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.dark-theme .app {
+    background-color: var(--background-color);
+    border-inline: 1px solid var(--border-color);
+}
+
+.dark-theme .header,
+.dark-theme .footer,
+.dark-theme .side-menu,
+.dark-theme .article {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
 }
 
 @media (max-width: 1100px) {

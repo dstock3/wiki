@@ -394,6 +394,65 @@
     border-radius: 5px;
 }
 
+.dark-theme .admin-dashboard {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.dark-theme .logs-section,
+.dark-theme .users-section {
+    background-color: var(--background-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark-theme .logs-button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+}
+
+.dark-theme .logs-button:hover {
+    background-color: var(--button-hover-background-color);
+}
+
+.dark-theme .log-search-form input,
+.dark-theme .user-search-form input {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .log-search-form button,
+.dark-theme .search-users-button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+}
+
+.dark-theme .logs-display li {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .logs-hr {
+    border-top: 1px solid var(--border-color);
+}
+
+.dark-theme .users-section table th {
+    background-color: var(--background-color);
+}
+
+.dark-theme .users-section th,
+.dark-theme .users-section td {
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .users-section tbody tr:nth-child(odd) {
+    background-color: var(--background-color);
+}
+
+.dark-theme .user-action-button {
+    color: var(--button-text-color);
+}
+
 @media (max-width: 600px) {
     .admin-dashboard {
         padding: 0;

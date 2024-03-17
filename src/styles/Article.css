@@ -99,4 +99,12 @@
     max-width: 100%;
 }
 
+.dark-theme .article-container {
+    color: var(--text-color);
+}
+  
+.dark-theme .article-references {
+    border-top: 1px solid var(--border-color);
+}
+
 

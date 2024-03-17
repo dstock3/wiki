@@ -33,6 +33,22 @@
     border-bottom-right-radius: 5px;
 }
 
+.dark-theme .search-bar-container {
+    border: 1px solid var(--border-color);
+}
+  
+.dark-theme .search-input {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+  
+.dark-theme .search-button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--border-color);
+}
+
 @media (max-width: 1100px) {
     .header-search {
         width: 45%;

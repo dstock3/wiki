@@ -44,3 +44,26 @@ label {
 .create-account-button:hover {
     background-color: #0056b3;
 }
+
+.dark-theme .create-account-page {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+  
+.dark-theme .username-input,
+.dark-theme .email-input,
+.dark-theme .password-input,
+.dark-theme .confirm-password-input {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .create-account-button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+}
+  
+.dark-theme .create-account-button:hover {
+    background-color: var(--button-hover-background-color);
+}

@@ -26,6 +26,7 @@ import EditSectionPage from './pages/dynamic/EditSectionPage';
 import CreateTopicPage from './pages/dynamic/CreateTopicPage';
 import AdminDashboard from './pages/dynamic/AdminDashboard';
 import './App.css';
+import './styles/DarkTheme.css';
 
 function App() {
   /* const ENDPOINT = 'http://localhost:5000' */
@@ -36,11 +37,12 @@ function App() {
   const [csrfToken, setCsrfToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   return (
     <Router>
       <div className="app">
-        <Header endpoint={ENDPOINT} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} />
+        <Header endpoint={ENDPOINT} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername} isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
         <div className="app-container">
           <Switch>
             <Route path="/wiki" exact render={(props) =>

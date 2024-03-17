@@ -1,0 +1,10 @@
+.dark-theme {
+    --background-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --link-color: #5ea7ff;
+    --border-color: #333333;
+    --input-background-color: #333333;
+    --button-background-color: #555555;
+    --button-text-color: #f0f0f0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

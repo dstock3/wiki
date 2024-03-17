@@ -95,3 +95,29 @@
     width: 100%;
     margin-top: 20px;
 }
+
+.dark-theme .edit-user-form {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+  
+.dark-theme .user-input {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+  
+.dark-theme .user-delete-button {
+    background-color: var(--delete-button-background-color);
+    color: var(--button-text-color);
+}
+  
+.dark-theme .user-submit-button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+}
+  
+.dark-theme .user-submit-button:hover {
+    background-color: var(--button-hover-background-color);
+}

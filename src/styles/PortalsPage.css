@@ -101,4 +101,25 @@
     text-decoration: none;
 }
 
+.dark-theme .portals-page {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.dark-theme .portal-card {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.dark-theme .portal-card-bottom-link {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+}
+
+.dark-theme .portal-card-bottom-link:hover {
+    background-color: var(--button-hover-background-color);
+}
+
 

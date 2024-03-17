@@ -116,6 +116,39 @@
     background-color: #ff4a4a;
 }
 
+.dark-theme .edit-portal-container {
+    background-color: var(--background-color);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+  
+.dark-theme .portal-form-group {
+    border: 1px solid var(--border-color);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+  
+.dark-theme .portal-form-group label {
+    color: var(--text-color);
+}
+  
+.dark-theme .portal-form-group input[type="text"],
+.dark-theme .portal-form-group textarea,
+.dark-theme .portal-form-group select {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+  
+.dark-theme .edit-portal-button,
+.dark-theme .delete-button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+}
+  
+.dark-theme .edit-portal-button:hover,
+.dark-theme .delete-button:hover {
+    background-color: var(--button-hover-background-color);
+}
+
 @media (max-width: 600px) {
     .portal-form {
         width: 100%;
