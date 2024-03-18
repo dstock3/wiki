@@ -86,7 +86,7 @@ function App() {
             } />
 
             <Route path="/wiki/create-portal" exact render={(props) =>
-              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
+              <EditPortalPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} isDarkTheme={isDarkTheme} />
             } />
 
             <Route path="/wiki/portals" exact render={(props) => 

@@ -118,6 +118,39 @@ a:hover, .logout-button:hover {
     border-color: var(--border-color);
 }
 
+.dark-theme .ql-container {
+    background-color: white;
+    color: black;
+}
+  
+.dark-theme .ql-container {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.dark-theme .ql-toolbar {
+    background-color: var(--background-accent-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.dark-theme .ql-toolbar .ql-stroke {
+    stroke: var(--text-color);
+}
+
+.dark-theme .ql-toolbar .ql-fill {
+    fill: var(--text-color);
+}
+
+.dark-theme .ql-toolbar .ql-stroke:hover {
+    stroke: var(--button-background-hover-color);
+}
+
+.dark-theme .ql-toolbar .ql-fill:hover {
+    fill: var(--button-background-color);
+}
+
 @media (max-width: 1100px) {
     .app {
         max-width: 100vw;

@@ -149,6 +149,14 @@
     background-color: var(--button-hover-background-color);
 }
 
+.dark-theme .portal-home-header-links a {
+    color: var(--link-color);
+}
+
+.dark-theme .edit-portal-header {
+    color: var(--text-color);
+}
+
 @media (max-width: 600px) {
     .portal-form {
         width: 100%;
