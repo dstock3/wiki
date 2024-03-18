@@ -130,6 +130,10 @@ label {
     background-color: var(--button-hover-background-color);
 }
 
+.dark-theme .contact-container a {
+    color: var(--link-color);
+}
+
 @media (max-width: 600px) {
     .contact-page {
         display: block;

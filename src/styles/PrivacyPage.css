@@ -12,6 +12,10 @@
     color: var(--text-color);
 }
 
+.dark-theme .privacy-container a {
+    color: var(--link-color);
+}
+
 @media (max-width: 768px) {
     .privacy-page {
         display: block

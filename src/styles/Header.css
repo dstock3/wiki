@@ -54,6 +54,10 @@
     color: var(--link-color);
 }
 
+.dark-theme .header-auth .logout-link {
+    color: var(--link-color);
+}
+
 @media (max-width: 1100px) {
     .header-container {
         flex-direction: column;

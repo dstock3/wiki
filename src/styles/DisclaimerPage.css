@@ -12,6 +12,10 @@
     color: var(--text-color);
 }
 
+.dark-theme .disclaimer-container a {
+    color: var(--link-color);
+}
+
 @media (max-width: 600px) {
     .disclaimer-page {
         display: block

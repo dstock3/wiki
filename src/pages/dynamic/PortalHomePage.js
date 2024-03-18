@@ -18,6 +18,10 @@ const PortalHomePage = ({ match, endpoint, title }) => {
   }, [title]);
 
   useEffect(() => {
+    console.log(portalData);
+  }, [portalData]);
+
+  useEffect(() => {
     axios.get(`${endpoint}/portals/${match.params.portalid}`, { withCredentials: true })
       .then(response => {
         setPortalData(response.data.portal);

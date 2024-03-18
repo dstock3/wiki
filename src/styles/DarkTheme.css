@@ -1,5 +1,6 @@
 .dark-theme {
     --background-color: #1a1a1a;
+    --background-accent-color: #151515;
     --text-color: #f0f0f0;
     --link-color: #5ea7ff;
     --border-color: #333333;

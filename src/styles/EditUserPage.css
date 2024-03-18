@@ -68,6 +68,10 @@
     margin-right: 10px;
 }
 
+.user-delete-button:hover {
+    background-color: #b02a37;
+}
+
 .user-submit-button {
     padding: 10px 15px;
     background-color: #007BFF;
@@ -108,16 +112,23 @@
     border: 1px solid var(--border-color);
 }
   
-.dark-theme .user-delete-button {
-    background-color: var(--delete-button-background-color);
-    color: var(--button-text-color);
-}
-  
 .dark-theme .user-submit-button {
     background-color: var(--button-background-color);
     color: var(--button-text-color);
 }
   
 .dark-theme .user-submit-button:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-background-hover-color);
+}
+
+.dark-theme .user-label {
+    color: var(--text-color);
+}
+
+.dark-theme .admin-link {
+    color: var(--link-color);
+}
+
+.dark-theme .edit-user-page h2 {
+    color: var(--text-color);
 }

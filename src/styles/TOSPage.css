@@ -11,6 +11,10 @@
     color: var(--text-color);
 }
 
+.dark-theme .tos-container a {
+    color: var(--link-color);
+}
+
 @media (max-width: 768px) {
     .tos-page {
         display: block

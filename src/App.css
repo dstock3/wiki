@@ -105,6 +105,10 @@ a:hover, .logout-button:hover {
     border-inline: 1px solid var(--border-color);
 }
 
+.dark-theme #root {
+    background-color: var(--background-accent-color);
+}
+
 .dark-theme .header,
 .dark-theme .footer,
 .dark-theme .side-menu,
