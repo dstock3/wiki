@@ -125,3 +125,7 @@
 .dark-theme .create-portal-link {
     color: var(--link-color);
 }
+
+.dark-theme .portal-card {
+    background-color: var(--background-accent-color)
+}

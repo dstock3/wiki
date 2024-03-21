@@ -237,6 +237,10 @@
     border-bottom: 1px solid #e1e1e1;
 }
 
+.info-checkbox-container {
+    margin-bottom: 10px;
+}
+
 .add-intro-button, .add-reference-button, .add-section-button {
     background-color: #007bff;
     border: none;
@@ -317,11 +321,12 @@
 }
 
 .dark-theme .edit-article-container {
-    background-color: var(--background-color);
+    background-color: var(--background-accent-color);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .dark-theme .form-group {
+    background-color: var(--background-color);
     border: 1px solid var(--border-color);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
@@ -337,6 +342,12 @@
 .dark-theme .section-content input[type="text"],
 .dark-theme .section-content textarea,
 .dark-theme .section-content input[type="file"] {
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme input {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
     border: 1px solid var(--border-color);
 }
 
@@ -363,4 +374,38 @@
 
 .dark-theme .label-value-pair {
     border-bottom: 1px solid var(--border-color);
+}
+
+.dark-theme .main-form-group label {
+    color: var(--text-color);
+}
+
+.dark-theme .main-label {
+    color: var(--text-color);
+}
+ 
+.dark-theme .reference label {
+    color: var(--text-color);
+}
+
+.dark-theme .infobox-editor h3,
+.dark-theme .info-field-container label {
+    color: var(--text-color);
+}
+
+.infobox-editor h3 {
+    border-bottom: 1px solid var(--border-color)
+}
+
+.dark-theme .label-value-pairs {
+    background-color: var(--background-accent-color);
+}
+
+.dark-theme .info-checkbox-container span {
+    color: var(--text-color);
+}
+
+.dark-theme .delete-btn, 
+.dark-theme .remove-infofield-button {
+    background-color: #a02f2f;
 }

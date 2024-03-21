@@ -132,3 +132,7 @@
 .dark-theme .edit-user-page h2 {
     color: var(--text-color);
 }
+
+.dark-theme .ql-picker-label {
+    color: var(--text-color);
+}

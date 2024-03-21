@@ -151,6 +151,11 @@ a:hover, .logout-button:hover {
     fill: var(--button-background-color);
 }
 
+.dark-theme .ql-picker-options {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
 @media (max-width: 1100px) {
     .app {
         max-width: 100vw;

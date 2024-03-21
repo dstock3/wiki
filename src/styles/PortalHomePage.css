@@ -66,6 +66,10 @@
     visibility: hidden;
 }
 
+.dark-theme .portal-home-header-links a {
+    color: var(--link-color);
+}
+
 @media (max-width: 600px) {
     .portal-home-page {
         display: block;
