@@ -100,6 +100,10 @@ a:hover, .logout-button:hover {
     color: var(--text-color);
 }
 
+.dark-theme a {
+    color: var(--link-color);
+}
+
 .dark-theme .app {
     background-color: var(--background-color);
     border-inline: 1px solid var(--border-color);

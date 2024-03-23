@@ -59,6 +59,10 @@ p {
     color: var(--text-color);
 }
   
+.dark-theme .login-page a {
+    color: var(--link-color);
+}
+
 .dark-theme .login-button {
     background-color: var(--button-background-color);
     color: var(--button-text-color);

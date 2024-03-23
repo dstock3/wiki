@@ -54,6 +54,35 @@
     text-decoration: underline;
 }
 
+.dark-theme .article-page .infobox {
+    background-color: var(--background-accent-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .article-page .infobox-title {
+    color: black;
+}
+
+.dark-theme .article-section span {
+    color: var(--text-color);
+}
+
+.dark-theme .selected-tab {
+    color: var(--text-color) !important;
+}
+
+.dark-theme .reference-list-item a,
+.dark-theme .article-talk-subcontainer a,
+.dark-theme .edit-section-link {
+    color: var(--link-color);
+}
+
+.dark-theme .article-delete-button,
+.dark-theme .edit-article-container a {
+    color: var(--link-color);
+}
+
 @media (max-width: 600px) {
     .article-page {
         display: block;
