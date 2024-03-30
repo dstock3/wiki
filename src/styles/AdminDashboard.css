@@ -62,6 +62,7 @@
 
 .logs-button:hover {
     background-color: #d5d5d5;
+    font-weight: bold;
 }
 
 .user-search-form, .log-search-form {
@@ -394,22 +395,22 @@
     border-radius: 5px;
 }
 
-::-webkit-scrollbar {
+.admin-dashboard ::-webkit-scrollbar {
     width: 12px;
     background-color: #f5f5f5;
 }
   
-::-webkit-scrollbar-thumb {
+.admin-dashboard ::-webkit-scrollbar-thumb {
     background-color: #598d5b;
     border-radius: 6px;
     border: 2px solid #f5f5f5;
 }
   
-::-webkit-scrollbar-thumb:hover {
+.admin-dashboard ::-webkit-scrollbar-thumb:hover {
     background-color: #598d5b;
 }
   
-body {
+body .admin-dashboard {
     scrollbar-width: thin;
     scrollbar-color: #598d5b #f5f5f5;
 }
@@ -432,7 +433,7 @@ body {
 }
 
 .dark-theme .logs-button:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-background-hover-color);
 }
 
 .dark-theme .log-search-form input,
