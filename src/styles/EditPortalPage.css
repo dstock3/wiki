@@ -147,7 +147,7 @@
   
 .dark-theme .edit-portal-button:hover,
 .dark-theme .delete-button:hover {
-    background-color: var(--button-hover-background-color);
+    background-color: var(--button-background-hover-color);
 }
 
 .dark-theme .portal-home-header-links a {
