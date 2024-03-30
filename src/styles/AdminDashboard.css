@@ -19,7 +19,6 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-
 }
 
 .logs-section {
@@ -403,6 +402,7 @@
 .dark-theme .users-section {
     background-color: var(--background-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
 }
 
 .dark-theme .logs-button {
@@ -451,6 +451,25 @@
 
 .dark-theme .user-action-button {
     color: var(--button-text-color);
+}
+
+.dark-theme ::-webkit-scrollbar {
+    width: 12px;
+    background-color: #333;
+}
+  
+.dark-theme ::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 6px;
+}
+  
+.dark-theme ::-webkit-scrollbar-thumb:hover {
+    background-color: #777;
+}
+  
+.dark-theme {
+    scrollbar-width: thin;
+    scrollbar-color: #555 #333;
 }
 
 @media (max-width: 600px) {
