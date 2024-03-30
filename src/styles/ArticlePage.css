@@ -83,6 +83,11 @@
     color: var(--link-color);
 }
 
+.dark-theme .featured-article h2,
+.dark-theme .recent-updates h3 {
+    color: var(--text-color);
+}
+
 @media (max-width: 600px) {
     .article-page {
         display: block;
