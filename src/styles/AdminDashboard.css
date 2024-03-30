@@ -448,6 +448,11 @@ body .admin-dashboard {
     color: var(--button-text-color);
 }
 
+.dark-theme .log-search-form button:hover,
+.dark-theme .search-users-button:hover {
+    background-color: var(--button-background-hover-color);
+}
+
 .dark-theme .logs-display li {
     background-color: var(--background-color);
     border: 1px solid var(--border-color);

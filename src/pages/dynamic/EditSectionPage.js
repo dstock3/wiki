@@ -132,7 +132,7 @@ const EditSectionPage = ({ match, endpoint, title, csrfToken }) => {
                 </div>
                 <div className="img-upload-container">
                     <div className="img-upload">
-                        <label className="portal-main-label">Upload Image:</label>
+                        <label>Upload Image:</label>
                         <input 
                             type="file" 
                             accept="image/*"
