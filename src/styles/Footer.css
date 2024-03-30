@@ -12,9 +12,11 @@
 }
   
 .footer-section {
+    display: flex;
+    justify-content: center;
     flex-basis: 20%; 
 }
-  
+
 .footer-section h4 {
     margin-bottom: 10px;
 }
