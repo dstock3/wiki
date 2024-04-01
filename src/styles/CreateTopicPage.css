@@ -75,3 +75,8 @@
 .delete-topic-button:hover {
     background-color: #b30000;
 }
+
+.dark-theme .create-topic-page form {
+    background-color: var(--background-accent-color);
+    color: var(--text-color);
+}
