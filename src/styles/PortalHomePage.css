@@ -70,6 +70,10 @@
     color: var(--link-color);
 }
 
+.dark-theme li::marker {
+    color: var(--text-color);
+}
+
 @media (max-width: 600px) {
     .portal-home-page {
         display: block;
