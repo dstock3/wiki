@@ -24,7 +24,7 @@ class ArticleDropdown {
                     if (range && range.length > 0) {
                         const articleId = this.container.value;
                         const baseUrl = window.location.origin; 
-                        const link = `${baseUrl}/${options.portalId}/article/${articleId}`;
+                        const link = `${baseUrl}/wiki/${options.portalId}/article/${articleId}`;
     
                         this.quill.formatText(range.index, range.length, 'link', link, Quill.sources.USER);
     
