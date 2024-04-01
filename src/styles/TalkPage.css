@@ -327,6 +327,11 @@
     color: var(--button-text-color);
 }
 
+.dark-theme .ql-editor.ql-blank::before {
+    content: attr(data-placeholder);
+    color: var(--text-color);
+}
+
 @media (max-width: 600px) {
     .talk-page {
         flex-direction: column;
