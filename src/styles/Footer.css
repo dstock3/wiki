@@ -31,11 +31,15 @@
     margin-bottom: 5px;
 }
 
+.footer-subsection h4 {
+    margin-top: 35px;
+}
+
 .footer-copyright {
     text-align: center;
     font-size: 14px;
     color: #666;
-    padding-bottom: 15px;
+    padding-block: 15px;
 }
 
 .dark-theme .footer-container {
