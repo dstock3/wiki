@@ -264,7 +264,7 @@
 }
 
 .dark-theme .talk-page-boilerplate {
-    background-color: var(--talk-boilerplate-background-color);
+    background-color: var(--background-accent-color);
     border: 1px solid var(--border-color);
 }
 
@@ -281,7 +281,7 @@
 }
 
 .dark-theme .add-comment {
-    background-color: var(--background-color);
+    background-color: var(--background-accent-color);
     border: 1px solid var(--border-color);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
@@ -298,7 +298,7 @@
 }
 
 .dark-theme .topic {
-    background-color: var(--background-color);
+    background-color: var(--background-accent-color);
     border: 1px solid var(--border-color);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
