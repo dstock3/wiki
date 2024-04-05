@@ -257,19 +257,19 @@
 }
 
 .user-action-button.delete {
-    background-color: #f44336;
+    background-color: #c7342a;
 }
 
 .user-action-button.delete:hover {
-    background-color: #e53935;
+    background-color: #9e2624;
 }
 
 .user-action-button.ban {
-    background-color: #ff9800;
+    background-color: #d88304;
 }
 
 .user-action-button.ban:hover {
-    background-color: #fb8c00;
+    background-color: #b97522;
 }
 
 .user-action-button.reset {
