@@ -3,6 +3,7 @@ import Article from '../../components/Article';
 import { Link } from 'react-router-dom';
 import '../../styles/ArticlePage.css'; 
 import ArticleSidebar from '../../components/ArticleSidebar';
+import DeleteArticle from '../../components/DeleteArticle';
 import axios from 'axios'; 
 import { useHistory, useLocation } from 'react-router-dom';
 import Loading from '../../components/Loading';
@@ -16,6 +17,7 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   const [error, setError] = useState(null);
   const history = useHistory();
   const location = useLocation();
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     if (location.hash) {
@@ -61,16 +63,26 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
       });    
   }, [match.params.articleid]);
 
-  const articleDeleteHandler = () => {
+  const openDeleteModal = () => {
+    setDeleteModalOpen(true);
+  };
+  
+  const confirmDeleteArticle = () => {
     const deleteUrl = `${endpoint}/articles/${match.params.articleid}?_csrf=${encodeURIComponent(csrfToken)}`;
   
     axios.delete(deleteUrl, { withCredentials: true })
-    .then(response => {
-      history.push(`/wiki/${match.params.portalid}`);
-    })
-    .catch(error => {
-      setError(error.response?.data?.message || error.message);
-    });
+      .then(response => {
+        setDeleteModalOpen(false);
+        history.push(`/wiki/${match.params.portalid}`);
+      })
+      .catch(error => {
+        setError(error.response?.data?.message || error.message);
+        setDeleteModalOpen(false);
+      });
+  };
+  
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
   };
   
 
@@ -82,6 +94,13 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
 
   return (
     <div className="article-page">
+      {isDeleteModalOpen && (
+        <DeleteArticle
+          isOpen={isDeleteModalOpen}
+          onClose={closeDeleteModal}
+          onConfirm={confirmDeleteArticle}
+        />
+      )}
       {articleData && (
         <ArticleSidebar 
           intro={articleData.intro}
@@ -104,7 +123,7 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
                 <Link to={`/wiki/${match.params.portalid}/article/${match.params.articleid}/edit`}>
                   Edit
                 </Link>
-                <button className="article-delete-button" onClick={articleDeleteHandler}>Delete</button>
+                <button className="article-delete-button" onClick={openDeleteModal}>Delete</button>
               </>
             )}
           </div>
