@@ -3,7 +3,7 @@ import Article from '../../components/Article';
 import { Link } from 'react-router-dom';
 import '../../styles/ArticlePage.css'; 
 import ArticleSidebar from '../../components/ArticleSidebar';
-import DeleteArticle from '../../components/DeleteArticle';
+import DeleteModal from '../../components/DeleteModal';
 import axios from 'axios'; 
 import { useHistory, useLocation } from 'react-router-dom';
 import Loading from '../../components/Loading';
@@ -95,10 +95,11 @@ const ArticlePage = ({ match, endpoint, title, csrfToken }) => {
   return (
     <div className="article-page">
       {isDeleteModalOpen && (
-        <DeleteArticle
+        <DeleteModal
           isOpen={isDeleteModalOpen}
           onClose={closeDeleteModal}
           onConfirm={confirmDeleteArticle}
+          msg="article"
         />
       )}
       {articleData && (

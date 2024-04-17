@@ -5,6 +5,7 @@ import Loading from '../../components/Loading';
 import ReactQuill from 'react-quill';
 import { modules, formats } from '../../config/quillConfig';
 import useArticles from '../../hooks/useArticles';
+import DeleteModal from '../../components/DeleteModal';
 
 const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const [portalData, setPortalData] = useState({
@@ -19,6 +20,7 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
   const { articles, er } = useArticles(match.params.portalid, endpoint);
   const quillRef = useRef(null);
   const [error, setError] = useState(null);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const extendedModules = {
     ...modules,
@@ -93,23 +95,27 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
         history.push(isEditMode ? `/wiki/${match.params.portalid}` : `/wiki/${response.data._id}`);
     } catch (error) {
         console.error("Error processing portal:", error.message);
-        console.log(error);
         setError(error.message);
     }
   };
-  
+
+  const openDeleteModal = () => {
+    setDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
+  };
+
   const handleDelete = async () => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this portal? This action cannot be undone.');
-    if (confirmDelete) {
-        try {
-            await axios.delete(`${endpoint}/portals/${match.params.portalid}?_csrf=${encodeURIComponent(csrfToken)}`, {
-                withCredentials: true
-            });
-            history.push("/wiki");
-        } catch (error) {
-            console.error("Error deleting portal:", error.message);
-            alert(`Error: ${error.message}`);
-        }
+      try {
+          await axios.delete(`${endpoint}/portals/${match.params.portalid}?_csrf=${encodeURIComponent(csrfToken)}`, {
+              withCredentials: true
+          });
+          history.push("/wiki");
+      } catch (error) {
+          console.error("Error deleting portal:", error.message);
+          alert(`Error: ${error.message}`);
       }
   };
 
@@ -119,6 +125,14 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
 
   return (
     <div className="edit-portal-page">
+      {isDeleteModalOpen && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={closeDeleteModal}
+          onConfirm={handleDelete}
+          msg="portal"
+        />
+      )}
       <div className="edit-portal-container">
         <h1 className="edit-portal-header">
           {isEditMode ? "Edit Portal" : "Create Portal"}
@@ -169,7 +183,7 @@ const EditPortalPage = ({ match, history, endpoint, title, csrfToken }) => {
               <button type="button" onClick={() => history.goBack()} className="edit-portal-button">Cancel</button>
             </div>
             {isEditMode && (
-              <button type="button" onClick={handleDelete} className="delete-button">
+              <button type="button" onClick={openDeleteModal} className="delete-button">
                 Delete Portal
               </button>
             )}
