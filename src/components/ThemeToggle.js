@@ -8,7 +8,6 @@ const ThemeToggle = ({ isDarkTheme, setIsDarkTheme }) => {
   };
 
   useEffect(() => {
-    console.log('isDarkTheme', isDarkTheme);
     document.body.classList.toggle('dark-theme', isDarkTheme);
   }, [isDarkTheme]);
 
