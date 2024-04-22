@@ -58,7 +58,6 @@ const Comment = ({
     return (
         <div className="comment" id={`comment-${index}`}>
             <div className="comment-content-container">
-                <div className="comment-content-subcontainer">
                     <span className="comment-author">
                         <Link to={`/wiki/user/${comment.author}`}>{comment.author}</Link>:
                     </span>
@@ -71,9 +70,7 @@ const Comment = ({
                     ) : (
                         <span className="comment-content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(comment.content) }} />
                     )}
-                </div>
-
-                <div className="comment-date">{formatDate(comment.date)}</div>
+                <div className="comment-date">Posted on {formatDate(comment.date)}</div>
                 {error && <div className="comment-error">{error}</div>}
             </div>
 

@@ -208,15 +208,15 @@
     display: inline;
 }
 
+.comment-date {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .comment-content-container {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
-}
-
-.comment-content-subcontainer {
-    display: flex;
-    align-items: flex-start;
 }
 
 .comment-edit-textarea {
