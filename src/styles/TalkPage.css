@@ -188,8 +188,6 @@
 }
 
 .comment {
-    display: flex;
-    justify-content: space-between;
     background-color: #f9f9f9;
     border: 1px solid #e1e1e1;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -201,6 +199,7 @@
 }
 
 .comment-author {
+    float: left;
     margin-right: 5px;
 }
 
@@ -210,13 +209,17 @@
 
 .comment-date {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .comment-content-container {
-    display: flex;
-    flex-direction: column;
     margin-bottom: 15px;
+}
+
+.comment-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .comment-edit-textarea {

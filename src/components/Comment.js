@@ -70,23 +70,28 @@ const Comment = ({
                     ) : (
                         <span className="comment-content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(comment.content) }} />
                     )}
-                <div className="comment-date">Posted on {formatDate(comment.date)}</div>
-                {error && <div className="comment-error">{error}</div>}
             </div>
 
-            <div className="comment-button-container">
-                {(isAuthor || isAdmin) && !editMode && (
-                    <button onClick={handleEditToggle} className="comment-edit-button">Edit</button>
-                )}
-                {(canDelete || isAdmin) && !editMode && (
-                    <button onClick={handleDelete} className="comment-delete-button">Delete</button>
-                )}
-                {editMode && (
-                    <>
-                        <button onClick={handleSave} className="comment-save-button">Save</button>
-                        <button onClick={handleEditToggle} className="comment-cancel-button">Cancel</button>
-                    </>
-                )}
+            <div className="comment-info-container">
+                <div className="comment-info">
+                    <div className="comment-date">Posted on {formatDate(comment.date)}</div>
+                    {error && <div className="comment-error">{error}</div>}
+                </div>
+
+                <div className="comment-button-container">
+                    {(isAuthor || isAdmin) && !editMode && (
+                        <button onClick={handleEditToggle} className="comment-edit-button">Edit</button>
+                    )}
+                    {(canDelete || isAdmin) && !editMode && (
+                        <button onClick={handleDelete} className="comment-delete-button">Delete</button>
+                    )}
+                    {editMode && (
+                        <>
+                            <button onClick={handleSave} className="comment-save-button">Save</button>
+                            <button onClick={handleEditToggle} className="comment-cancel-button">Cancel</button>
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     );
