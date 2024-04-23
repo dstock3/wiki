@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 
-const TalkPageBoilerplate = ({ articleTitle }) => {
+const TalkPageBoilerplate = ({ articleLink, articleTitle }) => {
     return (
         <div className="talk-page-boilerplate">
             <div className="talk-boiler-intro">
-                <div className="talk-boiler">This is the talk page for <Link to="">{articleTitle}</Link>. This is not a forum for general discussion of the article's subject. Please use this page to discuss improvements to the article.</div>
+                <div className="talk-boiler">This is the talk page for <Link to={articleLink}>{articleTitle}</Link>. This is not a forum for general discussion of the article's subject. Please use this page to discuss improvements to the article.</div>
                 <div className="talk-boiler">This is a place for respectful discussion and debate. Please keep comments relevant to the topic at hand. By posting a comment, you agree to our <Link to="/wiki/terms">Terms of Service</Link>.</div>
             </div>
 

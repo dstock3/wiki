@@ -112,7 +112,7 @@ const TalkPage = ({ match, title, endpoint, csrfToken }) => {
             <Link  to={`/wiki/${match.params.portalid}/article/${match.params.articleid}/talk/create`} className="create-topic">Create New Topic</Link>
           )}
         </div>
-        <TalkPageBoilerplate articleTitle={articleTitle}/>
+        <TalkPageBoilerplate articleLink={`/wiki/${match.params.portalid}/article/${match.params.articleid}`} articleTitle={articleTitle}/>
 
         {!topics.length && <div className="discussion-message">No discussions yet.</div>}
         <ul className="topics">
