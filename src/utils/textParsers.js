@@ -46,10 +46,12 @@ function parseContentToComponents(content, references = []) {
             }
             if (node.tagName === 'A') {
                 const href = node.getAttribute('href');
-                if (href.startsWith('/')) {
+                if (href && href.startsWith('/')) {
                     return <Link to={href} key={Math.random().toString()}>{Array.from(node.childNodes).map(child => processNode(child))}</Link>;
-                } else {
+                } else if (href) {
                     return <a href={href} target="_blank" rel="noopener noreferrer" key={Math.random().toString()}>{Array.from(node.childNodes).map(child => processNode(child))}</a>;
+                } else {
+                    return <span key={Math.random().toString()}>{Array.from(node.childNodes).map(child => processNode(child))}</span>;
                 }
             }
             return React.createElement(
