@@ -46,6 +46,27 @@
     outline: inherit;
 }
 
+.header-logo a {
+    display: flex;
+}
+
+.w-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 28px;
+    text-decoration: none;
+    position: relative;
+    left: 7px;
+    bottom: 3px;
+}
+
+.header-logo a:hover {
+    text-decoration: none; 
+}
+
 .dark-theme .header-container {
     border-bottom: 1px solid var(--border-color);
 }

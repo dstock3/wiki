@@ -4,6 +4,7 @@ import '../styles/Header.css';
 import SearchBar from './SearchBar';
 import axios from 'axios';
 import ThemeToggle from './ThemeToggle';
+import Logo from '../assets/bolt.svg'
 
 const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername, isDarkTheme, setIsDarkTheme }) => {
   
@@ -24,8 +25,8 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername, is
       <div className="header-subcontainer">
         <div className="header-logo">
           <Link to="/wiki/">
-            {/* logo here */}
-            <img src="your-logo-here.png" alt="Site Logo" />
+            <span className="w-logo">W</span>
+            <img className="img-logo" src={Logo} alt="Site Logo" />
           </Link>
         </div>
         <div className="header-search">
