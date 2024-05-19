@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import SearchBar from './SearchBar';
 import axios from 'axios';
 import ThemeToggle from './ThemeToggle';
-import Logo from '../assets/bolt.svg'
+import LogoLight from '../assets/bolt-light.svg'
+import LogoDark from '../assets/bolt-dark.svg'
 
 const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername, isDarkTheme, setIsDarkTheme }) => {
+  const [logo, setLogo] = useState(LogoLight)
+
+  useEffect(()=> {
+    if (isDarkTheme) {
+      setLogo(LogoDark)
+    } else {
+      setLogo(LogoLight)
+    }
+  }, [isDarkTheme])
   
   const handleLogout = () => {
     axios.post(`${endpoint}/users/logout`, {}, { withCredentials: true })
@@ -26,7 +36,7 @@ const Header = ({ endpoint, isLoggedIn, setIsLoggedIn, username, setUsername, is
         <div className="header-logo">
           <Link to="/wiki/">
             <span className="w-logo">W</span>
-            <img className="img-logo" src={Logo} alt="Site Logo" />
+            <img className="img-logo" src={logo} alt="Site Logo" />
           </Link>
         </div>
         <div className="header-search">
