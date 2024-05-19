@@ -13,7 +13,7 @@ const SearchBar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      history.push(`/search/${query}`);
+      history.push(`/wiki/search/${query}`);
     }
   };
 
