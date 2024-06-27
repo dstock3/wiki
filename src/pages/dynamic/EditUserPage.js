@@ -139,30 +139,35 @@ const EditUserPage = ({ match, history, endpoint, title, csrfToken }) => {
           />
         </div>
 
-        <div className="input-group">
-          <label className="user-label" htmlFor="password">New Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="user-input"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-group">
-          <label className="user-label" htmlFor="confirmPassword">Confirm New Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={confirmPassword}
-            className="user-input"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        <div className="profile-button-container">
-          <button className="user-delete-button" type="button" onClick={handleDelete} >Delete Account</button>
-          <button className="user-submit-button" type="submit">Update Profile</button>
+        <div className="edit-user-input-group-container">
+          <div className="pw-container">
+            <div className="input-group-pw">
+              <label className="user-label" htmlFor="password">New Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className="user-input"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="input-group-pw">
+              <label className="user-label confirm-label" htmlFor="confirmPassword">Confirm New Password:</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={confirmPassword}
+                className="user-input"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="profile-button-container">
+            <button className="user-delete-button" type="button" onClick={handleDelete} >Delete Account</button>
+            <button className="user-submit-button" type="submit">Update Profile</button>
+          </div>
         </div>
       </form>
       {isAdmin && <div className="admin-link-container">
