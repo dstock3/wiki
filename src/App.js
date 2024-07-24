@@ -27,6 +27,7 @@ import CreateTopicPage from './pages/dynamic/CreateTopicPage';
 import AdminDashboard from './pages/dynamic/AdminDashboard';
 import './App.css';
 import './styles/DarkTheme.css';
+import BlogPage from './pages/dynamic/BlogPage';
 
 function App() {
   /* const ENDPOINT = 'http://localhost:5000' */
@@ -67,6 +68,10 @@ function App() {
             
             <Route path="/wiki/donate" exact render={(props) => 
               <DonatePage title={TITLE}/>
+            } />
+            
+            <Route path="/wiki/blog" exact render={(props) =>
+              <BlogPage title={TITLE} />
             } />
             
             <Route path="/wiki/terms" exact render={(props) =>

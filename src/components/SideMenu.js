@@ -10,6 +10,7 @@ const SideMenu = () => {
         <li><Link to="/wiki/">Main page</Link></li>
         <li><Link to="/wiki/portals">Portals</Link></li>
         <li><Link to="/wiki/about">About</Link></li>
+        <li><Link to="/wiki/blog">Blog</Link></li>
         <li><Link to="/wiki/donate">Donate</Link></li>
       </ul>
     </div>
