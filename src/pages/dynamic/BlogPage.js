@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import Loading from '../../components/Loading';
+import BlogSidebar from '../../components/BlogSidebar';
+import '../../styles/BlogPage.css';
+import upArrow from '../../assets/up.svg'; 
 
 const BlogPage = ({ match, endpoint, title }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [blogDate, setBlogData] = useState(null);
+    const [blogData, setBlogData] = useState(null);
+    const [links, setLinks] = useState([]);
+    const [showButton, setShowButton] = useState(false);
 
     useEffect(() => {
-        if (articleData) {
-            document.title = `${title} | ${articleData.title}`;
+        if (blogData) {
+            document.title = `${title} | ${blogData.title}`;
         }
-    }, [articleData]);
+    }, [blogData, title]);
 
     useEffect(() => {
         const fetchArticle = async () => {
             try {
                 const response = await fetch(`${endpoint}/${match.params.id}`);
                 const data = await response.json();
-                setBlogData(data);
+                setBlogData(data.blog);
+                setLinks(data.links);
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
@@ -28,33 +34,53 @@ const BlogPage = ({ match, endpoint, title }) => {
         fetchArticle();
     }, [endpoint, match.params.id]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.pageYOffset > 75) {
+                setShowButton(true);
+            } else {
+                setShowButton(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     if (loading) return (
-        <div className="article-page">
+        <div className="blog-page">
             <Loading loading={loading} />
         </div>
     );
 
     if (error) return (
-        <div className="article-page">
+        <div className="blog-page">
             Error: {error}
         </div>
     );
 
     return (
-        <div className="blog-container">
-            <div className="blog-content">
-                <h1>{setBlogData.title}</h1>
-                <p>Posted on: {new Date(setBlogData.postedDate).toLocaleDateString()}</p>
-                <div dangerouslySetInnerHTML={{ __html: setBlogData.body }} />
-            </div>
-            <div className="blog-sidebar">
-                {/* create a separate component for this*/}
-                <ul>
-                    <li><a href="/blog/1">Previous Entry 1</a></li>
-                    <li><a href="/blog/2">Previous Entry 2</a></li>
-                    <li><a href="/blog/3">Previous Entry 3</a></li>
-                </ul>
-            </div>
+        <div className="blog-page">
+            <main className="blog-page-container">
+                <div className="blog-content">
+                    <h1>{blogData.title}</h1>
+                    <p>Posted on: {new Date(blogData.postedDate).toLocaleDateString()}</p>
+                    <div dangerouslySetInnerHTML={{ __html: blogData.body }} />
+                </div>
+            </main>
+            {links && links.length > 0 && (
+                <BlogSidebar links={links} />
+            )}
+            <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                id="back-to-top"
+                style={{ display: showButton ? 'block' : 'none' }}>
+                <img src={upArrow} alt="up arrow" />
+                <div>Top</div>
+            </button>
         </div>
     );
 };
