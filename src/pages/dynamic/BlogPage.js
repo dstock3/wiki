@@ -20,10 +20,26 @@ const BlogPage = ({ match, endpoint, title }) => {
     useEffect(() => {
         const fetchArticle = async () => {
             try {
+                /*
                 const response = await fetch(`${endpoint}/${match.params.id}`);
                 const data = await response.json();
                 setBlogData(data.blog);
                 setLinks(data.links);
+                */
+                // Sample blog data for demonstration purposes
+                const sampleData = {
+                    blog: {
+                        title: "Sample Blog Title",
+                        postedDate: "2024-07-29T00:00:00Z",
+                        body: "<p>This is a sample blog post content. It contains some text to show how the blog content will be displayed.</p>"
+                    },
+                    links: [
+                        { id: 1, title: "Related Article 1", url: "/related-article-1" },
+                        { id: 2, title: "Related Article 2", url: "/related-article-2" }
+                    ]
+                };
+                setBlogData(sampleData.blog);
+                setLinks(sampleData.links);
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
