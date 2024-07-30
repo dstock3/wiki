@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import SideMenu from '../../components/SideMenu';
 import Loading from '../../components/Loading';
 import BlogSidebar from '../../components/BlogSidebar';
 import '../../styles/BlogPage.css';
@@ -9,6 +10,7 @@ const BlogPage = ({ endpoint, title }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [blogs, setBlogs] = useState([]);
+    const [links, setLinks] = useState([]);
     const [showButton, setShowButton] = useState(false);
 
     useEffect(() => {
@@ -39,6 +41,7 @@ const BlogPage = ({ endpoint, title }) => {
                 const data = await response.data;
                 const sortedBlogs = data.blogs.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
                 setBlogs(sortedBlogs);
+                setLinks(data.links); // Assuming the response also includes links for the sidebar
                 */
                 // Sample blogs data for demonstration purposes
                 const sampleData = {
@@ -55,10 +58,15 @@ const BlogPage = ({ endpoint, title }) => {
                             postedDate: "2024-07-30T00:00:00Z",
                             body: "<p>This is a sample blog post content 2. It contains some text to show how the blog content will be displayed.</p>"
                         }
+                    ],
+                    links: [
+                        { href: "/related-article-1", text: "Related Article 1" },
+                        { href: "/related-article-2", text: "Related Article 2" }
                     ]
                 };
                 const sortedBlogs = sampleData.blogs.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
                 setBlogs(sortedBlogs);
+                setLinks(sampleData.links);
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
@@ -83,6 +91,7 @@ const BlogPage = ({ endpoint, title }) => {
 
     return (
         <div className="blog-page">
+            <SideMenu />
             <main className="blog-page-container">
                 {blogs.map(blog => (
                     <div key={blog.id} className="blog-content">
@@ -91,6 +100,9 @@ const BlogPage = ({ endpoint, title }) => {
                         <div dangerouslySetInnerHTML={{ __html: blog.body }} />
                     </div>
                 ))}
+                {links && links.length > 0 && (
+                    <BlogSidebar links={links} />
+                )}
             </main>
             <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -104,4 +116,5 @@ const BlogPage = ({ endpoint, title }) => {
 };
 
 export default BlogPage;
+
 
