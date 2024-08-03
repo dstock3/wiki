@@ -1,0 +1,15 @@
+.blog-page {
+    display: flex;
+    width: 100%;
+}
+
+.blog-page-container {
+    display: flex;
+    width: 100%;
+}
+
+.blog-subcontainer {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}

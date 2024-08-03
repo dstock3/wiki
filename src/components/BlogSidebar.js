@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const BlogSidebar = ({ links }) => {
     return (
         <div className="blog-sidebar">
+            <h4>Archive</h4>
             <ul>
                 {links.map((link, index) => (
                     <li key={index}>

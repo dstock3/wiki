@@ -93,13 +93,16 @@ const BlogPage = ({ endpoint, title }) => {
         <div className="blog-page">
             <SideMenu />
             <main className="blog-page-container">
-                {blogs.map(blog => (
-                    <div key={blog.id} className="blog-content">
-                        <h1>{blog.title}</h1>
-                        <p>Posted on: {new Date(blog.postedDate).toLocaleDateString()}</p>
-                        <div dangerouslySetInnerHTML={{ __html: blog.body }} />
-                    </div>
-                ))}
+                <div className="blog-subcontainer">
+                    {blogs.map(blog => (
+                        <div key={blog.id} className="blog-content">
+                            <h1>{blog.title}</h1>
+                            <p>Posted on: {new Date(blog.postedDate).toLocaleDateString()}</p>
+                            <div dangerouslySetInnerHTML={{ __html: blog.body }} />
+                        </div>
+                    ))}
+                </div>
+
                 {links && links.length > 0 && (
                     <BlogSidebar links={links} />
                 )}
