@@ -16,6 +16,10 @@
     padding: 20px;
 }
 
+.dark-theme .blog-page h1 {
+    color: var(--link-color);
+}
+
 @media (max-width: 600px) {
     .blog-page {
         display: block;

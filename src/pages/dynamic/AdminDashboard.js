@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../../styles/AdminDashboard.css';
 import LogsSection from '../../components/LogsSection';
 import UsersSection from '../../components/UsersSection';
+import BlogSection from '../../components/BlogSection';
 
 const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
     const [logs, setLogs] = useState([]);
@@ -79,6 +80,8 @@ const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
                     logs={logs}
                     logsError={logsError}
                 />
+
+                <BlogSection />
             </div>
         </div>
     );
