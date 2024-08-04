@@ -16,6 +16,24 @@
     padding: 20px;
 }
 
+.blog-sidebar {
+    margin-left: 15px;
+    border-left: 1px solid #a2a9b1;
+}
+
+.blog-sidebar ul {
+    list-style-type: none;
+}
+
+.dark-theme .blog-sidebar {
+    border-left: 1px solid var(--border-color);
+}
+
+.blog-sidebar h4 {
+    margin-left: 15px;
+    color: var(--text-color);
+}
+
 .dark-theme .blog-page h1 {
     color: var(--link-color);
 }
