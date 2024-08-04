@@ -81,7 +81,10 @@ const AdminDashboard = ({ endpoint, title, csrfToken, contact }) => {
                     logsError={logsError}
                 />
 
-                <BlogSection />
+                <BlogSection 
+                    endpoint={endpoint}
+                    csrfToken={csrfToken} 
+                />
             </div>
         </div>
     );
