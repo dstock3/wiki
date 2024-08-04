@@ -19,6 +19,7 @@
 .blog-sidebar {
     margin-left: 15px;
     border-left: 1px solid #a2a9b1;
+    min-width: 20%;
 }
 
 .blog-sidebar ul {
@@ -34,8 +35,16 @@
     color: var(--text-color);
 }
 
+.blog-body {
+    color: var(--text-color);
+}
+
 .dark-theme .blog-page h1 {
     color: var(--link-color);
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 @media (max-width: 600px) {

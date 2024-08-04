@@ -41,32 +41,38 @@ const BlogPage = ({ endpoint, title }) => {
                 const data = await response.data;
                 const sortedBlogs = data.blogs.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
                 setBlogs(sortedBlogs);
-                setLinks(data.links); // Assuming the response also includes links for the sidebar
+                // Generate links from blogs
+                const generatedLinks = sortedBlogs.map(blog => ({
+                    href: `#blog-${blog.id}`,
+                    text: blog.title
+                }));
+                setLinks(generatedLinks);
                 */
-                // Sample blogs data for demonstration purposes
+                
                 const sampleData = {
                     blogs: [
                         {
                             id: 1,
                             title: "Sample Blog Title 1",
                             postedDate: "2024-07-29T00:00:00Z",
-                            body: "<p>This is a sample blog post content 1. It contains some text to show how the blog content will be displayed.</p>"
+                            body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                         },
                         {
                             id: 2,
                             title: "Sample Blog Title 2",
                             postedDate: "2024-07-30T00:00:00Z",
-                            body: "<p>This is a sample blog post content 2. It contains some text to show how the blog content will be displayed.</p>"
+                            body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                         }
-                    ],
-                    links: [
-                        { href: "/related-article-1", text: "Related Article 1" },
-                        { href: "/related-article-2", text: "Related Article 2" }
                     ]
                 };
                 const sortedBlogs = sampleData.blogs.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
                 setBlogs(sortedBlogs);
-                setLinks(sampleData.links);
+                
+                const generatedLinks = sortedBlogs.map(blog => ({
+                    href: `#blog-${blog.id}`,
+                    text: blog.title
+                }));
+                setLinks(generatedLinks);
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
@@ -95,10 +101,10 @@ const BlogPage = ({ endpoint, title }) => {
             <main className="blog-page-container">
                 <div className="blog-subcontainer">
                     {blogs.map(blog => (
-                        <div key={blog.id} className="blog-content">
+                        <div key={blog.id} id={`blog-${blog.id}`} className="blog-content">
                             <h1>{blog.title}</h1>
                             <p>Posted on: {new Date(blog.postedDate).toLocaleDateString()}</p>
-                            <div dangerouslySetInnerHTML={{ __html: blog.body }} />
+                            <div className="blog-body" dangerouslySetInnerHTML={{ __html: blog.body }} />
                         </div>
                     ))}
                 </div>
