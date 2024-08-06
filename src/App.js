@@ -25,6 +25,7 @@ import PortalsPage from './pages/dynamic/PortalsPage';
 import EditSectionPage from './pages/dynamic/EditSectionPage';
 import CreateTopicPage from './pages/dynamic/CreateTopicPage';
 import AdminDashboard from './pages/dynamic/AdminDashboard';
+import EditBlogPage from './pages/dynamic/EditBlogPage';
 import './App.css';
 import './styles/DarkTheme.css';
 import BlogPage from './pages/dynamic/BlogPage';
@@ -148,6 +149,14 @@ function App() {
             
             <Route path="/wiki/admin" exact render={(props) =>
               <AdminDashboard {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} contact={CONTACT} />
+            } />
+
+            <Route path="/wiki/create-blog" exact render={(props) =>
+              <EditBlogPage {...props} title={TITLE} endpoint={ENDPOINT} />
+            } />
+
+            <Route path="/wiki/edit-blog/:id" exact render={(props) =>
+              <EditBlogPage {...props} title={TITLE} endpoint={ENDPOINT} />
             } />
 
             <Route path="/wiki/:portalid" exact render={(props) => 
