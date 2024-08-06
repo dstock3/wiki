@@ -625,6 +625,10 @@ body .admin-dashboard {
     color: var(--text-color);
 }
 
+.dark-theme .blog-item {
+    border: 1px solid var(--border-color);
+}
+
 .dark-theme .blog-edit-input {
     background-color: var(--input-background-color);
     color: var(--text-color);
