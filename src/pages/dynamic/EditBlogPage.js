@@ -55,7 +55,7 @@ const EditBlogPage = ({ endpoint }) => {
         <div className="edit-blog-page">
             <h2>{isEditing ? 'Edit Blog' : 'Create New Blog'}</h2>
             <form>
-                <div className="form-group">
+                <div className="blog-page-form-group">
                     <label htmlFor="title">Title</label>
                     <input 
                         type="text" 
@@ -64,7 +64,7 @@ const EditBlogPage = ({ endpoint }) => {
                         onChange={(e) => setTitle(e.target.value)} 
                     />
                 </div>
-                <div className="form-group">
+                <div className="blog-page-form-group">
                     <label htmlFor="body">Body</label>
                     <ReactQuill 
                         style={{ backgroundColor: 'white' }}

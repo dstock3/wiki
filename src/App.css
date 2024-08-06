@@ -34,7 +34,27 @@ a:hover, .logout-button:hover {
     flex: 1;
 }
 
-.home-page, .article-page, .about-page, .contact-page, .talk-page, .tos-page, .disclaimer-page, .privacy-page, .contribute-page, .donate-page, .search-results-page, .edit-article-page, .user-profile-page, .edit-user-page, .portal-home-page, .edit-portal-page, .portals-page, .edit-section-page, .create-topic-page, .not-found-container, .admin-dashboard {
+.home-page, 
+.article-page, 
+.about-page, 
+.contact-page, 
+.talk-page, 
+.tos-page, 
+.disclaimer-page, 
+.privacy-page, 
+.contribute-page, 
+.donate-page, 
+.search-results-page, 
+.edit-article-page,
+.user-profile-page, 
+.edit-user-page, 
+.portal-home-page, 
+.edit-portal-page, 
+.portals-page, 
+.edit-section-page, 
+.create-topic-page, 
+.not-found-container, 
+.admin-dashboard {
     min-height: 70vh;
 }
 

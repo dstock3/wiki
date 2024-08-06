@@ -19,17 +19,17 @@
     width: 66%;
 }
 
-.edit-blog-page .form-group {
+.edit-blog-page .blog-page-form-group {
     margin-bottom: 15px;
 }
 
-.edit-blog-page .form-group label {
+.edit-blog-page .blog-page-form-group label {
     display: block;
     margin-bottom: 5px;
 }
 
-.edit-blog-page .form-group input,
-.edit-blog-page .form-group textarea {
+.edit-blog-page .blog-page-form-group input,
+.edit-blog-page .blog-page-form-group textarea {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 10px;
@@ -37,7 +37,7 @@
     border-radius: 5px;
 }
 
-.edit-blog-page .form-group .ql-container {
+.edit-blog-page .blog-page-form-group .ql-container {
     min-height: 200px;
 }
 
@@ -59,4 +59,27 @@
 
 .edit-blog-page button:hover {
     background-color: #45a049;
+}
+
+.dark-theme .edit-blog-page {
+    background-color: var(--background-accent-color);
+}
+
+.dark-theme .edit-blog-page h2,
+.dark-theme .edit-blog-page .blog-page-form-group label {
+    color: var(--text-color);
+}
+
+.dark-theme .edit-blog-page .blog-page-form-group input,
+.dark-theme .edit-blog-page .blog-page-form-group textarea {
+    border: 1px solid var(--input-border-color);
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+}
+
+.dark-theme .edit-blog-page .blog-page-form-group input:focus,
+.dark-theme .edit-blog-page .blog-page-form-group textarea:focus {
+    outline: none;
+    border: 1px solid var(--background--color); 
+    box-shadow: 0 0 5px var(--background--color);
 }
