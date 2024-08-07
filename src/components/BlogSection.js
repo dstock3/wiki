@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
-const BlogSection = () => {
+const BlogSection = ({ endpoint }) => {
     const [blogs, setBlogs] = useState([]);
     const history = useHistory();
 
     useEffect(() => {
-        const sampleBlogs = [
-            { id: 1, title: 'Sample Blog 1', postedDate: '2024-07-29T00:00:00Z', body: 'This is the body of sample blog 1. It contains some text to show how the blog content will be displayed.' },
-            { id: 2, title: 'Sample Blog 2', postedDate: '2024-07-30T00:00:00Z', body: 'This is the body of sample blog 2. It contains some text to show how the blog content will be displayed.' },
-        ];
-        setBlogs(sampleBlogs);
-    }, []);
+        const fetchBlogs = async () => {
+            try {
+                const response = await axios.get(`${endpoint}/blogs`);
+                setBlogs(response.data.blogs);
+            } catch (error) {
+                console.error('Error fetching blogs:', error);
+            }
+        };
+        fetchBlogs();
+    }, [endpoint]);
 
     const handleEditClick = (id) => {
         history.push(`/wiki/edit-blog/${id}`);
@@ -21,8 +26,13 @@ const BlogSection = () => {
         history.push('/wiki/create-blog');
     };
 
-    const handleDeleteClick = (id) => {
-        setBlogs(blogs.filter(blog => blog.id !== id));
+    const handleDeleteClick = async (id) => {
+        try {
+            await axios.delete(`${endpoint}/blogs/${id}`);
+            setBlogs(blogs.filter(blog => blog._id !== id));
+        } catch (error) {
+            console.error('Error deleting blog:', error);
+        }
     };
 
     const getPreviewText = (text, charLimit = 100) => {
@@ -36,14 +46,14 @@ const BlogSection = () => {
             <button className="blog-create-button" onClick={handleCreateClick}>Create New Blog</button>
             <ul className="blog-list">
                 {blogs.map(blog => (
-                    <li key={blog.id} className="blog-item">
+                    <li key={blog._id} className="blog-item">
                         <div className="blog-info-container">
                             <h3 className="blog-title">{blog.title}</h3>
                             <p className="blog-date">Posted on: {new Date(blog.postedDate).toLocaleDateString()}</p>
                             <p className="blog-preview">{getPreviewText(blog.body)}</p>
                             <div className="blog-action-buttons">
-                                <button className="blog-edit-button" onClick={() => handleEditClick(blog.id)}>Edit</button>
-                                <button className="blog-delete-button" onClick={() => handleDeleteClick(blog.id)}>Delete</button>
+                                <button className="blog-edit-button" onClick={() => handleEditClick(blog._id)}>Edit</button>
+                                <button className="blog-delete-button" onClick={() => handleDeleteClick(blog._id)}>Delete</button>
                             </div>
                         </div>
                     </li>
@@ -54,3 +64,4 @@ const BlogSection = () => {
 };
 
 export default BlogSection;
+

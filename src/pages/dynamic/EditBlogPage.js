@@ -18,13 +18,13 @@ const EditBlogPage = ({ endpoint }) => {
         if (id) {
             axios.get(`${endpoint}/blogs/${id}`)
                 .then(response => {
-                    const blog = response.data;
+                    const blog = response.data.blog;
                     setTitle(blog.title);
                     setBody(blog.body);
                     setIsEditing(true);
                 })
                 .catch(err => {
-                    console.error(err);
+                    console.error('Error fetching blog:', err);
                 });
         }
     }, [id, endpoint]);
@@ -38,7 +38,7 @@ const EditBlogPage = ({ endpoint }) => {
                     history.push('/wiki/admin');
                 })
                 .catch(err => {
-                    console.error(err);
+                    console.error('Error updating blog:', err);
                 });
         } else {
             axios.post(`${endpoint}/blogs`, blog)
@@ -46,7 +46,7 @@ const EditBlogPage = ({ endpoint }) => {
                     history.push('/wiki/admin');
                 })
                 .catch(err => {
-                    console.error(err);
+                    console.error('Error creating blog:', err);
                 });
         }
     };
