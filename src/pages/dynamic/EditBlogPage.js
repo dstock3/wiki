@@ -6,17 +6,18 @@ import 'react-quill/dist/quill.snow.css';
 import { modules, formats } from '../../config/quillConfig';
 import '../../styles/EditBlogPage.css';
 
-const EditBlogPage = ({ endpoint }) => {
+const EditBlogPage = ({ endpoint, csrfToken }) => {
     const { id } = useParams();
     const history = useHistory();
     const quillRef = useRef(null);
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [isEditing, setIsEditing] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (id) {
-            axios.get(`${endpoint}/blogs/${id}`)
+            axios.get(`${endpoint}/blogs/${id}`, { withCredentials: true })
                 .then(response => {
                     const blog = response.data.blog;
                     setTitle(blog.title);
@@ -24,37 +25,57 @@ const EditBlogPage = ({ endpoint }) => {
                     setIsEditing(true);
                 })
                 .catch(err => {
+                    setError('Error fetching blog.');
                     console.error('Error fetching blog:', err);
                 });
         }
     }, [id, endpoint]);
 
-    const handleSaveClick = () => {
-        const blog = { title, body };
+    const handleSaveClick = async (event) => {
+        event.preventDefault();
 
-        if (isEditing) {
-            axios.put(`${endpoint}/blogs/${id}`, blog)
-                .then(() => {
-                    history.push('/wiki/admin');
-                })
-                .catch(err => {
-                    console.error('Error updating blog:', err);
-                });
-        } else {
-            axios.post(`${endpoint}/blogs`, blog)
-                .then(() => {
-                    history.push('/wiki/admin');
-                })
-                .catch(err => {
-                    console.error('Error creating blog:', err);
-                });
+        let formData = new FormData();
+        formData.append("title", title);
+        formData.append("body", body);
+        formData.append("_csrf", csrfToken);
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            withCredentials: true,
+        };
+
+        try {
+            let response;
+            if (isEditing) {
+                response = await axios.put(`${endpoint}/blogs/${id}`, formData, config);
+            } else {
+                response = await axios.post(`${endpoint}/blogs`, formData, config);
+            }
+
+            history.push('/wiki/admin');
+        } catch (err) {
+            handleError(err);
         }
+    };
+
+    const handleError = (err) => {
+        if (err.response && err.response.status === 403) {
+            setError('Forbidden: You do not have permission to perform this action.');
+        } else if (err.response && err.response.status === 400) {
+            setError('Validation Error: Please check your input.');
+        } else {
+            setError('Error processing the request.');
+        }
+        console.error('Error creating/updating blog:', err);
     };
 
     return (
         <div className="edit-blog-page">
+            {error && <p className="error-message">{error}</p>}
             <h2>{isEditing ? 'Edit Blog' : 'Create New Blog'}</h2>
-            <form>
+            <form onSubmit={handleSaveClick}>
                 <div className="blog-page-form-group">
                     <label htmlFor="title">Title</label>
                     <input 
@@ -78,7 +99,7 @@ const EditBlogPage = ({ endpoint }) => {
                     />
                 </div>
                 <div className="blog-button-container">
-                    <button type="button" onClick={handleSaveClick}>
+                    <button type="submit">
                         {isEditing ? 'Save Changes' : 'Create Blog'}
                     </button>
                 </div>

@@ -156,7 +156,7 @@ function App() {
             } />
 
             <Route path="/wiki/edit-blog/:id" exact render={(props) =>
-              <EditBlogPage {...props} title={TITLE} endpoint={ENDPOINT} />
+              <EditBlogPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
             <Route path="/wiki/:portalid" exact render={(props) => 
