@@ -1,26 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import { modules, formats } from '../../config/quillConfig';
 import '../../styles/EditBlogPage.css';
 
-const EditBlogPage = ({ endpoint, csrfToken }) => {
-    const { id } = useParams();
+const EditBlogPage = ({ match, title, endpoint, csrfToken }) => {
     const history = useHistory();
     const quillRef = useRef(null);
-    const [title, setTitle] = useState('');
+    const [blogTitle, setBlogTitle] = useState('');
     const [body, setBody] = useState('');
     const [isEditing, setIsEditing] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (id) {
-            axios.get(`${endpoint}/blogs/${id}`, { withCredentials: true })
+        document.title = `${title} | ${match.params.blogId ? 'Edit Blog' : 'Create Blog'}`;
+    }, [title, match.params.blogId]);
+
+    useEffect(() => {
+        if (match.params.blogId) {
+            axios.get(`${endpoint}/blogs/${match.params.blogId}`, { withCredentials: true })
                 .then(response => {
                     const blog = response.data.blog;
-                    setTitle(blog.title);
+                    setBlogTitle(blog.title);
                     setBody(blog.body);
                     setIsEditing(true);
                 })
@@ -28,14 +31,18 @@ const EditBlogPage = ({ endpoint, csrfToken }) => {
                     setError('Error fetching blog.');
                     console.error('Error fetching blog:', err);
                 });
+        } else {
+            setBlogTitle('');
+            setBody('');
+            setIsEditing(false);
         }
-    }, [id, endpoint]);
+    }, [match.params.blogId, endpoint]);
 
     const handleSaveClick = async (event) => {
         event.preventDefault();
 
         let formData = new FormData();
-        formData.append("title", title);
+        formData.append("title", blogTitle);
         formData.append("body", body);
         formData.append("_csrf", csrfToken);
 
@@ -49,7 +56,7 @@ const EditBlogPage = ({ endpoint, csrfToken }) => {
         try {
             let response;
             if (isEditing) {
-                response = await axios.put(`${endpoint}/blogs/${id}`, formData, config);
+                response = await axios.put(`${endpoint}/blogs/${match.params.blogId}`, formData, config);
             } else {
                 response = await axios.post(`${endpoint}/blogs`, formData, config);
             }
@@ -81,8 +88,8 @@ const EditBlogPage = ({ endpoint, csrfToken }) => {
                     <input 
                         type="text" 
                         id="title" 
-                        value={title} 
-                        onChange={(e) => setTitle(e.target.value)} 
+                        value={blogTitle} 
+                        onChange={(e) => setBlogTitle(e.target.value)} 
                     />
                 </div>
                 <div className="blog-page-form-group">
