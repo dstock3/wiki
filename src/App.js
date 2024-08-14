@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -152,7 +152,7 @@ function App() {
             } />
 
             <Route path="/wiki/create-blog" exact render={(props) =>
-              <EditBlogPage {...props} title={TITLE} endpoint={ENDPOINT} />
+              <EditBlogPage {...props} title={TITLE} endpoint={ENDPOINT} csrfToken={csrfToken} />
             } />
 
             <Route path="/wiki/edit-blog/:id" exact render={(props) =>
