@@ -55,6 +55,7 @@ const EditBlogPage = ({ match, title, endpoint, csrfToken }) => {
 
         try {
             let response;
+            console.log([...formData.entries()]);
             if (isEditing) {
                 response = await axios.put(`${endpoint}/blogs/${match.params.blogId}`, formData, config);
             } else {
