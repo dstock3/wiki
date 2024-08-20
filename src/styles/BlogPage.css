@@ -47,6 +47,18 @@ html {
     scroll-behavior: smooth;
 }
 
+.blog-action-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.blog-action-buttons button {
+    width: 125px;
+}
+
+
+
 @media (max-width: 600px) {
     .blog-page {
         display: block;
