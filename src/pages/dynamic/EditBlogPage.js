@@ -40,28 +40,28 @@ const EditBlogPage = ({ match, title, endpoint, csrfToken }) => {
 
     const handleSaveClick = async (event) => {
         event.preventDefault();
-
-        let formData = new FormData();
-        formData.append("title", blogTitle);
-        formData.append("body", body);
-        formData.append("_csrf", csrfToken);
-
+    
+        const blog = {
+            title: blogTitle,
+            body: body,
+            _csrf: csrfToken
+        };
+    
         const config = {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json'
             },
             withCredentials: true,
         };
-
+    
         try {
             let response;
-            console.log([...formData.entries()]);
             if (isEditing) {
-                response = await axios.put(`${endpoint}/blogs/${match.params.blogId}`, formData, config);
+                response = await axios.put(`${endpoint}/blogs/${match.params.blogId}`, blog, config);
             } else {
-                response = await axios.post(`${endpoint}/blogs`, formData, config);
+                response = await axios.post(`${endpoint}/blogs`, blog, config);
             }
-
+    
             history.push('/wiki/admin');
         } catch (err) {
             handleError(err);
