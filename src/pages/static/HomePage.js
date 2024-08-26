@@ -74,9 +74,7 @@ const HomePage = ({ endpoint, title }) => {
                                         <h3>{latestBlog.title}</h3>
                                         <p>Posted on: {new Date(latestBlog.postedDate).toLocaleDateString()}</p>
                                         <p>{truncateText(latestBlog.body.replace(/(<([^>]+)>)/gi, ""), 150)}</p>
-                                        <Link to="/wiki/blog">
-                                            <button className="read-more-button">Read More</button>
-                                        </Link>
+                                        <Link to="/wiki/blog" className="read-more-button">Read More</Link>
                                     </div>
                                 </div>
                             )}
