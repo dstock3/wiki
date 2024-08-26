@@ -48,7 +48,7 @@ function App() {
         <div className="app-container">
           <Switch>
             <Route path="/wiki" exact render={(props) =>
-              <HomePage title={TITLE}/>
+              <HomePage title={TITLE} endpoint={ENDPOINT} />
             } />
             
             <Route path="/wiki/about" exact render={(props) => 
