@@ -42,7 +42,7 @@ const BlogPage = ({ endpoint }) => {
                 setBlogs(sortedBlogs);
                 
                 const generatedLinks = sortedBlogs.map(blog => ({
-                    href: `#blog-${blog.id}`,
+                    href: `#blog-${blog._id}`,
                     text: blog.title
                 }));
                 setLinks(generatedLinks);
@@ -79,7 +79,7 @@ const BlogPage = ({ endpoint }) => {
             <main className="blog-page-container">
                 <div className="blog-subcontainer">
                     {blogs.map(blog => (
-                        <div key={blog.id} id={`blog-${blog.id}`} className="blog-content">
+                        <div key={blog._id} id={`blog-${blog._id}`} className="blog-content">
                             <h1>{blog.title}</h1>
                             <p>Posted on: {new Date(blog.postedDate).toLocaleDateString()}</p>
                             <div className="blog-body" dangerouslySetInnerHTML={{ __html: blog.body }} />
