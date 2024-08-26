@@ -72,7 +72,7 @@ function App() {
             } />
             
             <Route path="/wiki/blog" exact render={(props) =>
-              <BlogPage title={TITLE} />
+              <BlogPage title={TITLE} endpoint={ENDPOINT}/>
             } />
             
             <Route path="/wiki/terms" exact render={(props) =>

@@ -6,7 +6,7 @@ import BlogSidebar from '../../components/BlogSidebar';
 import '../../styles/BlogPage.css';
 import upArrow from '../../assets/up.svg';
 
-const BlogPage = ({ endpoint, title }) => {
+const BlogPage = ({ endpoint }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [blogs, setBlogs] = useState([]);
@@ -36,43 +36,21 @@ const BlogPage = ({ endpoint, title }) => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                /*
                 const response = await axios.get(`${endpoint}/blogs`);
                 const data = await response.data;
                 const sortedBlogs = data.blogs.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
                 setBlogs(sortedBlogs);
-                // Generate links from blogs
-                const generatedLinks = sortedBlogs.map(blog => ({
-                    href: `#blog-${blog.id}`,
-                    text: blog.title
-                }));
-                setLinks(generatedLinks);
-                */
-                
-                const sampleData = {
-                    blogs: [
-                        {
-                            id: 1,
-                            title: "Sample Blog Title 1",
-                            postedDate: "2024-07-29T00:00:00Z",
-                            body: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
-                        },
-                        {
-                            id: 2,
-                            title: "Sample Blog Title 2",
-                            postedDate: "2024-07-30T00:00:00Z",
-                            body: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
-                        }
-                    ]
-                };
-                const sortedBlogs = sampleData.blogs.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
-                setBlogs(sortedBlogs);
                 
                 const generatedLinks = sortedBlogs.map(blog => ({
                     href: `#blog-${blog.id}`,
                     text: blog.title
                 }));
                 setLinks(generatedLinks);
+                
+                if (sortedBlogs.length > 0) {
+                    document.title = `${sortedBlogs[0].title} | Blog`; 
+                }
+
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
@@ -125,5 +103,6 @@ const BlogPage = ({ endpoint, title }) => {
 };
 
 export default BlogPage;
+
 
 
