@@ -47,7 +47,7 @@ const BlogSection = ({ endpoint, csrfToken }) => {
     };
 
     const getPreviewText = (text, charLimit = 100) => {
-        const plainText = text.replace(/<[^>]+>/g, ''); // Remove HTML tags
+        const plainText = text.replace(/<[^>]+>/g, ''); 
         if (plainText.length <= charLimit) return plainText;
         return `${plainText.substring(0, charLimit)}...`;
     };

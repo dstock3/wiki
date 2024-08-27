@@ -15,12 +15,12 @@ const EditBlogPage = ({ match, title, endpoint, csrfToken }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        document.title = `${title} | ${match.params.blogId ? 'Edit Blog' : 'Create Blog'}`;
-    }, [title, match.params.blogId]);
+        document.title = `${title} | ${match.params.blogid ? 'Edit Blog' : 'Create Blog'}`;
+    }, [title, match.params.blogid]);
 
     useEffect(() => {
-        if (match.params.blogId) {
-            axios.get(`${endpoint}/blogs/${match.params.blogId}`, { withCredentials: true })
+        if (match.params.blogid) {
+            axios.get(`${endpoint}/blogs/${match.params.blogid}`, { withCredentials: true })
                 .then(response => {
                     const blog = response.data.blog;
                     setBlogTitle(blog.title);
@@ -36,7 +36,7 @@ const EditBlogPage = ({ match, title, endpoint, csrfToken }) => {
             setBody('');
             setIsEditing(false);
         }
-    }, [match.params.blogId, endpoint]);
+    }, [match.params.blogid, endpoint]);
 
     const handleSaveClick = async (event) => {
         event.preventDefault();
@@ -57,7 +57,7 @@ const EditBlogPage = ({ match, title, endpoint, csrfToken }) => {
         try {
             let response;
             if (isEditing) {
-                response = await axios.put(`${endpoint}/blogs/${match.params.blogId}`, blog, config);
+                response = await axios.put(`${endpoint}/blogs/${match.params.blogid}`, blog, config);
             } else {
                 response = await axios.post(`${endpoint}/blogs`, blog, config);
             }
